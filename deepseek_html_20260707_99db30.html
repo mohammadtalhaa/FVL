@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeVoiceLabs · AI Voice Studio</title>
+  <!-- Fonts & clean reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: #0b081b;
+      color: #f0ebff;
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+    .app {
+      max-width: 1300px;
+      width: 100%;
+    }
+    /* glassy cards */
+    .glass {
+      background: rgba(20, 14, 45, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(160, 130, 255, 0.15);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+    }
+    .card {
+      padding: 1.5rem;
+    }
+    .flex { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    @media (max-width: 800px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    /* buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(145deg, #7c5cfc, #a855f7);
+      border: none;
+      color: #0b081b;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 8px 20px -6px rgba(120, 80, 255, 0.3);
+    }
+    .btn:hover { transform: scale(1.02); box-shadow: 0 12px 28px -6px #7c5cfc80; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #7c5cfc80;
+      color: #d4ccff;
+      box-shadow: none;
+    }
+    .btn-outline:hover { background: #2a1f4a; }
+    .btn-block { width: 100%; justify-content: center; }
+    .btn-sm { padding: 0.4rem 1rem; font-size: 0.8rem; }
+
+    input, select, textarea {
+      background: #120d26;
+      border: 1px solid #2f2350;
+      color: #f0ebff;
+      border-radius: 16px;
+      padding: 0.7rem 1rem;
+      width: 100%;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #9a7aff;
+      outline: none;
+      box-shadow: 0 0 0 3px #7c5cfc40;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #b5a8e0; display: block; margin-bottom: 0.3rem; }
+
+    .slider-group {
+      background: #100b22;
+      border-radius: 20px;
+      padding: 0.8rem 1rem;
+    }
+    .slider-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    input[type="range"] {
+      width: 100%;
+      margin: 0.3rem 0;
+      background: transparent;
+      -webkit-appearance: none;
+      height: 4px;
+      background: #2f2350;
+      border-radius: 4px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #a855f7;
+      cursor: pointer;
+      box-shadow: 0 0 12px #a855f780;
+    }
+
+    .wave-bar {
+      display: inline-block;
+      width: 4px;
+      height: 20px;
+      background: linear-gradient(180deg, #a78bfa, #c084fc);
+      border-radius: 4px;
+      margin: 0 1px;
+      animation: wave 1.2s infinite alternate ease-in-out;
+    }
+    @keyframes wave {
+      0% { height: 8px; }
+      100% { height: 36px; }
+    }
+    .wave-visual { display: flex; align-items: flex-end; gap: 2px; height: 48px; margin: 0.5rem 0; }
+
+    .player-box {
+      background: #0d0920;
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    .player-box.active { display: block; }
+
+    .voice-tag {
+      background: #2a1f4a;
+      border-radius: 60px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #c4b0ff;
+    }
+
+    .toast-stack {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 999;
+    }
+    .toast {
+      background: #1f1640;
+      border: 1px solid #5b44a0;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: #e4dcff;
+      box-shadow: 0 12px 30px -10px #00000080;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.3rem;
+      background: #100b22;
+      padding: 0.3rem;
+      border-radius: 60px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .nav-tab {
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: transparent;
+      border: none;
+      color: #a394d0;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .nav-tab.active {
+      background: #7c5cfc;
+      color: #0b081b;
+      box-shadow: 0 4px 12px #7c5cfc60;
+    }
+    .nav-tab:hover { color: #f0ebff; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .badge-live {
+      background: #34d39930;
+      color: #6ee7b7;
+      border-radius: 60px;
+      padding: 0.2rem 0.9rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid #34d39940;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #34d399;
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .voice-card {
+      background: #120d26;
+      border-radius: 20px;
+      padding: 1rem;
+      border: 1px solid #2f2350;
+      transition: 0.2s;
+    }
+    .voice-card:hover { border-color: #7c5cfc; transform: translateY(-2px); }
+
+    .footer-meta {
+      margin-top: 3rem;
+      text-align: center;
+      color: #5f4e8a;
+      font-size: 0.8rem;
+      border-top: 1px solid #1f1640;
+      padding-top: 1.5rem;
+    }
+
+    /* responsiveness */
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .flex { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- header -->
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+    <div style="display: flex; align-items: center; gap: 0.8rem;">
+      <span style="font-size: 2rem; font-weight: 700; background: linear-gradient(145deg, #a78bfa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FreeVoiceLabs</span>
+      <span class="badge-live"><span class="dot"></span> Studio</span>
+    </div>
+    <div style="display: flex; gap: 0.5rem;">
+      <button class="btn btn-sm btn-outline" id="authBtn">🔑 Sign in</button>
+    </div>
+  </div>
+
+  <!-- navigation tabs -->
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-page="home">🏠 Home</button>
+    <button class="nav-tab" data-page="generate">🎙️ Generate</button>
+    <button class="nav-tab" data-page="blend">🌀 Blend</button>
+    <button class="nav-tab" data-page="podcast">🎧 Podcast</button>
+    <button class="nav-tab" data-page="clone">🧬 Clone</button>
+    <button class="nav-tab" data-page="library">📚 Library</button>
+    <button class="nav-tab" data-page="dashboard">📊 Dashboard</button>
+  </div>
+
+  <!-- ================= HOME ================= -->
+  <div class="page active" id="page-home">
+    <div class="glass card" style="text-align: center; padding: 3rem 2rem;">
+      <h1 style="font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; max-width: 700px; margin: 0 auto;">Give your words a <span style="background: linear-gradient(145deg, #a78bfa, #e879f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">voice</span> worth hearing.</h1>
+      <p style="color: #b5a8e0; max-width: 540px; margin: 1.2rem auto; font-size: 1.1rem;">Generate cinematic AI voices, blend timbres, build podcasts, or clone voices — all in your browser.</p>
+      <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
+        <button class="btn" onclick="navigate('generate')">🎙️ Start generating</button>
+        <button class="btn btn-outline" onclick="navigate('library')">Browse voices</button>
+      </div>
+      <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <div><span style="font-weight: 700; font-size: 1.8rem; color: #c4b0ff;">40+</span> <span style="color: #8f7ab0;">voices</span></div>
+        <div><span style="font-weight: 700; font-size: 1.8rem; color: #c4b0ff;">18</span> <span style="color: #8f7ab0;">languages</span></div>
+        <div><span style="font-weight: 700; font-size: 1.8rem; color: #c4b0ff;">0s</span> <span style="color: #8f7ab0;">setup</span></div>
+      </div>
+    </div>
+    <div class="footer-meta">© 2026 FreeVoiceLabs · built for creators who speak</div>
+  </div>
+
+  <!-- ================= GENERATE ================= -->
+  <div class="page" id="page-generate">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+      <h2 style="font-weight: 700; font-size: 1.6rem;">🎙️ Generate</h2>
+      <span class="badge-live"><span class="dot"></span> live</span>
+    </div>
+    <div class="grid-2">
+      <div class="glass card">
+        <label for="genText">Script</label>
+        <textarea id="genText" placeholder="Write your script here…">Hello, this is a test of the FreeVoiceLabs voice generator. It sounds natural and clear.</textarea>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 1rem 0;">
+          <div style="flex: 1; min-width: 140px;">
+            <label>Voice</label>
+            <select id="genVoiceSelect"></select>
+          </div>
+          <div style="flex: 1; min-width: 140px;">
+            <label>Style</label>
+            <select id="genStyle">
+              <option value="narration">Narration</option>
+              <option value="conversational">Conversational</option>
+              <option value="energetic">Energetic</option>
+              <option value="calm">Calm</option>
+            </select>
+          </div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-row"><span>Rate</span> <span id="rateVal">0%</span></div>
+          <input type="range" id="rateRange" min="-50" max="50" value="0">
+        </div>
+        <div class="slider-group" style="margin-top: 0.6rem;">
+          <div class="slider-row"><span>Pitch</span> <span id="pitchVal">0%</span></div>
+          <input type="range" id="pitchRange" min="-50" max="50" value="0">
+        </div>
+        <button class="btn btn-block" id="genBtn" style="margin-top: 1rem;">▶ Generate</button>
+
+        <div class="player-box" id="genPlayer">
+          <div class="wave-visual" id="genWave"></div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="btn btn-sm" id="playGenBtn">▶</button>
+            <span id="genStatus" style="color: #b5a8e0; font-size: 0.9rem;">Ready</span>
+            <button class="btn btn-sm btn-outline" id="clearGenBtn">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass card" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="background: #0d0920; border-radius: 20px; padding: 1rem;">
+          <h4 style="font-weight: 600;">✨ Voice preview</h4>
+          <div id="voicePreviewCard" style="margin-top: 0.5rem; display: flex; align-items: center; gap: 1rem;">
+            <span style="background: #7c5cfc; border-radius: 60px; padding: 0.3rem 1rem; font-weight: 700;">Nova</span>
+            <span style="color: #b5a8e0;">en-US · Warm</span>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="previewSelectedVoice()" style="margin-top: 0.5rem;">▶ Preview voice</button>
+        </div>
+        <div style="background: #0d0920; border-radius: 20px; padding: 1rem;">
+          <h4 style="font-weight: 600;">💡 Tips</h4>
+          <ul style="color: #b5a8e0; font-size: 0.85rem; padding-left: 1.2rem; margin-top: 0.3rem;">
+            <li>Short sentences sound more natural.</li>
+            <li>Use rate/pitch to adjust delivery.</li>
+            <li>Playback uses your browser's speech engine.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BLEND ================= -->
+  <div class="page" id="page-blend">
+    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">🌀 Blend Voices</h2>
+    <div class="glass card">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div><label>Voice A</label><select id="blendA"></select></div>
+        <div><label>Voice B</label><select id="blendB"></select></div>
+      </div>
+      <div class="slider-group" style="margin: 1rem 0;">
+        <div class="slider-row"><span>Blend ratio</span> <span id="blendRatioVal">50 / 50</span></div>
+        <input type="range" id="blendRange" min="0" max="100" value="50">
+      </div>
+      <label>Preview text</label>
+      <textarea id="blendText">This voice is a blend of two distinct timbres.</textarea>
+      <button class="btn btn-block" id="blendBtn" style="margin-top: 1rem;">🌀 Generate blend</button>
+      <div class="player-box" id="blendPlayer">
+        <div class="wave-visual" id="blendWave"></div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="btn btn-sm" id="playBlendBtn">▶</button>
+          <span id="blendStatus" style="color: #b5a8e0;">Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PODCAST ================= -->
+  <div class="page" id="page-podcast">
+    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">🎧 Podcast Studio</h2>
+    <div class="glass card">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div><label>Host A voice</label><select id="podA"></select></div>
+        <div><label>Host B voice</label><select id="podB"></select></div>
+      </div>
+      <label>Script — prefix lines with <strong>A:</strong> or <strong>B:</strong></label>
+      <textarea id="podText" style="min-height: 150px;">A: Welcome to the show, today we're talking about AI voices.
+B: It's great to be here. Where should we start?
+A: Let's begin with how natural these voices have become.</textarea>
+      <button class="btn btn-block" id="podBtn" style="margin-top: 1rem;">🎧 Generate episode</button>
+      <div class="player-box" id="podPlayer">
+        <div class="wave-visual" id="podWave"></div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="btn btn-sm" id="playPodBtn">▶</button>
+          <span id="podStatus" style="color: #b5a8e0;">0 lines</span>
+          <button class="btn btn-sm btn-outline" id="clearPodBtn">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CLONE ================= -->
+  <div class="page" id="page-clone">
+    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">🧬 Clone Voice</h2>
+    <div class="glass card">
+      <div style="border: 2px dashed #3a2b60; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer;" id="cloneDrop">
+        <div style="font-size: 2.5rem; margin-bottom: 0.2rem;">📂</div>
+        <p style="font-weight: 600;">Drop an audio file or click to browse</p>
+        <p style="color: #8f7ab0; font-size: 0.8rem;">MP3 / WAV · 10–90 seconds</p>
+        <input type="file" id="cloneFileInput" accept="audio/*" style="display:none;">
+      </div>
+      <div style="margin: 1rem 0;"><label>Clone name</label><input id="cloneName" placeholder="e.g. My Narrator"></div>
+      <label>Preview text</label>
+      <textarea id="cloneText">This is a cloned voice speaking your text.</textarea>
+      <button class="btn btn-block" id="cloneBtn" style="margin-top: 1rem;">🧬 Generate clone</button>
+      <div class="player-box" id="clonePlayer">
+        <div class="wave-visual" id="cloneWave"></div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="btn btn-sm" id="playCloneBtn">▶</button>
+          <span id="cloneStatus" style="color: #b5a8e0;">Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LIBRARY ================= -->
+  <div class="page" id="page-library">
+    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">📚 Voice Library</h2>
+    <div class="glass card" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 160px;"><label>Language</label><select id="libLangFilter"><option value="all">All</option></select></div>
+        <div style="flex: 1; min-width: 160px;"><label>Sort</label><select id="libSort"><option value="name">Name</option><option value="lang">Language</option></select></div>
+      </div>
+    </div>
+    <div id="libraryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem;"></div>
+  </div>
+
+  <!-- ================= DASHBOARD ================= -->
+  <div class="page" id="page-dashboard">
+    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">📊 Dashboard</h2>
+    <div class="grid-3">
+      <div class="glass card"><span style="color: #b5a8e0;">Generations</span><div style="font-size: 2.2rem; font-weight: 700;" id="dashGenCount">0</div></div>
+      <div class="glass card"><span style="color: #b5a8e0;">Favorites</span><div style="font-size: 2.2rem; font-weight: 700;" id="dashFavCount">0</div></div>
+      <div class="glass card"><span style="color: #b5a8e0;">Plan</span><div style="font-size: 1.8rem; font-weight: 700;" id="dashPlan">Free</div></div>
+    </div>
+    <div class="glass card" style="margin-top: 1.5rem;">
+      <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Recent activity</h4>
+      <div id="historyList" style="color: #b5a8e0;">No activity yet.</div>
+    </div>
+  </div>
+
+  <!-- toast container -->
+  <div class="toast-stack" id="toastStack"></div>
+</div>
+
+<script>
+  // ---------- DATA ----------
+  const VOICE_CATALOG = [
+    { id: 'v1', name: 'Nova', lang: 'en-US', tags: ['Warm', 'Narration'] },
+    { id: 'v2', name: 'Orion', lang: 'en-US', tags: ['Deep', 'Cinematic'] },
+    { id: 'v3', name: 'Iris', lang: 'en-GB', tags: ['Crisp', 'Professional'] },
+    { id: 'v4', name: 'Sable', lang: 'en-GB', tags: ['Smooth', 'Calm'] },
+    { id: 'v5', name: 'Ember', lang: 'en-AU', tags: ['Bright', 'Energetic'] },
+    { id: 'v6', name: 'Lumen', lang: 'en-US', tags: ['Youthful', 'Friendly'] },
+    { id: 'v7', name: 'Vega', lang: 'es-ES', tags: ['Expressive', 'Narration'] },
+    { id: 'v8', name: 'Marlowe', lang: 'fr-FR', tags: ['Elegant', 'Calm'] },
+  ];
+
+  let state = {
+    session: null,
+    genCount: 0,
+    favorites: [],
+    history: [],
+    selectedVoice: 'v1',
+    rate: 0,
+    pitch: 0,
+    cloneFile: null,
+    podQueue: [],
+    podIndex: 0,
+    isPlaying: false,
+    currentUtterance: null,
+  };
+
+  // ---------- HELPERS ----------
+  function $(id) { return document.getElementById(id); }
+  function qs(sel) { return document.querySelector(sel); }
+  function qsa(sel) { return document.querySelectorAll(sel); }
+
+  function toast(msg) {
+    const stack = $('toastStack');
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.textContent = msg;
+    stack.appendChild(el);
+    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 3000);
+  }
+
+  function storageGet(key, fallback) {
+    try { const v = localStorage.getItem('fvl_'+key); return v ? JSON.parse(v) : fallback; } catch(e) { return fallback; }
+  }
+  function storageSet(key, val) {
+    try { localStorage.setItem('fvl_'+key, JSON.stringify(val)); } catch(e) {}
+  }
+
+  // ---------- VOICE ENGINE (Web Speech) ----------
+  function getBrowserVoice(catalogVoice) {
+    const voices = window.speechSynthesis?.getVoices() || [];
+    let match = voices.find(v => v.lang && v.lang.toLowerCase() === catalogVoice.lang.toLowerCase());
+    if (!match) match = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(catalogVoice.lang.slice(0,2)));
+    return match || voices[0] || null;
+  }
+
+  function speakText(text, catalogVoice, rate=0, pitch=0, onEnd) {
+    if (!window.speechSynthesis) { toast('Speech not supported'); return; }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    const voice = getBrowserVoice(catalogVoice);
+    if (voice) utter.voice = voice;
+    utter.rate = Math.min(2, Math.max(0.5, 1 + rate/100));
+    utter.pitch = Math.min(2, Math.max(0.5, 1 + pitch/100));
+    utter.onend = () => { state.isPlaying = false; if (onEnd) onEnd(); };
+    utter.onerror = () => { state.isPlaying = false; if (onEnd) onEnd(); };
+    state.currentUtterance = utter;
+    state.isPlaying = true;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    state.isPlaying = false;
+  }
+
+  // ---------- NAVIGATION ----------
+  function navigate(page) {
+    qsa('.page').forEach(el => el.classList.remove('active'));
+    const target = $('page-'+page);
+    if (target) target.classList.add('active');
+    qsa('.nav-tab').forEach(el => el.classList.toggle('active', el.dataset.page === page));
+    if (page === 'dashboard') updateDashboard();
+    if (page === 'library') renderLibrary();
+  }
+
+  // ---------- AUTH ----------
+  function renderAuth() {
+    const btn = $('authBtn');
+    if (state.session) {
+      btn.textContent = '👤 '+state.session.email.split('@')[0];
+      btn.onclick = () => { state.session = null; storageSet('session', null); renderAuth(); toast('Logged out'); navigate('home'); };
+    } else {
+      btn.textContent = '🔑 Sign in';
+      btn.onclick = () => {
+        const email = prompt('Enter email (demo)');
+        if (email && email.includes('@')) {
+          state.session = { email, plan: 'Free' };
+          storageSet('session', state.session);
+          renderAuth();
+          toast('Welcome, ' + email.split('@')[0]);
+          updateDashboard();
+        }
+      };
+    }
+  }
+
+  // ---------- POPULATE SELECTS ----------
+  function populateSelects() {
+    const selects = ['genVoiceSelect', 'blendA', 'blendB', 'podA', 'podB'];
+    selects.forEach(id => {
+      const el = $(id);
+      if (!el) return;
+      el.innerHTML = VOICE_CATALOG.map(v => `<option value="${v.id}">${v.name} · ${v.lang}</option>`).join('');
+    });
+    // set default selections
+    $('genVoiceSelect').value = 'v1';
+    $('blendA').value = 'v1';
+    $('blendB').value = 'v2';
+    $('podA').value = 'v1';
+    $('podB').value = 'v3';
+    // voice preview
+    updateVoicePreview();
+  }
+
+  function updateVoicePreview() {
+    const id = $('genVoiceSelect')?.value || 'v1';
+    const v = VOICE_CATALOG.find(c => c.id === id);
+    if (!v) return;
+    const card = $('voicePreviewCard');
+    if (card) {
+      card.innerHTML = `<span style="background:#7c5cfc;border-radius:60px;padding:0.3rem 1rem;font-weight:700;">${v.name}</span>
+                        <span style="color:#b5a8e0;">${v.lang} · ${v.tags[0]}</span>`;
+    }
+    state.selectedVoice = id;
+  }
+
+  function previewSelectedVoice() {
+    const id = $('genVoiceSelect')?.value || 'v1';
+    const v = VOICE_CATALOG.find(c => c.id === id);
+    if (!v) return;
+    speakText('Hi, I\'m ' + v.name + '. A ' + v.tags[0] + ' voice from FreeVoiceLabs.', v, 0, 0);
+    toast('Previewing ' + v.name);
+  }
+
+  // ---------- GENERATE ----------
+  function setupGenerate() {
+    const btn = $('genBtn');
+    const rateRange = $('rateRange');
+    const pitchRange = $('pitchRange');
+    const rateVal = $('rateVal');
+    const pitchVal = $('pitchVal');
+
+    rateRange.addEventListener('input', () => {
+      state.rate = parseInt(rateRange.value);
+      rateVal.textContent = state.rate + '%';
+    });
+    pitchRange.addEventListener('input', () => {
+      state.pitch = parseInt(pitchRange.value);
+      pitchVal.textContent = state.pitch + '%';
+    });
+
+    btn.addEventListener('click', () => {
+      const text = $('genText').value.trim();
+      if (!text) { toast('Please write a script.'); return; }
+      const voiceId = $('genVoiceSelect').value;
+      const voice = VOICE_CATALOG.find(v => v.id === voiceId);
+      if (!voice) return;
+
+      const player = $('genPlayer');
+      player.classList.add('active');
+      const wave = $('genWave');
+      wave.innerHTML = '';
+      for (let i = 0; i < 32; i++) {
+        const bar = document.createElement('span');
+        bar.className = 'wave-bar';
+        bar.style.animationDelay = (i * 0.05) + 's';
+        bar.style.height = (10 + Math.random() * 25) + 'px';
+        wave.appendChild(bar);
+      }
+
+      const status = $('genStatus');
+      status.textContent = 'Generating…';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.disabled = false;
+        status.textContent = '▶ Ready';
+        // record
+        state.genCount++;
+        state.history.unshift({ kind: 'generate', title: text.slice(0, 40) + '…', ts: Date.now() });
+        storageSet('genCount', state.genCount);
+        storageSet('history', state.history);
+        toast('Generated with ' + voice.name);
+
+        // play on ready
+        const playBtn = $('playGenBtn');
+        playBtn.textContent = '▶';
+        playBtn.onclick = () => {
+          if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
+          playBtn.textContent = '⏹';
+          speakText(text, voice, state.rate, state.pitch, () => {
+            playBtn.textContent = '▶';
+            status.textContent = 'Finished';
+          });
+          status.textContent = 'Playing…';
+        };
+        $('clearGenBtn').onclick = () => { stopSpeech(); player.classList.remove('active'); };
+        updateDashboard();
+      }, 500);
+    });
+  }
+
+  // ---------- BLEND ----------
+  function setupBlend() {
+    const range = $('blendRange');
+    const val = $('blendRatioVal');
+    range.addEventListener('input', () => {
+      const r = parseInt(range.value);
+      val.textContent = r + ' / ' + (100-r);
+    });
+
+    $('blendBtn').addEventListener('click', () => {
+      const text = $('blendText').value.trim();
+      if (!text) { toast('Add preview text.'); return; }
+      const aId = $('blendA').value;
+      const bId = $('blendB').value;
+      const a = VOICE_CATALOG.find(v => v.id === aId);
+      const b = VOICE_CATALOG.find(v => v.id === bId);
+      if (!a || !b) return;
+      const ratio = parseInt(range.value);
+      const primary = ratio >= 50 ? a : b;
+
+      const player = $('blendPlayer');
+      player.classList.add('active');
+      const wave = $('blendWave');
+      wave.innerHTML = '';
+      for (let i = 0; i < 28; i++) {
+        const bar = document.createElement('span');
+        bar.className = 'wave-bar';
+        bar.style.animationDelay = (i * 0.06) + 's';
+        bar.style.height = (8 + Math.random() * 28) + 'px';
+        wave.appendChild(bar);
+      }
+      const status = $('blendStatus');
+      status.textContent = a.name + ' ' + ratio + '% × ' + b.name + ' ' + (100-ratio) + '%';
+
+      const playBtn = $('playBlendBtn');
+      playBtn.textContent = '▶';
+      playBtn.onclick = () => {
+        if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
+        playBtn.textContent = '⏹';
+        speakText(text, primary, 0, (ratio-50)/2, () => {
+          playBtn.textContent = '▶';
+          status.textContent = 'Done';
+        });
+        status.textContent = 'Playing…';
+      };
+      state.history.unshift({ kind: 'blend', title: a.name + ' × ' + b.name, ts: Date.now() });
+      storageSet('history', state.history);
+      toast('Blend ready');
+      updateDashboard();
+    });
+  }
+
+  // ---------- PODCAST ----------
+  function setupPodcast() {
+    $('podBtn').addEventListener('click', () => {
+      const raw = $('podText').value.split('\n').map(l => l.trim()).filter(Boolean);
+      if (!raw.length) { toast('Write a script first.'); return; }
+      const aId = $('podA').value;
+      const bId = $('podB').value;
+      const a = VOICE_CATALOG.find(v => v.id === aId);
+      const b = VOICE_CATALOG.find(v => v.id === bId);
+      if (!a || !b) return;
+
+      state.podQueue = raw.map(line => {
+        const isB = /^B\s*:/i.test(line);
+        const clean = line.replace(/^[AB]\s*:\s*/i, '');
+        return { voice: isB ? b : a, text: clean, speaker: isB ? 'B' : 'A' };
+      });
+
+      const player = $('podPlayer');
+      player.classList.add('active');
+      const wave = $('podWave');
+      wave.innerHTML = '';
+      for (let i = 0; i < 30; i++) {
+        const bar = document.createElement('span');
+        bar.className = 'wave-bar';
+        bar.style.animationDelay = (i * 0.05) + 's';
+        bar.style.height = (8 + Math.random() * 30) + 'px';
+        wave.appendChild(bar);
+      }
+      const status = $('podStatus');
+      status.textContent = state.podQueue.length + ' lines';
+
+      const playBtn = $('playPodBtn');
+      playBtn.textContent = '▶';
+      let idx = 0;
+      playBtn.onclick = () => {
+        if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
+        if (idx >= state.podQueue.length) { idx = 0; }
+        playNextPodTurn(playBtn, status, idx, () => { idx++; });
+      };
+      $('clearPodBtn').onclick = () => { stopSpeech(); player.classList.remove('active'); };
+      state.history.unshift({ kind: 'podcast', title: state.podQueue.length + '-line episode', ts: Date.now() });
+      storageSet('history', state.history);
+      toast('Episode ready');
+      updateDashboard();
+    });
+  }
+
+  function playNextPodTurn(playBtn, status, idx, callback) {
+    if (idx >= state.podQueue.length) {
+      status.textContent = 'Finished';
+      playBtn.textContent = '▶';
+      return;
+    }
+    const turn = state.podQueue[idx];
+    status.textContent = (idx+1) + '/' + state.podQueue.length + ' · Host ' + turn.speaker;
+    playBtn.textContent = '⏹';
+    speakText(turn.text, turn.voice, 0, turn.speaker === 'B' ? -6 : 6, () => {
+      playBtn.textContent = '▶';
+      callback();
+      playNextPodTurn(playBtn, status, idx+1, callback);
+    });
+  }
+
+  // ---------- CLONE ----------
+  function setupClone() {
+    const drop = $('cloneDrop');
+    const input = $('cloneFileInput');
+    drop.addEventListener('click', () => input.click());
+    drop.addEventListener('dragover', e => { e.preventDefault(); drop.style.borderColor = '#a78bfa'; });
+    drop.addEventListener('dragleave', () => { drop.style.borderColor = '#3a2b60'; });
+    drop.addEventListener('drop', e => {
+      e.preventDefault();
+      drop.style.borderColor = '#3a2b60';
+      if (e.dataTransfer.files[0]) handleCloneFile(e.dataTransfer.files[0]);
+    });
+    input.addEventListener('change', e => {
+      if (e.target.files[0]) handleCloneFile(e.target.files[0]);
+    });
+
+    function handleCloneFile(file) {
+      if (!file.type.startsWith('audio/')) { toast('Please upload an audio file.'); return; }
+      state.cloneFile = file;
+      drop.innerHTML = '<div style="font-size:2rem;">✅</div><p style="font-weight:600;">' + file.name + '</p><p style="color:#8f7ab0;font-size:0.8rem;">Ready to clone</p>';
+      toast('Sample loaded: ' + file.name);
+    }
+
+    $('cloneBtn').addEventListener('click', () => {
+      if (!state.cloneFile) { toast('Upload a sample first.'); return; }
+      const name = $('cloneName').value.trim() || 'Untitled clone';
+      const text = $('cloneText').value.trim();
+      if (!text) { toast('Add preview text.'); return; }
+
+      const player = $('clonePlayer');
+      player.classList.add('active');
+      const wave = $('cloneWave');
+      wave.innerHTML = '';
+      for (let i = 0; i < 28; i++) {
+        const bar = document.createElement('span');
+        bar.className = 'wave-bar';
+        bar.style.animationDelay = (i * 0.07) + 's';
+        bar.style.height = (8 + Math.random() * 26) + 'px';
+        wave.appendChild(bar);
+      }
+      const status = $('cloneStatus');
+      status.textContent = 'Processing sample…';
+      $('cloneBtn').disabled = true;
+
+      setTimeout(() => {
+        $('cloneBtn').disabled = false;
+        status.textContent = 'Clone: ' + name;
+        const playBtn = $('playCloneBtn');
+        playBtn.textContent = '▶';
+        // use a random voice as proxy (simulate clone)
+        const proxy = VOICE_CATALOG[Math.floor(Math.random() * VOICE_CATALOG.length)];
+        playBtn.onclick = () => {
+          if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
+          playBtn.textContent = '⏹';
+          speakText(text, proxy, 0, 0, () => {
+            playBtn.textContent = '▶';
+            status.textContent = 'Done';
+          });
+          status.textContent = 'Playing clone…';
+        };
+        state.history.unshift({ kind: 'clone', title: name, ts: Date.now() });
+        storageSet('history', state.history);
+        toast('Clone preview ready');
+        updateDashboard();
+      }, 1200);
+    });
+  }
+
+  // ---------- LIBRARY ----------
+  function renderLibrary() {
+    const grid = $('libraryGrid');
+    const langFilter = $('libLangFilter').value;
+    const sort = $('libSort').value;
+    let list = [...VOICE_CATALOG];
+    if (langFilter !== 'all') list = list.filter(v => v.lang === langFilter);
+    if (sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
+    if (sort === 'lang') list.sort((a,b) => a.lang.localeCompare(b.lang));
+
+    grid.innerHTML = list.map(v => `
+      <div class="voice-card">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <span style="background:#7c5cfc;border-radius:60px;padding:0.2rem 0.8rem;font-weight:700;font-size:0.8rem;">${v.name.slice(0,2)}</span>
+          <div><strong>${v.name}</strong><br><span style="color:#8f7ab0;font-size:0.8rem;">${v.lang}</span></div>
+        </div>
+        <div style="margin-top:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap;">
+          ${v.tags.map(t => `<span class="voice-tag">${t}</span>`).join('')}
+        </div>
+        <button class="btn btn-sm btn-outline" style="margin-top:0.6rem;width:100%;" onclick="previewLibraryVoice('${v.id}')">▶ Preview</button>
+      </div>
+    `).join('');
+
+    // populate language filter
+    const langSel = $('libLangFilter');
+    const langs = [...new Set(VOICE_CATALOG.map(v => v.lang))];
+    langSel.innerHTML = '<option value="all">All</option>' + langs.map(l => `<option value="${l}">${l}</option>`).join('');
+    langSel.value = langFilter;
+  }
+
+  function previewLibraryVoice(id) {
+    const v = VOICE_CATALOG.find(c => c.id === id);
+    if (!v) return;
+    speakText('Preview of ' + v.name + '. A ' + v.tags[0] + ' voice.', v, 0, 0);
+    toast('Previewing ' + v.name);
+  }
+
+  // ---------- DASHBOARD ----------
+  function updateDashboard() {
+    $('dashGenCount').textContent = state.genCount;
+    $('dashFavCount').textContent = state.favorites.length;
+    $('dashPlan').textContent = state.session ? state.session.plan : 'Free';
+    const list = $('historyList');
+    if (!state.history.length) {
+      list.innerHTML = 'No activity yet.';
+      return;
+    }
+    list.innerHTML = state.history.slice(0, 8).map(h => {
+      const icon = h.kind === 'generate' ? '🎙️' : h.kind === 'blend' ? '🌀' : h.kind === 'podcast' ? '🎧' : '🧬';
+      const time = new Date(h.ts).toLocaleTimeString();
+      return `<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #1f1640;">
+        <span>${icon} ${h.title}</span>
+        <span style="color:#5f4e8a;font-size:0.8rem;">${time}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // ---------- INIT ----------
+  function init() {
+    // load state
+    state.session = storageGet('session', null);
+    state.genCount = storageGet('genCount', 0);
+    state.favorites = storageGet('favorites', []);
+    state.history = storageGet('history', []);
+
+    renderAuth();
+    populateSelects();
+    setupGenerate();
+    setupBlend();
+    setupPodcast();
+    setupClone();
+    renderLibrary();
+
+    // nav tabs
+    qsa('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        navigate(tab.dataset.page);
+      });
+    });
+
+    // generate voice select update preview
+    $('genVoiceSelect').addEventListener('change', updateVoicePreview);
+    // library filters
+    $('libLangFilter').addEventListener('change', renderLibrary);
+    $('libSort').addEventListener('change', renderLibrary);
+
+    // default page
+    navigate('home');
+    toast('🎙️ FreeVoiceLabs ready');
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
