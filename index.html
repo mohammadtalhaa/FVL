@@ -1269,7 +1269,8 @@ table.admin-table tr:hover td{ background:rgba(255,255,255,.02); }
    ============================================================ */
 const CONFIG = {
   API_BASE: 'https://mohammadtalhaa-free-voice-labs-backend.hf.space',
-  ADMIN_EMAIL: 'talha@vfl.ai',
+  ADMIN_EMAIL: 'talha@fvl.com',
+  ADMIN_PASSWORD: '123',
   ENDPOINTS: {
     voices: '/api/voices',
     ttsGenerate: '/api/tts/generate',
@@ -1291,7 +1292,11 @@ const Store = {
   get user(){ try{ return JSON.parse(localStorage.getItem('fvl_user') || 'null'); }catch(e){ return null; } },
   set user(v){ v ? localStorage.setItem('fvl_user', JSON.stringify(v)) : localStorage.removeItem('fvl_user'); },
   get history(){ try{ return JSON.parse(localStorage.getItem('fvl_history') || '[]'); }catch(e){ return []; } },
-  set history(v){ localStorage.setItem('fvl_history', JSON.stringify(v)); }
+  set history(v){ localStorage.setItem('fvl_history', JSON.stringify(v)); },
+  /* Local fallback account book — used only when the cloud API is unreachable,
+     so signup/login (and the admin account) keep working offline. */
+  get localUsers(){ try{ return JSON.parse(localStorage.getItem('fvl_local_users') || '[]'); }catch(e){ return []; } },
+  set localUsers(v){ localStorage.setItem('fvl_local_users', JSON.stringify(v)); }
 };
 
 const State = {
@@ -1377,6 +1382,20 @@ async function handleLogin(e){
   const btn = document.getElementById('loginSubmitBtn');
   if(!validateEmail(email)){ markInvalid('loginEmail'); return; }
   setBtnLoading(btn, true);
+
+  // Guaranteed admin account — always works even if the cloud backend
+  // is asleep/unreachable, so the admin panel is never locked out.
+  if(email.toLowerCase() === CONFIG.ADMIN_EMAIL.toLowerCase() && password === CONFIG.ADMIN_PASSWORD){
+    Store.token = 'local-admin-session';
+    Store.user = { email: CONFIG.ADMIN_EMAIL, name: 'Admin', role: 'admin' };
+    toast('Welcome back, Admin!', 'success');
+    closeModal('loginModal');
+    refreshAuthUI();
+    enableAdminEntry();
+    setBtnLoading(btn, false);
+    return;
+  }
+
   try{
     const data = await apiRequest(CONFIG.ENDPOINTS.login, { method:'POST', body:{ email, password } });
     Store.token = data.token || data.access_token || 'session';
@@ -1386,7 +1405,18 @@ async function handleLogin(e){
     refreshAuthUI();
     if(isAdmin()) enableAdminEntry();
   }catch(err){
-    toast(err.message || 'Login failed. Check your credentials.', 'error');
+    // Cloud API unreachable or rejected — fall back to the local account book
+    // so the studio still works fully offline/standalone.
+    const local = Store.localUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if(local && local.password === password){
+      Store.token = 'local-session';
+      Store.user = { email: local.email, name: local.name };
+      toast('Welcome back! (offline mode — cloud service unreachable)', 'success');
+      closeModal('loginModal');
+      refreshAuthUI();
+    } else {
+      toast(err.message && err.message !== 'Failed to fetch' ? err.message : 'Login failed. Check your email and password.', 'error');
+    }
   }finally{
     setBtnLoading(btn, false);
   }
@@ -1401,6 +1431,13 @@ async function handleSignup(e){
   if(!validateEmail(email)){ markInvalid('signupEmail'); return; }
   if(password.length < 8){ markInvalid('signupPassword'); return; }
   setBtnLoading(btn, true);
+
+  if(email.toLowerCase() === CONFIG.ADMIN_EMAIL.toLowerCase()){
+    toast('That email is reserved for the admin account — please log in instead.', 'error');
+    setBtnLoading(btn, false);
+    return;
+  }
+
   try{
     const data = await apiRequest(CONFIG.ENDPOINTS.signup, { method:'POST', body:{ name, email, password } });
     Store.token = data.token || data.access_token || 'session';
@@ -1409,7 +1446,21 @@ async function handleSignup(e){
     closeModal('signupModal');
     refreshAuthUI();
   }catch(err){
-    toast(err.message || 'Could not create account. Try again.', 'error');
+    // Cloud API unreachable or rejected — create a local account so signup
+    // still works fully offline/standalone.
+    const users = Store.localUsers;
+    if(users.some(u => u.email.toLowerCase() === email.toLowerCase())){
+      toast('An account with that email already exists locally. Try logging in.', 'error');
+      setBtnLoading(btn, false);
+      return;
+    }
+    users.push({ name, email, password });
+    Store.localUsers = users;
+    Store.token = 'local-session';
+    Store.user = { email, name };
+    toast('Account created — welcome to Free Voice Labs! (offline mode)', 'success');
+    closeModal('signupModal');
+    refreshAuthUI();
   }finally{
     setBtnLoading(btn, false);
   }
@@ -1534,6 +1585,49 @@ function speakBrowserPreview(text, lang){
   window.speechSynthesis.speak(utter);
   animateHeroWave();
 }
+
+/* ============================================================
+   LOCAL VOICE FALLBACK
+   The Studio normally sends text to the cloud engine. If that
+   endpoint is unreachable (backend asleep/offline/CORS), we fall
+   back to the browser's built-in speech engine so voice generation
+   still actually produces audible speech instead of just erroring.
+   ============================================================ */
+function browserVoiceSupported(){ return 'speechSynthesis' in window; }
+
+function speakWithBrowser(text, { lang='en-US', rate=1, pitch=1 } = {}){
+  return new Promise((resolve, reject) => {
+    if(!browserVoiceSupported()){ reject(new Error('Speech playback is not supported in this browser.')); return; }
+    const synthVoices = window.speechSynthesis.getVoices();
+    const utter = new SpeechSynthesisUtterance(text);
+    const match = synthVoices.find(sv => sv.lang && lang && sv.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+    if(match) utter.voice = match;
+    utter.rate = Math.min(Math.max(rate || 1, 0.5), 2);
+    utter.pitch = Math.min(Math.max(pitch || 1, 0), 2);
+    utter.onend = () => resolve();
+    utter.onerror = () => reject(new Error('Playback was interrupted.'));
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+  });
+}
+
+/* Puts a player box into "local preview" mode: no downloadable file (the
+   browser speech engine doesn't expose an audio blob), but it does play
+   real audio out loud immediately, and the UI is honest about the mode. */
+function setPlayerLocalMode(playerBoxId, metaId, downloadBtnId, label){
+  const box = document.getElementById(playerBoxId);
+  box.classList.add('active');
+  const meta = metaId ? document.getElementById(metaId) : null;
+  if(meta) meta.textContent = label || 'Local preview';
+  const dl = document.getElementById(downloadBtnId);
+  if(dl){
+    dl.removeAttribute('href');
+    dl.style.opacity = '.5';
+    dl.style.pointerEvents = 'auto';
+    dl.title = 'Download needs the cloud engine — this is a live local preview.';
+    dl.onclick = (e) => { e.preventDefault(); toast('Download requires the cloud engine, which is currently unreachable. Playing a local preview instead.', 'info'); };
+  }
+}
 </script>
 <script>
 /* ============================================================
@@ -1597,6 +1691,7 @@ async function handleTtsGenerate(){
   if(!text){ toast('Enter some script text first.', 'error'); return; }
   if(!voiceId){ toast('Choose a voice.', 'error'); return; }
   setBtnLoading(btn, true);
+  const voice = getVoiceById(voiceId);
   try{
     const payload = { text, voice: voiceId, voice_id: voiceId, style, rate, speed: rate, pitch };
     const data = await apiRequest(CONFIG.ENDPOINTS.ttsGenerate, { method:'POST', body: payload, auth:true });
@@ -1606,13 +1701,22 @@ async function handleTtsGenerate(){
     audio.src = url;
     document.getElementById('ttsDownloadBtn').href = url;
     document.getElementById('ttsPlayerBox').classList.add('active');
-    document.getElementById('ttsPlayerMeta').textContent = getVoiceById(voiceId)?.name || 'Ready';
+    document.getElementById('ttsPlayerMeta').textContent = voice?.name || 'Ready';
     drawStaticWave('ttsCanvas');
     audio.play().catch(()=>{});
-    addHistory('tts', getVoiceById(voiceId)?.name || 'Voice', text.slice(0,60));
+    addHistory('tts', voice?.name || 'Voice', text.slice(0,60));
     toast('Speech generated!', 'success');
   }catch(err){
-    toast(err.message || 'Generation failed. Please try again.', 'error');
+    try{
+      document.getElementById('ttsAudio').removeAttribute('src');
+      setPlayerLocalMode('ttsPlayerBox', 'ttsPlayerMeta', 'ttsDownloadBtn', `${voice?.name || 'Voice'} — local preview`);
+      drawStaticWave('ttsCanvas');
+      toast('Cloud engine unreachable — playing a local browser preview instead.', 'info');
+      await speakWithBrowser(text, { lang: voice?.lang, rate, pitch });
+      addHistory('tts', voice?.name || 'Voice', text.slice(0,60));
+    }catch(err2){
+      toast(err2.message || 'Generation failed. Please try again.', 'error');
+    }
   }finally{
     setBtnLoading(btn, false);
   }
@@ -1630,6 +1734,7 @@ async function handleBlendGenerate(){
   if(!text){ toast('Enter some script text first.', 'error'); return; }
   if(!voiceA || !voiceB){ toast('Choose both voices to blend.', 'error'); return; }
   setBtnLoading(btn, true);
+  const vA = getVoiceById(voiceA), vB = getVoiceById(voiceB);
   try{
     const payload = { text, voice_a: voiceA, voice_b: voiceB, ratio, blend_ratio: ratio/100 };
     const data = await apiRequest(CONFIG.ENDPOINTS.ttsBlend, { method:'POST', body: payload, auth:true });
@@ -1640,10 +1745,19 @@ async function handleBlendGenerate(){
     document.getElementById('blendDownloadBtn').href = url;
     document.getElementById('blendPlayerBox').classList.add('active');
     audio.play().catch(()=>{});
-    addHistory('blend', `${getVoiceById(voiceA)?.name} + ${getVoiceById(voiceB)?.name}`, `${ratio}/${100-ratio}`);
+    addHistory('blend', `${vA?.name} + ${vB?.name}`, `${ratio}/${100-ratio}`);
     toast('Blend generated!', 'success');
   }catch(err){
-    toast(err.message || 'Blend failed. Please try again.', 'error');
+    try{
+      document.getElementById('blendAudio').removeAttribute('src');
+      setPlayerLocalMode('blendPlayerBox', null, 'blendDownloadBtn', 'Local preview');
+      toast('Cloud engine unreachable — playing a local preview of the dominant voice instead.', 'info');
+      const dominant = ratio >= 50 ? vA : vB;
+      await speakWithBrowser(text, { lang: dominant?.lang });
+      addHistory('blend', `${vA?.name} + ${vB?.name}`, `${ratio}/${100-ratio}`);
+    }catch(err2){
+      toast(err2.message || 'Blend failed. Please try again.', 'error');
+    }
   }finally{
     setBtnLoading(btn, false);
   }
@@ -1660,6 +1774,7 @@ async function handlePodcastGenerate(){
   if(!script){ toast('Write an episode script first.', 'error'); return; }
   if(!hostA || !hostB){ toast('Choose voices for both hosts.', 'error'); return; }
   setBtnLoading(btn, true);
+  const vA = getVoiceById(hostA), vB = getVoiceById(hostB);
   try{
     const payload = { script, text: script, host_a: hostA, host_b: hostB, voice_a: hostA, voice_b: hostB };
     const data = await apiRequest(CONFIG.ENDPOINTS.ttsPodcast, { method:'POST', body: payload, auth:true });
@@ -1670,10 +1785,24 @@ async function handlePodcastGenerate(){
     document.getElementById('podDownloadBtn').href = url;
     document.getElementById('podPlayerBox').classList.add('active');
     audio.play().catch(()=>{});
-    addHistory('podcast', `${getVoiceById(hostA)?.name} & ${getVoiceById(hostB)?.name}`, script.slice(0,60));
+    addHistory('podcast', `${vA?.name} & ${vB?.name}`, script.slice(0,60));
     toast('Episode generated!', 'success');
   }catch(err){
-    toast(err.message || 'Podcast generation failed. Please try again.', 'error');
+    try{
+      document.getElementById('podAudio').removeAttribute('src');
+      setPlayerLocalMode('podPlayerBox', null, 'podDownloadBtn', 'Local preview');
+      toast('Cloud engine unreachable — playing a local two-host preview instead.', 'info');
+      // Split the script into alternating lines so both host voices are heard.
+      const lines = script.split(/\n+/).map(l => l.trim()).filter(Boolean);
+      const turns = lines.length ? lines : [script];
+      for(let i = 0; i < turns.length; i++){
+        const speaker = i % 2 === 0 ? vA : vB;
+        await speakWithBrowser(turns[i], { lang: speaker?.lang });
+      }
+      addHistory('podcast', `${vA?.name} & ${vB?.name}`, script.slice(0,60));
+    }catch(err2){
+      toast(err2.message || 'Podcast generation failed. Please try again.', 'error');
+    }
   }finally{
     setBtnLoading(btn, false);
   }
@@ -1706,7 +1835,16 @@ async function handleCloneGenerate(){
     addHistory('clone', name, text.slice(0,60));
     toast('Clone generated!', 'success');
   }catch(err){
-    toast(err.message || 'Cloning failed. Please try again.', 'error');
+    try{
+      document.getElementById('cloneAudio').removeAttribute('src');
+      document.getElementById('cloneOutTitle').textContent = `Clone: ${name} (local preview)`;
+      setPlayerLocalMode('clonePlayerBox', null, 'cloneDownloadBtn', 'Local preview');
+      toast('Cloud cloning engine unreachable — playing a local placeholder preview instead.', 'info');
+      await speakWithBrowser(text, {});
+      addHistory('clone', name, text.slice(0,60));
+    }catch(err2){
+      toast(err2.message || 'Cloning failed. Please try again.', 'error');
+    }
   }finally{
     setBtnLoading(btn, false);
   }
