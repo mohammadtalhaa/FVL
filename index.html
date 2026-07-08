@@ -1,955 +1,2143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FreeVoiceLabs · AI Voice Studio</title>
-  <!-- Fonts & clean reset -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: #0b081b;
-      color: #f0ebff;
-      font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-      padding: 1.5rem;
-      display: flex;
-      justify-content: center;
-    }
-    .app {
-      max-width: 1300px;
-      width: 100%;
-    }
-    /* glassy cards */
-    .glass {
-      background: rgba(20, 14, 45, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(160, 130, 255, 0.15);
-      border-radius: 24px;
-      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
-    }
-    .card {
-      padding: 1.5rem;
-    }
-    .flex { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-    @media (max-width: 800px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free Voice Labs — Cloud AI Text-to-Speech, Voice Cloning &amp; Podcast Studio</title>
+<meta name="description" content="Turn text into studio-quality speech in seconds. Free Voice Labs gives you hundreds of cloud-based neural voices across dozens of languages, voice cloning, voice blending and a two-host podcast generator — all in one browser-based studio.">
+<meta name="keywords" content="text to speech, AI voice generator, voice cloning, cloud TTS, podcast generator, neural voices, free voice labs">
+<meta name="author" content="Free Voice Labs">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://freevoicelabs.com/">
 
-    /* buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: linear-gradient(145deg, #7c5cfc, #a855f7);
-      border: none;
-      color: #0b081b;
-      font-weight: 700;
-      padding: 0.75rem 1.5rem;
-      border-radius: 60px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: 0 8px 20px -6px rgba(120, 80, 255, 0.3);
-    }
-    .btn:hover { transform: scale(1.02); box-shadow: 0 12px 28px -6px #7c5cfc80; }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid #7c5cfc80;
-      color: #d4ccff;
-      box-shadow: none;
-    }
-    .btn-outline:hover { background: #2a1f4a; }
-    .btn-block { width: 100%; justify-content: center; }
-    .btn-sm { padding: 0.4rem 1rem; font-size: 0.8rem; }
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Voice Labs — Cloud AI Text-to-Speech Studio">
+<meta property="og:description" content="Hundreds of cloud neural voices, voice cloning, voice blending and podcast generation in one studio.">
+<meta property="og:url" content="https://freevoicelabs.com/">
+<meta property="og:site_name" content="Free Voice Labs">
+<meta property="og:image" content="https://freevoicelabs.com/og-cover.png">
 
-    input, select, textarea {
-      background: #120d26;
-      border: 1px solid #2f2350;
-      color: #f0ebff;
-      border-radius: 16px;
-      padding: 0.7rem 1rem;
-      width: 100%;
-      font-family: inherit;
-      transition: 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #9a7aff;
-      outline: none;
-      box-shadow: 0 0 0 3px #7c5cfc40;
-    }
-    textarea { min-height: 100px; resize: vertical; }
-    label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #b5a8e0; display: block; margin-bottom: 0.3rem; }
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Voice Labs — Cloud AI Text-to-Speech Studio">
+<meta name="twitter:description" content="Hundreds of cloud neural voices, voice cloning, voice blending and podcast generation in one studio.">
+<meta name="twitter:image" content="https://freevoicelabs.com/og-cover.png">
 
-    .slider-group {
-      background: #100b22;
-      border-radius: 20px;
-      padding: 0.8rem 1rem;
-    }
-    .slider-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    input[type="range"] {
-      width: 100%;
-      margin: 0.3rem 0;
-      background: transparent;
-      -webkit-appearance: none;
-      height: 4px;
-      background: #2f2350;
-      border-radius: 4px;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #a855f7;
-      cursor: pointer;
-      box-shadow: 0 0 12px #a855f780;
-    }
+<meta name="theme-color" content="#0b0410">
 
-    .wave-bar {
-      display: inline-block;
-      width: 4px;
-      height: 20px;
-      background: linear-gradient(180deg, #a78bfa, #c084fc);
-      border-radius: 4px;
-      margin: 0 1px;
-      animation: wave 1.2s infinite alternate ease-in-out;
-    }
-    @keyframes wave {
-      0% { height: 8px; }
-      100% { height: 36px; }
-    }
-    .wave-visual { display: flex; align-items: flex-end; gap: 2px; height: 48px; margin: 0.5rem 0; }
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff3d9a'/%3E%3Cstop offset='1' stop-color='%239d4dff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%230b0410'/%3E%3Crect x='30' y='20' width='10' height='34' rx='5' fill='url(%23g)'/%3E%3Crect x='45' y='10' width='10' height='54' rx='5' fill='url(%23g)'/%3E%3Crect x='60' y='28' width='10' height='24' rx='5' fill='url(%23g)'/%3E%3C/svg%3E">
 
-    .player-box {
-      background: #0d0920;
-      border-radius: 20px;
-      padding: 1rem;
-      margin-top: 1rem;
-      display: none;
-    }
-    .player-box.active { display: block; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700;800;900&family=Inter:opsz,wght@14..32,300..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    .voice-tag {
-      background: #2a1f4a;
-      border-radius: 60px;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #c4b0ff;
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free Voice Labs",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web",
+  "url": "https://freevoicelabs.com/",
+  "description": "Cloud-based AI text-to-speech studio with neural voices, voice cloning, voice blending and podcast generation.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<style>
+/* ============================================================
+   FREE VOICE LABS — DESIGN SYSTEM
+   Palette: void black / aurora purple / signal pink
+   Display: Unbounded · Body: Inter · Mono/data: JetBrains Mono
+   ============================================================ */
+:root{
+  --void:#0b0410;
+  --surface:#150a22;
+  --surface-2:#1c0f2e;
+  --elevated:#241537;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(255,255,255,0.16);
+  --pink:#ff3d9a;
+  --pink-2:#ff6bb8;
+  --violet:#9d4dff;
+  --violet-2:#b47bff;
+  --deep:#5b1ec7;
+  --ink:#f7eefc;
+  --ink-dim:#b6a4cf;
+  --ink-mute:#7c6a94;
+  --ok:#2fe6a7;
+  --warn:#ffb648;
+  --danger:#ff5470;
+  --grad-signature: linear-gradient(120deg, var(--pink) 0%, var(--violet) 55%, var(--deep) 100%);
+  --grad-text: linear-gradient(100deg, #ffffff 0%, var(--pink-2) 45%, var(--violet-2) 100%);
+  --grad-glow: radial-gradient(circle, rgba(255,61,154,0.35), transparent 70%);
+  --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
+  --sh-soft:0 10px 40px rgba(0,0,0,0.45);
+  --sh-glow:0 0 60px rgba(157,77,255,0.25);
+  --ease:cubic-bezier(.16,.84,.44,1);
+  --fast:.18s var(--ease);
+  --mid:.35s var(--ease);
+}
+@media (prefers-color-scheme: light){ :root{ } }
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+body{
+  background:var(--void);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+  min-height:100vh;
+}
+h1,h2,h3,h4,.font-display{ font-family:'Unbounded',sans-serif; letter-spacing:-0.01em; line-height:1.1; }
+.mono,code,.font-mono{ font-family:'JetBrains Mono',monospace; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+button{ font-family:inherit; cursor:pointer; }
+img{ max-width:100%; display:block; }
+:focus-visible{ outline:2px solid var(--pink-2); outline-offset:3px; border-radius:4px; }
 
-    .toast-stack {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      z-index: 999;
-    }
-    .toast {
-      background: #1f1640;
-      border: 1px solid #5b44a0;
-      padding: 0.7rem 1.5rem;
-      border-radius: 40px;
-      font-weight: 500;
-      color: #e4dcff;
-      box-shadow: 0 12px 30px -10px #00000080;
-      animation: slideIn 0.3s ease;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:var(--void); }
+::-webkit-scrollbar-thumb{ background:linear-gradient(var(--pink),var(--violet)); border-radius:6px; border:2px solid var(--void); }
 
-    .nav-tabs {
-      display: flex;
-      gap: 0.3rem;
-      background: #100b22;
-      padding: 0.3rem;
-      border-radius: 60px;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .nav-tab {
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      background: transparent;
-      border: none;
-      color: #a394d0;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .nav-tab.active {
-      background: #7c5cfc;
-      color: #0b081b;
-      box-shadow: 0 4px 12px #7c5cfc60;
-    }
-    .nav-tab:hover { color: #f0ebff; }
+/* ---------- Ambient background ---------- */
+.bg-veil{ position:fixed; inset:0; z-index:-2; background:
+    radial-gradient(1100px 700px at 82% -8%, rgba(157,77,255,0.28), transparent 60%),
+    radial-gradient(900px 600px at -10% 20%, rgba(255,61,154,0.22), transparent 60%),
+    radial-gradient(700px 900px at 105% 70%, rgba(91,30,199,0.30), transparent 55%),
+    var(--void);
+}
+.bg-grid{ position:fixed; inset:0; z-index:-1; opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%, black 40%, transparent 90%);
+}
+.blob{ position:fixed; border-radius:50%; filter:blur(90px); z-index:-1; opacity:.55; pointer-events:none; animation:drift 22s ease-in-out infinite; }
+.blob-a{ width:520px; height:520px; background:var(--pink); top:-160px; right:-120px; }
+.blob-b{ width:460px; height:460px; background:var(--violet); bottom:-180px; left:-140px; animation-delay:-8s; }
+.blob-c{ width:340px; height:340px; background:var(--deep); top:40%; left:50%; animation-delay:-14s; opacity:.35; }
+@keyframes drift{ 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(30px,-40px) scale(1.08);} }
 
-    .page { display: none; }
-    .page.active { display: block; }
+/* ---------- Layout helpers ---------- */
+.wrap{ max-width:1280px; margin:0 auto; padding:0 28px; }
+.section{ padding:112px 0; position:relative; }
+.section-tight{ padding:72px 0; }
+.eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--pink-2); background:rgba(255,61,154,0.1); border:1px solid rgba(255,61,154,0.28); padding:6px 14px; border-radius:100px; margin-bottom:20px; }
+.eyebrow::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--pink-2); box-shadow:0 0 10px var(--pink-2); }
+.h-grad{ background:var(--grad-text); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.section-head{ max-width:640px; margin-bottom:56px; }
+.section-head p{ color:var(--ink-dim); font-size:1.05rem; margin-top:14px; }
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in{ opacity:1; transform:translateY(0); }
 
-    .badge-live {
-      background: #34d39930;
-      color: #6ee7b7;
-      border-radius: 60px;
-      padding: 0.2rem 0.9rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border: 1px solid #34d39940;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: #34d399;
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } }
+/* ---------- Buttons ---------- */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:13px 26px; border-radius:100px; font-weight:600; font-size:.92rem; border:1px solid transparent; transition:transform var(--fast), box-shadow var(--fast), background var(--fast), border-color var(--fast), color var(--fast); white-space:nowrap; position:relative; }
+.btn-primary{ background:var(--grad-signature); color:#fff; box-shadow:0 8px 30px rgba(255,61,154,.35); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 40px rgba(255,61,154,.5); }
+.btn-primary:active{ transform:translateY(0); }
+.btn-outline{ background:rgba(255,255,255,.03); border-color:var(--line-strong); color:var(--ink); }
+.btn-outline:hover{ border-color:var(--pink-2); background:rgba(255,61,154,.08); }
+.btn-ghost{ background:transparent; color:var(--ink-dim); padding:13px 18px; }
+.btn-ghost:hover{ color:var(--ink); }
+.btn-sm{ padding:8px 16px; font-size:.8rem; }
+.btn-lg{ padding:16px 34px; font-size:1rem; }
+.btn-block{ width:100%; }
+.btn-icon{ width:38px; height:38px; padding:0; border-radius:12px; }
+.btn[disabled]{ opacity:.5; pointer-events:none; }
+.btn .spinner{ width:14px; height:14px; border-radius:50%; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; animation:spin .7s linear infinite; display:none; }
+.btn.loading .spinner{ display:inline-block; }
+.btn.loading .btn-label{ opacity:.6; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
 
-    .voice-card {
-      background: #120d26;
-      border-radius: 20px;
-      padding: 1rem;
-      border: 1px solid #2f2350;
-      transition: 0.2s;
-    }
-    .voice-card:hover { border-color: #7c5cfc; transform: translateY(-2px); }
+/* ---------- Cards / glass ---------- */
+.glass{ background:linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015)); border:1px solid var(--line); border-radius:var(--r-lg); backdrop-filter:blur(24px); box-shadow:var(--sh-soft); }
+.card{ padding:28px; }
+.card:hover{ border-color:var(--line-strong); }
+.card-hot{ border-color:rgba(255,61,154,0.35); box-shadow:0 0 0 1px rgba(255,61,154,.12), var(--sh-soft); }
+</style>
+<style>
+/* ---------- Header ---------- */
+.site-header{ position:fixed; top:0; left:0; right:0; z-index:500; padding:18px 0; transition:padding var(--fast), background var(--fast), border-color var(--fast); border-bottom:1px solid transparent; }
+.site-header.scrolled{ padding:12px 0; background:rgba(11,4,16,0.75); backdrop-filter:blur(18px); border-color:var(--line); }
+.header-inner{ display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.brand{ display:flex; align-items:center; gap:10px; font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.05rem; }
+.brand-mark{ width:38px; height:38px; border-radius:12px; background:var(--grad-signature); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 22px rgba(255,61,154,.4); position:relative; overflow:hidden; }
+.brand-mark span{ display:block; width:4px; border-radius:3px; background:#fff; margin:0 1.5px; animation:brandbar 1.6s ease-in-out infinite; }
+.brand-mark span:nth-child(1){ height:12px; animation-delay:0s; }
+.brand-mark span:nth-child(2){ height:20px; animation-delay:.2s; }
+.brand-mark span:nth-child(3){ height:15px; animation-delay:.4s; }
+@keyframes brandbar{ 0%,100%{ transform:scaleY(.6);} 50%{ transform:scaleY(1.3);} }
+.brand-name b{ font-weight:400; color:var(--ink-dim); }
+.main-nav{ display:flex; align-items:center; gap:6px; padding:6px; border-radius:100px; background:rgba(255,255,255,0.03); border:1px solid var(--line); }
+.main-nav a{ padding:9px 16px; border-radius:100px; font-size:.86rem; font-weight:500; color:var(--ink-dim); transition:all var(--fast); }
+.main-nav a:hover{ color:var(--ink); background:rgba(255,255,255,0.05); }
+.main-nav a.active{ color:#fff; background:var(--grad-signature); }
+.header-actions{ display:flex; align-items:center; gap:10px; }
+.icon-btn{ width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-dim); transition:all var(--fast); }
+.icon-btn:hover{ color:var(--ink); border-color:var(--line-strong); }
+.mobile-toggle{ display:none; }
+.user-chip{ display:flex; align-items:center; gap:9px; padding:6px 14px 6px 6px; border-radius:100px; background:rgba(255,255,255,0.04); border:1px solid var(--line); cursor:pointer; }
+.user-chip .avatar{ width:28px; height:28px; border-radius:50%; background:var(--grad-signature); display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; }
+.user-chip span{ font-size:.82rem; font-weight:600; }
+.user-menu{ position:absolute; top:calc(100% + 10px); right:0; width:230px; padding:8px; display:none; z-index:600; }
+.user-menu.open{ display:block; animation:popIn .18s var(--ease); }
+.user-menu a,.user-menu button{ display:flex; align-items:center; gap:10px; width:100%; padding:10px 12px; border-radius:10px; font-size:.85rem; color:var(--ink-dim); background:transparent; border:none; text-align:left; }
+.user-menu a:hover,.user-menu button:hover{ background:rgba(255,255,255,0.05); color:var(--ink); }
+.user-menu .divider{ height:1px; background:var(--line); margin:6px 4px; }
+.admin-pill{ font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--pink-2); background:rgba(255,61,154,.12); padding:2px 8px; border-radius:6px; margin-left:auto; }
+@keyframes popIn{ from{ opacity:0; transform:translateY(-6px) scale(.98);} to{ opacity:1; transform:translateY(0) scale(1);} }
 
-    .footer-meta {
-      margin-top: 3rem;
-      text-align: center;
-      color: #5f4e8a;
-      font-size: 0.8rem;
-      border-top: 1px solid #1f1640;
-      padding-top: 1.5rem;
-    }
+/* ---------- Mobile drawer ---------- */
+.mobile-drawer{ position:fixed; inset:0; z-index:900; display:none; }
+.mobile-drawer.open{ display:block; }
+.mobile-drawer .scrim{ position:absolute; inset:0; background:rgba(5,2,8,0.7); backdrop-filter:blur(4px); }
+.mobile-drawer .panel{ position:absolute; top:0; right:0; bottom:0; width:82%; max-width:340px; background:var(--surface); border-left:1px solid var(--line); padding:24px; display:flex; flex-direction:column; gap:6px; transform:translateX(100%); transition:transform var(--mid); overflow-y:auto; }
+.mobile-drawer.open .panel{ transform:translateX(0); }
+.mobile-drawer a{ padding:14px 10px; font-size:1.05rem; font-weight:600; border-bottom:1px solid var(--line); }
+.mobile-drawer .btn{ margin-top:16px; }
 
-    /* responsiveness */
-    @media (max-width: 600px) {
-      body { padding: 1rem; }
-      .flex { flex-direction: column; }
-    }
-  </style>
+/* ---------- Hero ---------- */
+.hero{ padding:172px 0 100px; position:relative; }
+.hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+.hero h1{ font-size:clamp(2.4rem,5vw,4.1rem); font-weight:700; }
+.hero-sub{ color:var(--ink-dim); font-size:1.15rem; max-width:520px; margin:22px 0 34px; }
+.hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+.hero-trust{ display:flex; gap:26px; margin-top:44px; flex-wrap:wrap; }
+.hero-trust div{ display:flex; flex-direction:column; }
+.hero-trust b{ font-family:'Unbounded',sans-serif; font-size:1.5rem; }
+.hero-trust small{ color:var(--ink-mute); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; }
+
+/* Live demo widget (hero signature) */
+.demo-console{ padding:22px; position:relative; }
+.demo-console .top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.demo-console .dots{ display:flex; gap:6px; }
+.demo-console .dots span{ width:9px; height:9px; border-radius:50%; background:var(--line-strong); }
+.demo-console textarea{ width:100%; background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:var(--r-md); padding:16px; color:var(--ink); font-size:.95rem; min-height:110px; resize:none; font-family:'Inter',sans-serif; line-height:1.6; }
+.demo-console textarea:focus{ outline:none; border-color:var(--pink-2); box-shadow:0 0 0 3px rgba(255,61,154,.15); }
+.demo-voice-row{ display:flex; gap:10px; margin-top:12px; }
+.wave{ height:64px; display:flex; align-items:center; gap:3px; justify-content:center; margin:16px 0; background:rgba(0,0,0,.2); border-radius:var(--r-md); border:1px solid var(--line); overflow:hidden; padding:0 12px; }
+.wave i{ display:block; width:3px; border-radius:2px; background:linear-gradient(var(--pink),var(--violet)); height:6px; transition:height .12s ease; }
+.demo-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
+.demo-foot small{ color:var(--ink-mute); font-size:.72rem; }
+.provider-orbit{ position:absolute; top:-18px; right:-18px; width:64px; height:64px; border-radius:16px; background:var(--elevated); border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:var(--sh-glow); animation:floaty 5s ease-in-out infinite; }
+@keyframes floaty{ 0%,100%{ transform:translateY(0) rotate(-4deg);} 50%{ transform:translateY(-10px) rotate(4deg);} }
+
+/* ---------- Marquee ---------- */
+.marquee-wrap{ overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; }
+.marquee{ display:flex; gap:64px; width:max-content; animation:scrollx 32s linear infinite; }
+.marquee span{ font-family:'JetBrains Mono',monospace; font-size:.82rem; letter-spacing:.06em; color:var(--ink-mute); text-transform:uppercase; white-space:nowrap; }
+@keyframes scrollx{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+</style>
+<style>
+/* ---------- Feature grid ---------- */
+.feat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.feat-card{ padding:26px; transition:transform var(--fast), border-color var(--fast); }
+.feat-card:hover{ transform:translateY(-4px); border-color:rgba(255,61,154,.3); }
+.feat-icon{ width:46px; height:46px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; background:rgba(255,61,154,.1); border:1px solid rgba(255,61,154,.25); margin-bottom:16px; }
+.feat-card h3{ font-family:'Unbounded',sans-serif; font-size:1.02rem; font-weight:600; margin-bottom:8px; }
+.feat-card p{ color:var(--ink-dim); font-size:.9rem; }
+
+/* ---------- Provider strip ---------- */
+.provider-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.provider-card{ padding:20px; text-align:center; }
+.provider-card .n{ font-family:'Unbounded',sans-serif; font-size:1.7rem; background:var(--grad-text); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.provider-card small{ color:var(--ink-mute); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; }
+
+/* ---------- Steps ---------- */
+.steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:step; }
+.step{ padding:24px; position:relative; }
+.step::before{ counter-increment:step; content:counter(step,decimal-leading-zero); font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--pink-2); font-weight:700; letter-spacing:.08em; }
+.step h4{ font-family:'Unbounded',sans-serif; font-size:.98rem; margin:12px 0 6px; }
+.step p{ color:var(--ink-dim); font-size:.86rem; }
+
+/* ============ APP SHELL (Studio) ============ */
+.app-shell{ display:none; }
+.app-shell.active{ display:block; }
+.tab-strip{ display:flex; gap:6px; padding:6px; border-radius:100px; background:rgba(255,255,255,0.03); border:1px solid var(--line); margin-bottom:32px; overflow-x:auto; }
+.tab-btn{ flex:none; padding:10px 20px; border-radius:100px; font-size:.86rem; font-weight:600; color:var(--ink-dim); background:transparent; border:none; transition:all var(--fast); white-space:nowrap; }
+.tab-btn:hover{ color:var(--ink); }
+.tab-btn.active{ color:#fff; background:var(--grad-signature); box-shadow:0 6px 20px rgba(255,61,154,.3); }
+.panel{ display:none; }
+.panel.active{ display:block; animation:panelIn .35s var(--ease); }
+@keyframes panelIn{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+.studio-grid{ display:grid; grid-template-columns:1.3fr .9fr; gap:24px; align-items:start; }
+@media (max-width:960px){ .studio-grid{ grid-template-columns:1fr; } }
+
+/* ---------- Forms ---------- */
+.field{ margin-bottom:18px; }
+.field label{ display:block; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-mute); margin-bottom:7px; }
+.input,.select,.textarea{ width:100%; background:rgba(0,0,0,.22); border:1px solid var(--line); border-radius:var(--r-sm); padding:12px 14px; color:var(--ink); font-size:.92rem; font-family:inherit; transition:border-color var(--fast), box-shadow var(--fast); }
+.input:focus,.select:focus,.textarea:focus{ outline:none; border-color:var(--pink-2); box-shadow:0 0 0 3px rgba(255,61,154,.14); }
+.textarea{ min-height:150px; resize:vertical; line-height:1.7; }
+.select{ appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23b6a4cf' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; cursor:pointer; }
+.select option{ background:var(--surface-2); color:var(--ink); }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:560px){ .field-row{ grid-template-columns:1fr; } }
+.char-count{ text-align:right; font-size:.7rem; color:var(--ink-mute); margin-top:4px; }
+.hint{ font-size:.78rem; color:var(--ink-mute); margin-top:6px; }
+.error-text{ font-size:.78rem; color:var(--danger); margin-top:6px; display:none; }
+.field.invalid .input,.field.invalid .textarea,.field.invalid .select{ border-color:var(--danger); }
+.field.invalid .error-text{ display:block; }
+
+/* Sliders */
+.slider-box{ background:rgba(0,0,0,.2); border:1px solid var(--line); border-radius:var(--r-sm); padding:14px 16px; }
+.slider-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.slider-top span:first-child{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-mute); }
+.slider-val{ font-family:'JetBrains Mono',monospace; font-size:.75rem; font-weight:700; color:var(--pink-2); background:rgba(255,61,154,.12); padding:1px 10px; border-radius:20px; }
+input[type=range]{ -webkit-appearance:none; width:100%; height:4px; border-radius:3px; background:var(--line-strong); outline:none; }
+input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--grad-signature); cursor:pointer; box-shadow:0 0 14px rgba(255,61,154,.6); border:2px solid var(--void); }
+input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:50%; background:var(--pink); border:none; cursor:pointer; }
+
+/* Voice pick chips */
+.voice-pill-select{ display:flex; align-items:center; gap:10px; }
+.voice-avatar{ width:34px; height:34px; border-radius:10px; background:var(--grad-signature); display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:700; flex-shrink:0; }
+
+/* Dropzone */
+.dropzone{ border:2px dashed var(--line-strong); border-radius:var(--r-md); padding:34px 20px; text-align:center; background:rgba(255,255,255,.02); transition:all var(--fast); cursor:pointer; }
+.dropzone:hover,.dropzone.drag{ border-color:var(--pink-2); background:rgba(255,61,154,.06); }
+.dropzone .ico{ font-size:1.8rem; margin-bottom:8px; }
+.dropzone .fname{ margin-top:10px; font-weight:600; color:var(--ok); font-size:.85rem; display:none; }
+
+/* Output player */
+.player-box{ margin-top:18px; padding:16px; border-radius:var(--r-md); background:rgba(0,0,0,.2); border:1px solid var(--line); display:none; }
+.player-box.active{ display:block; animation:panelIn .3s var(--ease); }
+.player-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.player-top .t{ font-weight:700; font-size:.88rem; }
+.player-top .m{ font-size:.72rem; color:var(--ink-mute); margin-left:8px; }
+.badge{ font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:3px 10px; border-radius:20px; }
+.badge-pink{ background:rgba(255,61,154,.14); color:var(--pink-2); }
+.badge-ok{ background:rgba(47,230,167,.14); color:var(--ok); }
+.badge-warn{ background:rgba(255,182,72,.14); color:var(--warn); }
+.canvas-wave{ width:100%; height:60px; border-radius:var(--r-sm); background:rgba(0,0,0,.3); border:1px solid var(--line); margin-bottom:12px; }
+audio{ width:100%; height:38px; margin-bottom:12px; border-radius:8px; }
+.player-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+
+/* Side stat / history cards inside studio */
+.mini-stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.mini-stat{ padding:14px; text-align:left; }
+.mini-stat b{ font-family:'Unbounded',sans-serif; font-size:1.3rem; display:block; background:var(--grad-text); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.mini-stat small{ color:var(--ink-mute); font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; }
+.hist-item{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; border:1px solid var(--line); margin-bottom:8px; background:rgba(255,255,255,.02); }
+.hist-item .ic{ width:32px; height:32px; border-radius:9px; background:rgba(157,77,255,.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hist-item .body{ flex:1; min-width:0; }
+.hist-item .ttl{ font-size:.82rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hist-item .sub{ font-size:.7rem; color:var(--ink-mute); }
+.empty-note{ text-align:center; padding:20px; color:var(--ink-mute); font-size:.85rem; }
+</style>
+<style>
+/* ---------- Voice library ---------- */
+.lib-toolbar{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:22px; align-items:center; }
+.lib-toolbar .input,.lib-toolbar .select{ width:auto; min-width:180px; }
+.lib-toolbar .search{ flex:1; min-width:220px; }
+.voice-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+.voice-card{ padding:18px; cursor:pointer; transition:all var(--fast); }
+.voice-card:hover{ transform:translateY(-3px); border-color:rgba(255,61,154,.35); }
+.voice-card.selected{ border-color:var(--pink-2); box-shadow:0 0 0 1px rgba(255,61,154,.3); }
+.voice-card .head{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.voice-card .name{ font-weight:700; font-size:.92rem; }
+.voice-card .lang{ font-size:.72rem; color:var(--ink-mute); }
+.voice-card .tags{ display:flex; gap:6px; flex-wrap:wrap; }
+.tag{ font-size:.62rem; font-weight:700; padding:2px 9px; border-radius:20px; background:rgba(157,77,255,.14); color:var(--violet-2); border:1px solid rgba(157,77,255,.25); text-transform:uppercase; letter-spacing:.04em; }
+.voice-card .play-mini{ width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.05); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; margin-left:auto; flex-shrink:0; transition:all var(--fast); }
+.voice-card .play-mini:hover{ background:var(--grad-signature); border-color:transparent; }
+
+/* ---------- Pricing ---------- */
+.pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.price-card{ padding:30px; text-align:left; position:relative; }
+.price-card.featured{ border-color:rgba(255,61,154,.5); box-shadow:0 0 0 1px rgba(255,61,154,.2), var(--sh-glow); transform:scale(1.02); }
+.price-card .plan{ font-weight:700; font-size:.85rem; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em; }
+.price-card .amt{ font-family:'Unbounded',sans-serif; font-size:2.6rem; margin:10px 0 4px; }
+.price-card .amt span{ font-size:.95rem; font-weight:400; color:var(--ink-mute); font-family:'Inter',sans-serif; }
+.price-card ul{ margin:20px 0 26px; display:flex; flex-direction:column; gap:10px; }
+.price-card li{ display:flex; align-items:flex-start; gap:9px; font-size:.87rem; color:var(--ink-dim); }
+.price-card li::before{ content:'✓'; color:var(--ok); font-weight:700; flex-shrink:0; }
+.ribbon{ position:absolute; top:-12px; right:24px; background:var(--grad-signature); padding:5px 14px; border-radius:100px; font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+
+/* ---------- Testimonials ---------- */
+.testi-track{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.testi-card{ padding:24px; }
+.testi-stars{ color:var(--pink-2); letter-spacing:2px; margin-bottom:12px; font-size:.85rem; }
+.testi-card p{ color:var(--ink-dim); font-size:.9rem; margin-bottom:18px; }
+.testi-who{ display:flex; align-items:center; gap:10px; }
+.testi-who .av{ width:36px; height:36px; border-radius:50%; background:var(--grad-signature); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.78rem; }
+.testi-who b{ font-size:.85rem; display:block; }
+.testi-who small{ color:var(--ink-mute); font-size:.72rem; }
+
+/* ---------- FAQ ---------- */
+.faq-list{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+.faq-item{ padding:0; overflow:hidden; }
+.faq-q{ width:100%; display:flex; justify-content:space-between; align-items:center; padding:20px 24px; background:transparent; border:none; color:var(--ink); font-size:.95rem; font-weight:600; text-align:left; }
+.faq-q .plus{ font-size:1.2rem; color:var(--pink-2); transition:transform var(--fast); flex-shrink:0; margin-left:16px; }
+.faq-item.open .faq-q .plus{ transform:rotate(45deg); }
+.faq-a{ max-height:0; overflow:hidden; transition:max-height var(--mid); }
+.faq-a-inner{ padding:0 24px 20px; color:var(--ink-dim); font-size:.88rem; line-height:1.7; }
+
+/* ---------- CTA banner ---------- */
+.cta-banner{ padding:56px; text-align:center; background:radial-gradient(600px 300px at 50% 0%, rgba(255,61,154,.18), transparent), var(--surface); border:1px solid rgba(255,61,154,.25); border-radius:var(--r-xl); }
+.cta-banner h2{ font-size:clamp(1.6rem,3.4vw,2.4rem); margin-bottom:14px; }
+.cta-banner p{ color:var(--ink-dim); margin-bottom:26px; }
+
+/* ---------- Footer ---------- */
+.site-footer{ border-top:1px solid var(--line); padding:64px 0 30px; margin-top:60px; }
+.foot-grid{ display:grid; grid-template-columns:1.6fr repeat(4,1fr); gap:32px; margin-bottom:48px; }
+.foot-brand p{ color:var(--ink-mute); font-size:.85rem; margin:14px 0 18px; max-width:280px; }
+.foot-social{ display:flex; gap:10px; }
+.foot-col h5{ font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-mute); margin-bottom:14px; }
+.foot-col a{ display:block; font-size:.85rem; color:var(--ink-dim); padding:6px 0; transition:color var(--fast); }
+.foot-col a:hover{ color:var(--pink-2); }
+.foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:26px; border-top:1px solid var(--line); flex-wrap:wrap; gap:12px; }
+.foot-bottom small{ color:var(--ink-mute); font-size:.78rem; }
+@media (max-width:900px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+</style>
+<style>
+/* ---------- Modals ---------- */
+.modal-layer{ position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:20px; }
+.modal-layer.open{ display:flex; }
+.modal-layer .scrim{ position:absolute; inset:0; background:rgba(5,2,10,.75); backdrop-filter:blur(6px); }
+.modal-box{ position:relative; width:100%; max-width:440px; padding:32px; max-height:90vh; overflow-y:auto; animation:modalIn .25s var(--ease); }
+.modal-box.wide{ max-width:840px; }
+@keyframes modalIn{ from{ opacity:0; transform:translateY(16px) scale(.97);} to{ opacity:1; transform:translateY(0) scale(1);} }
+.modal-close{ position:absolute; top:18px; right:18px; width:32px; height:32px; border-radius:9px; background:rgba(255,255,255,.05); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-dim); }
+.modal-close:hover{ color:var(--ink); border-color:var(--line-strong); }
+.modal-head{ margin-bottom:24px; }
+.modal-head .icon{ width:48px; height:48px; border-radius:14px; background:var(--grad-signature); display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:16px; }
+.modal-head h3{ font-family:'Unbounded',sans-serif; font-size:1.3rem; }
+.modal-head p{ color:var(--ink-dim); font-size:.86rem; margin-top:6px; }
+.modal-switch{ text-align:center; margin-top:18px; font-size:.85rem; color:var(--ink-dim); }
+.modal-switch button{ background:none; border:none; color:var(--pink-2); font-weight:600; }
+.modal-divider{ display:flex; align-items:center; gap:12px; margin:20px 0; color:var(--ink-mute); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; }
+.modal-divider::before,.modal-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
+.pw-row{ position:relative; }
+.pw-toggle{ position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--ink-mute); font-size:.75rem; font-weight:600; }
+
+/* ---------- Toast ---------- */
+.toast-stack{ position:fixed; bottom:24px; right:24px; z-index:2000; display:flex; flex-direction:column; gap:10px; max-width:340px; }
+.toast{ display:flex; align-items:flex-start; gap:10px; padding:14px 16px; border-radius:14px; background:var(--elevated); border:1px solid var(--line-strong); box-shadow:var(--sh-soft); font-size:.85rem; animation:toastIn .3s var(--ease); }
+.toast .ic{ flex-shrink:0; font-size:1rem; }
+.toast.success{ border-color:rgba(47,230,167,.4); }
+.toast.error{ border-color:rgba(255,84,112,.4); }
+.toast.info{ border-color:rgba(157,77,255,.4); }
+@keyframes toastIn{ from{ opacity:0; transform:translateX(40px);} to{ opacity:1; transform:translateX(0);} }
+@keyframes toastOut{ from{ opacity:1; transform:translateX(0);} to{ opacity:0; transform:translateX(40px);} }
+
+/* ---------- Admin panel ---------- */
+.admin-wrap{ display:none; }
+.admin-wrap.active{ display:block; }
+.admin-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:28px; flex-wrap:wrap; gap:16px; }
+.admin-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+.admin-stat{ padding:20px; }
+.admin-stat .top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.admin-stat .top .ic{ width:36px; height:36px; border-radius:10px; background:rgba(255,61,154,.12); display:flex; align-items:center; justify-content:center; }
+.admin-stat b{ font-family:'Unbounded',sans-serif; font-size:1.6rem; display:block; }
+.admin-stat small{ color:var(--ink-mute); font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; }
+.admin-table-wrap{ overflow-x:auto; }
+table.admin-table{ width:100%; border-collapse:collapse; font-size:.85rem; }
+table.admin-table th{ text-align:left; padding:12px 14px; color:var(--ink-mute); font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; border-bottom:1px solid var(--line); white-space:nowrap; }
+table.admin-table td{ padding:14px; border-bottom:1px solid var(--line); vertical-align:middle; }
+table.admin-table tr:hover td{ background:rgba(255,255,255,.02); }
+.row-actions{ display:flex; gap:6px; }
+.status-dot-row{ display:inline-flex; align-items:center; gap:6px; }
+.status-dot-row i{ width:7px; height:7px; border-radius:50%; }
+.dot-ok{ background:var(--ok); } .dot-warn{ background:var(--warn); } .dot-danger{ background:var(--danger); }
+.admin-gate{ text-align:center; padding:80px 20px; }
+.admin-gate .icon{ font-size:2.4rem; margin-bottom:16px; }
+.cms-editor{ display:grid; grid-template-columns:1fr; gap:14px; }
+
+/* ---------- Loaders / skeleton ---------- */
+.skeleton{ background:linear-gradient(90deg, rgba(255,255,255,.04) 25%, rgba(255,255,255,.09) 37%, rgba(255,255,255,.04) 63%); background-size:400% 100%; animation:shimmer 1.4s ease infinite; border-radius:10px; }
+@keyframes shimmer{ 0%{ background-position:100% 0;} 100%{ background-position:0 0;} }
+.skel-line{ height:14px; margin-bottom:8px; }
+.skel-card{ height:120px; }
+
+/* ---------- Auth gate note ---------- */
+.gate-note{ display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background:rgba(157,77,255,.08); border:1px solid rgba(157,77,255,.25); font-size:.82rem; color:var(--ink-dim); margin-bottom:20px; }
+.gate-note a,.gate-note button{ color:var(--pink-2); font-weight:600; background:none; border:none; }
+
+/* ---------- Utility ---------- */
+.text-center{ text-align:center; }
+.mt-8{ margin-top:8px; } .mt-16{ margin-top:16px; } .mt-24{ margin-top:24px; }
+.mb-8{ margin-bottom:8px; } .mb-16{ margin-bottom:16px; } .mb-24{ margin-bottom:24px; }
+.flex{ display:flex; } .flex-between{ display:flex; justify-content:space-between; align-items:center; }
+.gap-8{ gap:8px; } .gap-12{ gap:12px; } .flex-wrap{ flex-wrap:wrap; }
+.w-full{ width:100%; }
+.hidden{ display:none !important; }
+.muted{ color:var(--ink-mute); }
+.legal-page{ display:none; }
+.legal-page.active{ display:block; }
+.legal-page h2{ font-size:1.8rem; margin-bottom:6px; }
+.legal-page .updated{ color:var(--ink-mute); font-size:.8rem; margin-bottom:32px; }
+.legal-page h3{ font-family:'Unbounded',sans-serif; font-size:1.05rem; margin:28px 0 10px; }
+.legal-page p,.legal-page li{ color:var(--ink-dim); font-size:.92rem; line-height:1.8; margin-bottom:10px; }
+.legal-page ul{ padding-left:20px; list-style:disc; }
+
+/* ---------- Responsive ---------- */
+@media (max-width:1080px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .feat-grid{ grid-template-columns:repeat(2,1fr); }
+  .provider-grid{ grid-template-columns:repeat(2,1fr); }
+  .steps{ grid-template-columns:repeat(2,1fr); }
+  .pricing-grid{ grid-template-columns:1fr; max-width:420px; margin:0 auto; }
+  .testi-track{ grid-template-columns:1fr; }
+  .admin-stats{ grid-template-columns:repeat(2,1fr); }
+  .price-card.featured{ transform:none; }
+}
+@media (max-width:840px){
+  .main-nav{ display:none; }
+  .mobile-toggle{ display:flex; }
+  .foot-grid{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:640px){
+  .wrap{ padding:0 18px; }
+  .section{ padding:72px 0; }
+  .hero{ padding:132px 0 60px; }
+  .feat-grid,.provider-grid,.steps{ grid-template-columns:1fr; }
+  .foot-grid{ grid-template-columns:1fr; }
+  .header-actions .btn-outline{ display:none; }
+  .admin-stats{ grid-template-columns:1fr; }
+  .field-row{ grid-template-columns:1fr; }
+}
+</style>
 </head>
 <body>
-<div class="app">
+<div class="bg-veil"></div>
+<div class="bg-grid"></div>
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+<div class="blob blob-c"></div>
 
-  <!-- header -->
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-    <div style="display: flex; align-items: center; gap: 0.8rem;">
-      <span style="font-size: 2rem; font-weight: 700; background: linear-gradient(145deg, #a78bfa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FreeVoiceLabs</span>
-      <span class="badge-live"><span class="dot"></span> Studio</span>
-    </div>
-    <div style="display: flex; gap: 0.5rem;">
-      <button class="btn btn-sm btn-outline" id="authBtn">🔑 Sign in</button>
-    </div>
-  </div>
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="#home" class="brand" data-nav="home">
+      <div class="brand-mark"><span></span><span></span><span></span></div>
+      <div class="brand-name">Free<b>VoiceLabs</b></div>
+    </a>
 
-  <!-- navigation tabs -->
-  <div class="nav-tabs" id="navTabs">
-    <button class="nav-tab active" data-page="home">🏠 Home</button>
-    <button class="nav-tab" data-page="generate">🎙️ Generate</button>
-    <button class="nav-tab" data-page="blend">🌀 Blend</button>
-    <button class="nav-tab" data-page="podcast">🎧 Podcast</button>
-    <button class="nav-tab" data-page="clone">🧬 Clone</button>
-    <button class="nav-tab" data-page="library">📚 Library</button>
-    <button class="nav-tab" data-page="dashboard">📊 Dashboard</button>
-  </div>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" data-nav="home" class="active">Home</a>
+      <a href="#studio" data-nav="studio">Studio</a>
+      <a href="#library" data-nav="library">Voices</a>
+      <a href="#pricing" data-nav="pricing">Pricing</a>
+      <a href="#faq" data-nav="faq">FAQ</a>
+    </nav>
 
-  <!-- ================= HOME ================= -->
-  <div class="page active" id="page-home">
-    <div class="glass card" style="text-align: center; padding: 3rem 2rem;">
-      <h1 style="font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; max-width: 700px; margin: 0 auto;">Give your words a <span style="background: linear-gradient(145deg, #a78bfa, #e879f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">voice</span> worth hearing.</h1>
-      <p style="color: #b5a8e0; max-width: 540px; margin: 1.2rem auto; font-size: 1.1rem;">Generate cinematic AI voices, blend timbres, build podcasts, or clone voices — all in your browser.</p>
-      <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
-        <button class="btn" onclick="navigate('generate')">🎙️ Start generating</button>
-        <button class="btn btn-outline" onclick="navigate('library')">Browse voices</button>
+    <div class="header-actions">
+      <button class="icon-btn" id="mobileToggle" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div id="loggedOutActions" class="flex gap-8">
+        <button class="btn btn-ghost btn-sm" id="openLoginBtn">Log in</button>
+        <button class="btn btn-primary btn-sm" id="openSignupBtn">Get started free</button>
       </div>
-      <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        <div><span style="font-weight: 700; font-size: 1.8rem; color: #c4b0ff;">40+</span> <span style="color: #8f7ab0;">voices</span></div>
-        <div><span style="font-weight: 700; font-size: 1.8rem; color: #c4b0ff;">18</span> <span style="color: #8f7ab0;">languages</span></div>
-        <div><span style="font-weight: 700; font-size: 1.8rem; color: #c4b0ff;">0s</span> <span style="color: #8f7ab0;">setup</span></div>
-      </div>
-    </div>
-    <div class="footer-meta">© 2026 FreeVoiceLabs · built for creators who speak</div>
-  </div>
-
-  <!-- ================= GENERATE ================= -->
-  <div class="page" id="page-generate">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-      <h2 style="font-weight: 700; font-size: 1.6rem;">🎙️ Generate</h2>
-      <span class="badge-live"><span class="dot"></span> live</span>
-    </div>
-    <div class="grid-2">
-      <div class="glass card">
-        <label for="genText">Script</label>
-        <textarea id="genText" placeholder="Write your script here…">Hello, this is a test of the FreeVoiceLabs voice generator. It sounds natural and clear.</textarea>
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 1rem 0;">
-          <div style="flex: 1; min-width: 140px;">
-            <label>Voice</label>
-            <select id="genVoiceSelect"></select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <label>Style</label>
-            <select id="genStyle">
-              <option value="narration">Narration</option>
-              <option value="conversational">Conversational</option>
-              <option value="energetic">Energetic</option>
-              <option value="calm">Calm</option>
-            </select>
-          </div>
+      <div id="loggedInActions" class="hidden" style="position:relative;">
+        <div class="user-chip" id="userChipBtn">
+          <div class="avatar" id="userAvatarInitial">U</div>
+          <span id="userChipName">Account</span>
         </div>
-        <div class="slider-group">
-          <div class="slider-row"><span>Rate</span> <span id="rateVal">0%</span></div>
-          <input type="range" id="rateRange" min="-50" max="50" value="0">
-        </div>
-        <div class="slider-group" style="margin-top: 0.6rem;">
-          <div class="slider-row"><span>Pitch</span> <span id="pitchVal">0%</span></div>
-          <input type="range" id="pitchRange" min="-50" max="50" value="0">
-        </div>
-        <button class="btn btn-block" id="genBtn" style="margin-top: 1rem;">▶ Generate</button>
-
-        <div class="player-box" id="genPlayer">
-          <div class="wave-visual" id="genWave"></div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <button class="btn btn-sm" id="playGenBtn">▶</button>
-            <span id="genStatus" style="color: #b5a8e0; font-size: 0.9rem;">Ready</span>
-            <button class="btn btn-sm btn-outline" id="clearGenBtn">Clear</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass card" style="display: flex; flex-direction: column; gap: 1rem;">
-        <div style="background: #0d0920; border-radius: 20px; padding: 1rem;">
-          <h4 style="font-weight: 600;">✨ Voice preview</h4>
-          <div id="voicePreviewCard" style="margin-top: 0.5rem; display: flex; align-items: center; gap: 1rem;">
-            <span style="background: #7c5cfc; border-radius: 60px; padding: 0.3rem 1rem; font-weight: 700;">Nova</span>
-            <span style="color: #b5a8e0;">en-US · Warm</span>
-          </div>
-          <button class="btn btn-sm btn-outline" onclick="previewSelectedVoice()" style="margin-top: 0.5rem;">▶ Preview voice</button>
-        </div>
-        <div style="background: #0d0920; border-radius: 20px; padding: 1rem;">
-          <h4 style="font-weight: 600;">💡 Tips</h4>
-          <ul style="color: #b5a8e0; font-size: 0.85rem; padding-left: 1.2rem; margin-top: 0.3rem;">
-            <li>Short sentences sound more natural.</li>
-            <li>Use rate/pitch to adjust delivery.</li>
-            <li>Playback uses your browser's speech engine.</li>
-          </ul>
+        <div class="user-menu glass" id="userMenu">
+          <a href="#studio" data-nav="studio"><span>🎙️</span> Studio</a>
+          <a href="#library" data-nav="library"><span>📚</span> Voice Library</a>
+          <a href="#" id="menuHistoryLink"><span>🕘</span> My History</a>
+          <a href="#" id="menuAdminLink" class="hidden"><span>🛡️</span> Admin Panel <span class="admin-pill">Admin</span></a>
+          <div class="divider"></div>
+          <button id="logoutBtn"><span>🚪</span> Log out</button>
         </div>
       </div>
     </div>
   </div>
+</header>
 
-  <!-- ================= BLEND ================= -->
-  <div class="page" id="page-blend">
-    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">🌀 Blend Voices</h2>
-    <div class="glass card">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-        <div><label>Voice A</label><select id="blendA"></select></div>
-        <div><label>Voice B</label><select id="blendB"></select></div>
-      </div>
-      <div class="slider-group" style="margin: 1rem 0;">
-        <div class="slider-row"><span>Blend ratio</span> <span id="blendRatioVal">50 / 50</span></div>
-        <input type="range" id="blendRange" min="0" max="100" value="50">
-      </div>
-      <label>Preview text</label>
-      <textarea id="blendText">This voice is a blend of two distinct timbres.</textarea>
-      <button class="btn btn-block" id="blendBtn" style="margin-top: 1rem;">🌀 Generate blend</button>
-      <div class="player-box" id="blendPlayer">
-        <div class="wave-visual" id="blendWave"></div>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="btn btn-sm" id="playBlendBtn">▶</button>
-          <span id="blendStatus" style="color: #b5a8e0;">Ready</span>
-        </div>
-      </div>
+<!-- ============ MOBILE DRAWER ============ -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="scrim" id="drawerScrim"></div>
+  <div class="panel">
+    <div class="flex-between mb-24">
+      <div class="brand"><div class="brand-mark" style="width:32px;height:32px;"><span></span><span></span><span></span></div></div>
+      <button class="icon-btn" id="drawerClose">✕</button>
     </div>
+    <a href="#home" data-nav="home">Home</a>
+    <a href="#studio" data-nav="studio">Studio</a>
+    <a href="#library" data-nav="library">Voices</a>
+    <a href="#pricing" data-nav="pricing">Pricing</a>
+    <a href="#faq" data-nav="faq">FAQ</a>
+    <button class="btn btn-outline btn-block" id="drawerLoginBtn">Log in</button>
+    <button class="btn btn-primary btn-block" id="drawerSignupBtn">Get started free</button>
   </div>
-
-  <!-- ================= PODCAST ================= -->
-  <div class="page" id="page-podcast">
-    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">🎧 Podcast Studio</h2>
-    <div class="glass card">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-        <div><label>Host A voice</label><select id="podA"></select></div>
-        <div><label>Host B voice</label><select id="podB"></select></div>
-      </div>
-      <label>Script — prefix lines with <strong>A:</strong> or <strong>B:</strong></label>
-      <textarea id="podText" style="min-height: 150px;">A: Welcome to the show, today we're talking about AI voices.
-B: It's great to be here. Where should we start?
-A: Let's begin with how natural these voices have become.</textarea>
-      <button class="btn btn-block" id="podBtn" style="margin-top: 1rem;">🎧 Generate episode</button>
-      <div class="player-box" id="podPlayer">
-        <div class="wave-visual" id="podWave"></div>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="btn btn-sm" id="playPodBtn">▶</button>
-          <span id="podStatus" style="color: #b5a8e0;">0 lines</span>
-          <button class="btn btn-sm btn-outline" id="clearPodBtn">Clear</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= CLONE ================= -->
-  <div class="page" id="page-clone">
-    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">🧬 Clone Voice</h2>
-    <div class="glass card">
-      <div style="border: 2px dashed #3a2b60; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer;" id="cloneDrop">
-        <div style="font-size: 2.5rem; margin-bottom: 0.2rem;">📂</div>
-        <p style="font-weight: 600;">Drop an audio file or click to browse</p>
-        <p style="color: #8f7ab0; font-size: 0.8rem;">MP3 / WAV · 10–90 seconds</p>
-        <input type="file" id="cloneFileInput" accept="audio/*" style="display:none;">
-      </div>
-      <div style="margin: 1rem 0;"><label>Clone name</label><input id="cloneName" placeholder="e.g. My Narrator"></div>
-      <label>Preview text</label>
-      <textarea id="cloneText">This is a cloned voice speaking your text.</textarea>
-      <button class="btn btn-block" id="cloneBtn" style="margin-top: 1rem;">🧬 Generate clone</button>
-      <div class="player-box" id="clonePlayer">
-        <div class="wave-visual" id="cloneWave"></div>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="btn btn-sm" id="playCloneBtn">▶</button>
-          <span id="cloneStatus" style="color: #b5a8e0;">Ready</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= LIBRARY ================= -->
-  <div class="page" id="page-library">
-    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">📚 Voice Library</h2>
-    <div class="glass card" style="margin-bottom: 1.5rem;">
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 160px;"><label>Language</label><select id="libLangFilter"><option value="all">All</option></select></div>
-        <div style="flex: 1; min-width: 160px;"><label>Sort</label><select id="libSort"><option value="name">Name</option><option value="lang">Language</option></select></div>
-      </div>
-    </div>
-    <div id="libraryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem;"></div>
-  </div>
-
-  <!-- ================= DASHBOARD ================= -->
-  <div class="page" id="page-dashboard">
-    <h2 style="font-weight: 700; font-size: 1.6rem; margin-bottom: 1.5rem;">📊 Dashboard</h2>
-    <div class="grid-3">
-      <div class="glass card"><span style="color: #b5a8e0;">Generations</span><div style="font-size: 2.2rem; font-weight: 700;" id="dashGenCount">0</div></div>
-      <div class="glass card"><span style="color: #b5a8e0;">Favorites</span><div style="font-size: 2.2rem; font-weight: 700;" id="dashFavCount">0</div></div>
-      <div class="glass card"><span style="color: #b5a8e0;">Plan</span><div style="font-size: 1.8rem; font-weight: 700;" id="dashPlan">Free</div></div>
-    </div>
-    <div class="glass card" style="margin-top: 1.5rem;">
-      <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Recent activity</h4>
-      <div id="historyList" style="color: #b5a8e0;">No activity yet.</div>
-    </div>
-  </div>
-
-  <!-- toast container -->
-  <div class="toast-stack" id="toastStack"></div>
 </div>
 
-<script>
-  // ---------- DATA ----------
-  const VOICE_CATALOG = [
-    { id: 'v1', name: 'Nova', lang: 'en-US', tags: ['Warm', 'Narration'] },
-    { id: 'v2', name: 'Orion', lang: 'en-US', tags: ['Deep', 'Cinematic'] },
-    { id: 'v3', name: 'Iris', lang: 'en-GB', tags: ['Crisp', 'Professional'] },
-    { id: 'v4', name: 'Sable', lang: 'en-GB', tags: ['Smooth', 'Calm'] },
-    { id: 'v5', name: 'Ember', lang: 'en-AU', tags: ['Bright', 'Energetic'] },
-    { id: 'v6', name: 'Lumen', lang: 'en-US', tags: ['Youthful', 'Friendly'] },
-    { id: 'v7', name: 'Vega', lang: 'es-ES', tags: ['Expressive', 'Narration'] },
-    { id: 'v8', name: 'Marlowe', lang: 'fr-FR', tags: ['Elegant', 'Calm'] },
-  ];
-
-  let state = {
-    session: null,
-    genCount: 0,
-    favorites: [],
-    history: [],
-    selectedVoice: 'v1',
-    rate: 0,
-    pitch: 0,
-    cloneFile: null,
-    podQueue: [],
-    podIndex: 0,
-    isPlaying: false,
-    currentUtterance: null,
-  };
-
-  // ---------- HELPERS ----------
-  function $(id) { return document.getElementById(id); }
-  function qs(sel) { return document.querySelector(sel); }
-  function qsa(sel) { return document.querySelectorAll(sel); }
-
-  function toast(msg) {
-    const stack = $('toastStack');
-    const el = document.createElement('div');
-    el.className = 'toast';
-    el.textContent = msg;
-    stack.appendChild(el);
-    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 3000);
-  }
-
-  function storageGet(key, fallback) {
-    try { const v = localStorage.getItem('fvl_'+key); return v ? JSON.parse(v) : fallback; } catch(e) { return fallback; }
-  }
-  function storageSet(key, val) {
-    try { localStorage.setItem('fvl_'+key, JSON.stringify(val)); } catch(e) {}
-  }
-
-  // ---------- VOICE ENGINE (Web Speech) ----------
-  function getBrowserVoice(catalogVoice) {
-    const voices = window.speechSynthesis?.getVoices() || [];
-    let match = voices.find(v => v.lang && v.lang.toLowerCase() === catalogVoice.lang.toLowerCase());
-    if (!match) match = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(catalogVoice.lang.slice(0,2)));
-    return match || voices[0] || null;
-  }
-
-  function speakText(text, catalogVoice, rate=0, pitch=0, onEnd) {
-    if (!window.speechSynthesis) { toast('Speech not supported'); return; }
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    const voice = getBrowserVoice(catalogVoice);
-    if (voice) utter.voice = voice;
-    utter.rate = Math.min(2, Math.max(0.5, 1 + rate/100));
-    utter.pitch = Math.min(2, Math.max(0.5, 1 + pitch/100));
-    utter.onend = () => { state.isPlaying = false; if (onEnd) onEnd(); };
-    utter.onerror = () => { state.isPlaying = false; if (onEnd) onEnd(); };
-    state.currentUtterance = utter;
-    state.isPlaying = true;
-    window.speechSynthesis.speak(utter);
-  }
-
-  function stopSpeech() {
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-    state.isPlaying = false;
-  }
-
-  // ---------- NAVIGATION ----------
-  function navigate(page) {
-    qsa('.page').forEach(el => el.classList.remove('active'));
-    const target = $('page-'+page);
-    if (target) target.classList.add('active');
-    qsa('.nav-tab').forEach(el => el.classList.toggle('active', el.dataset.page === page));
-    if (page === 'dashboard') updateDashboard();
-    if (page === 'library') renderLibrary();
-  }
-
-  // ---------- AUTH ----------
-  function renderAuth() {
-    const btn = $('authBtn');
-    if (state.session) {
-      btn.textContent = '👤 '+state.session.email.split('@')[0];
-      btn.onclick = () => { state.session = null; storageSet('session', null); renderAuth(); toast('Logged out'); navigate('home'); };
-    } else {
-      btn.textContent = '🔑 Sign in';
-      btn.onclick = () => {
-        const email = prompt('Enter email (demo)');
-        if (email && email.includes('@')) {
-          state.session = { email, plan: 'Free' };
-          storageSet('session', state.session);
-          renderAuth();
-          toast('Welcome, ' + email.split('@')[0]);
-          updateDashboard();
-        }
-      };
-    }
-  }
-
-  // ---------- POPULATE SELECTS ----------
-  function populateSelects() {
-    const selects = ['genVoiceSelect', 'blendA', 'blendB', 'podA', 'podB'];
-    selects.forEach(id => {
-      const el = $(id);
-      if (!el) return;
-      el.innerHTML = VOICE_CATALOG.map(v => `<option value="${v.id}">${v.name} · ${v.lang}</option>`).join('');
-    });
-    // set default selections
-    $('genVoiceSelect').value = 'v1';
-    $('blendA').value = 'v1';
-    $('blendB').value = 'v2';
-    $('podA').value = 'v1';
-    $('podB').value = 'v3';
-    // voice preview
-    updateVoicePreview();
-  }
-
-  function updateVoicePreview() {
-    const id = $('genVoiceSelect')?.value || 'v1';
-    const v = VOICE_CATALOG.find(c => c.id === id);
-    if (!v) return;
-    const card = $('voicePreviewCard');
-    if (card) {
-      card.innerHTML = `<span style="background:#7c5cfc;border-radius:60px;padding:0.3rem 1rem;font-weight:700;">${v.name}</span>
-                        <span style="color:#b5a8e0;">${v.lang} · ${v.tags[0]}</span>`;
-    }
-    state.selectedVoice = id;
-  }
-
-  function previewSelectedVoice() {
-    const id = $('genVoiceSelect')?.value || 'v1';
-    const v = VOICE_CATALOG.find(c => c.id === id);
-    if (!v) return;
-    speakText('Hi, I\'m ' + v.name + '. A ' + v.tags[0] + ' voice from FreeVoiceLabs.', v, 0, 0);
-    toast('Previewing ' + v.name);
-  }
-
-  // ---------- GENERATE ----------
-  function setupGenerate() {
-    const btn = $('genBtn');
-    const rateRange = $('rateRange');
-    const pitchRange = $('pitchRange');
-    const rateVal = $('rateVal');
-    const pitchVal = $('pitchVal');
-
-    rateRange.addEventListener('input', () => {
-      state.rate = parseInt(rateRange.value);
-      rateVal.textContent = state.rate + '%';
-    });
-    pitchRange.addEventListener('input', () => {
-      state.pitch = parseInt(pitchRange.value);
-      pitchVal.textContent = state.pitch + '%';
-    });
-
-    btn.addEventListener('click', () => {
-      const text = $('genText').value.trim();
-      if (!text) { toast('Please write a script.'); return; }
-      const voiceId = $('genVoiceSelect').value;
-      const voice = VOICE_CATALOG.find(v => v.id === voiceId);
-      if (!voice) return;
-
-      const player = $('genPlayer');
-      player.classList.add('active');
-      const wave = $('genWave');
-      wave.innerHTML = '';
-      for (let i = 0; i < 32; i++) {
-        const bar = document.createElement('span');
-        bar.className = 'wave-bar';
-        bar.style.animationDelay = (i * 0.05) + 's';
-        bar.style.height = (10 + Math.random() * 25) + 'px';
-        wave.appendChild(bar);
-      }
-
-      const status = $('genStatus');
-      status.textContent = 'Generating…';
-      btn.disabled = true;
-
-      setTimeout(() => {
-        btn.disabled = false;
-        status.textContent = '▶ Ready';
-        // record
-        state.genCount++;
-        state.history.unshift({ kind: 'generate', title: text.slice(0, 40) + '…', ts: Date.now() });
-        storageSet('genCount', state.genCount);
-        storageSet('history', state.history);
-        toast('Generated with ' + voice.name);
-
-        // play on ready
-        const playBtn = $('playGenBtn');
-        playBtn.textContent = '▶';
-        playBtn.onclick = () => {
-          if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
-          playBtn.textContent = '⏹';
-          speakText(text, voice, state.rate, state.pitch, () => {
-            playBtn.textContent = '▶';
-            status.textContent = 'Finished';
-          });
-          status.textContent = 'Playing…';
-        };
-        $('clearGenBtn').onclick = () => { stopSpeech(); player.classList.remove('active'); };
-        updateDashboard();
-      }, 500);
-    });
-  }
-
-  // ---------- BLEND ----------
-  function setupBlend() {
-    const range = $('blendRange');
-    const val = $('blendRatioVal');
-    range.addEventListener('input', () => {
-      const r = parseInt(range.value);
-      val.textContent = r + ' / ' + (100-r);
-    });
-
-    $('blendBtn').addEventListener('click', () => {
-      const text = $('blendText').value.trim();
-      if (!text) { toast('Add preview text.'); return; }
-      const aId = $('blendA').value;
-      const bId = $('blendB').value;
-      const a = VOICE_CATALOG.find(v => v.id === aId);
-      const b = VOICE_CATALOG.find(v => v.id === bId);
-      if (!a || !b) return;
-      const ratio = parseInt(range.value);
-      const primary = ratio >= 50 ? a : b;
-
-      const player = $('blendPlayer');
-      player.classList.add('active');
-      const wave = $('blendWave');
-      wave.innerHTML = '';
-      for (let i = 0; i < 28; i++) {
-        const bar = document.createElement('span');
-        bar.className = 'wave-bar';
-        bar.style.animationDelay = (i * 0.06) + 's';
-        bar.style.height = (8 + Math.random() * 28) + 'px';
-        wave.appendChild(bar);
-      }
-      const status = $('blendStatus');
-      status.textContent = a.name + ' ' + ratio + '% × ' + b.name + ' ' + (100-ratio) + '%';
-
-      const playBtn = $('playBlendBtn');
-      playBtn.textContent = '▶';
-      playBtn.onclick = () => {
-        if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
-        playBtn.textContent = '⏹';
-        speakText(text, primary, 0, (ratio-50)/2, () => {
-          playBtn.textContent = '▶';
-          status.textContent = 'Done';
-        });
-        status.textContent = 'Playing…';
-      };
-      state.history.unshift({ kind: 'blend', title: a.name + ' × ' + b.name, ts: Date.now() });
-      storageSet('history', state.history);
-      toast('Blend ready');
-      updateDashboard();
-    });
-  }
-
-  // ---------- PODCAST ----------
-  function setupPodcast() {
-    $('podBtn').addEventListener('click', () => {
-      const raw = $('podText').value.split('\n').map(l => l.trim()).filter(Boolean);
-      if (!raw.length) { toast('Write a script first.'); return; }
-      const aId = $('podA').value;
-      const bId = $('podB').value;
-      const a = VOICE_CATALOG.find(v => v.id === aId);
-      const b = VOICE_CATALOG.find(v => v.id === bId);
-      if (!a || !b) return;
-
-      state.podQueue = raw.map(line => {
-        const isB = /^B\s*:/i.test(line);
-        const clean = line.replace(/^[AB]\s*:\s*/i, '');
-        return { voice: isB ? b : a, text: clean, speaker: isB ? 'B' : 'A' };
-      });
-
-      const player = $('podPlayer');
-      player.classList.add('active');
-      const wave = $('podWave');
-      wave.innerHTML = '';
-      for (let i = 0; i < 30; i++) {
-        const bar = document.createElement('span');
-        bar.className = 'wave-bar';
-        bar.style.animationDelay = (i * 0.05) + 's';
-        bar.style.height = (8 + Math.random() * 30) + 'px';
-        wave.appendChild(bar);
-      }
-      const status = $('podStatus');
-      status.textContent = state.podQueue.length + ' lines';
-
-      const playBtn = $('playPodBtn');
-      playBtn.textContent = '▶';
-      let idx = 0;
-      playBtn.onclick = () => {
-        if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
-        if (idx >= state.podQueue.length) { idx = 0; }
-        playNextPodTurn(playBtn, status, idx, () => { idx++; });
-      };
-      $('clearPodBtn').onclick = () => { stopSpeech(); player.classList.remove('active'); };
-      state.history.unshift({ kind: 'podcast', title: state.podQueue.length + '-line episode', ts: Date.now() });
-      storageSet('history', state.history);
-      toast('Episode ready');
-      updateDashboard();
-    });
-  }
-
-  function playNextPodTurn(playBtn, status, idx, callback) {
-    if (idx >= state.podQueue.length) {
-      status.textContent = 'Finished';
-      playBtn.textContent = '▶';
-      return;
-    }
-    const turn = state.podQueue[idx];
-    status.textContent = (idx+1) + '/' + state.podQueue.length + ' · Host ' + turn.speaker;
-    playBtn.textContent = '⏹';
-    speakText(turn.text, turn.voice, 0, turn.speaker === 'B' ? -6 : 6, () => {
-      playBtn.textContent = '▶';
-      callback();
-      playNextPodTurn(playBtn, status, idx+1, callback);
-    });
-  }
-
-  // ---------- CLONE ----------
-  function setupClone() {
-    const drop = $('cloneDrop');
-    const input = $('cloneFileInput');
-    drop.addEventListener('click', () => input.click());
-    drop.addEventListener('dragover', e => { e.preventDefault(); drop.style.borderColor = '#a78bfa'; });
-    drop.addEventListener('dragleave', () => { drop.style.borderColor = '#3a2b60'; });
-    drop.addEventListener('drop', e => {
-      e.preventDefault();
-      drop.style.borderColor = '#3a2b60';
-      if (e.dataTransfer.files[0]) handleCloneFile(e.dataTransfer.files[0]);
-    });
-    input.addEventListener('change', e => {
-      if (e.target.files[0]) handleCloneFile(e.target.files[0]);
-    });
-
-    function handleCloneFile(file) {
-      if (!file.type.startsWith('audio/')) { toast('Please upload an audio file.'); return; }
-      state.cloneFile = file;
-      drop.innerHTML = '<div style="font-size:2rem;">✅</div><p style="font-weight:600;">' + file.name + '</p><p style="color:#8f7ab0;font-size:0.8rem;">Ready to clone</p>';
-      toast('Sample loaded: ' + file.name);
-    }
-
-    $('cloneBtn').addEventListener('click', () => {
-      if (!state.cloneFile) { toast('Upload a sample first.'); return; }
-      const name = $('cloneName').value.trim() || 'Untitled clone';
-      const text = $('cloneText').value.trim();
-      if (!text) { toast('Add preview text.'); return; }
-
-      const player = $('clonePlayer');
-      player.classList.add('active');
-      const wave = $('cloneWave');
-      wave.innerHTML = '';
-      for (let i = 0; i < 28; i++) {
-        const bar = document.createElement('span');
-        bar.className = 'wave-bar';
-        bar.style.animationDelay = (i * 0.07) + 's';
-        bar.style.height = (8 + Math.random() * 26) + 'px';
-        wave.appendChild(bar);
-      }
-      const status = $('cloneStatus');
-      status.textContent = 'Processing sample…';
-      $('cloneBtn').disabled = true;
-
-      setTimeout(() => {
-        $('cloneBtn').disabled = false;
-        status.textContent = 'Clone: ' + name;
-        const playBtn = $('playCloneBtn');
-        playBtn.textContent = '▶';
-        // use a random voice as proxy (simulate clone)
-        const proxy = VOICE_CATALOG[Math.floor(Math.random() * VOICE_CATALOG.length)];
-        playBtn.onclick = () => {
-          if (state.isPlaying) { stopSpeech(); playBtn.textContent = '▶'; return; }
-          playBtn.textContent = '⏹';
-          speakText(text, proxy, 0, 0, () => {
-            playBtn.textContent = '▶';
-            status.textContent = 'Done';
-          });
-          status.textContent = 'Playing clone…';
-        };
-        state.history.unshift({ kind: 'clone', title: name, ts: Date.now() });
-        storageSet('history', state.history);
-        toast('Clone preview ready');
-        updateDashboard();
-      }, 1200);
-    });
-  }
-
-  // ---------- LIBRARY ----------
-  function renderLibrary() {
-    const grid = $('libraryGrid');
-    const langFilter = $('libLangFilter').value;
-    const sort = $('libSort').value;
-    let list = [...VOICE_CATALOG];
-    if (langFilter !== 'all') list = list.filter(v => v.lang === langFilter);
-    if (sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
-    if (sort === 'lang') list.sort((a,b) => a.lang.localeCompare(b.lang));
-
-    grid.innerHTML = list.map(v => `
-      <div class="voice-card">
-        <div style="display:flex;align-items:center;gap:0.8rem;">
-          <span style="background:#7c5cfc;border-radius:60px;padding:0.2rem 0.8rem;font-weight:700;font-size:0.8rem;">${v.name.slice(0,2)}</span>
-          <div><strong>${v.name}</strong><br><span style="color:#8f7ab0;font-size:0.8rem;">${v.lang}</span></div>
-        </div>
-        <div style="margin-top:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap;">
-          ${v.tags.map(t => `<span class="voice-tag">${t}</span>`).join('')}
-        </div>
-        <button class="btn btn-sm btn-outline" style="margin-top:0.6rem;width:100%;" onclick="previewLibraryVoice('${v.id}')">▶ Preview</button>
+<!-- ============ HOME (marketing) ============ -->
+<main id="pageHome">
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <span class="eyebrow">Cloud-powered · multi-provider TTS</span>
+      <h1>Give every word a <span class="h-grad">voice worth hearing.</span></h1>
+      <p class="hero-sub">Free Voice Labs streams your script through a network of cloud neural voice engines — hundreds of voices, dozens of languages, one clean studio. Generate, clone, blend and podcast, all from your browser.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" id="heroStartBtn">Open the Studio →</button>
+        <button class="btn btn-outline btn-lg" id="heroLibraryBtn">Browse voice library</button>
       </div>
-    `).join('');
+      <div class="hero-trust">
+        <div><b id="trustVoices">300+</b><small>Cloud voices</small></div>
+        <div><b id="trustLangs">40+</b><small>Languages</small></div>
+        <div><b>4</b><small>Studio tools</small></div>
+        <div><b>0$</b><small>To get started</small></div>
+      </div>
+    </div>
 
-    // populate language filter
-    const langSel = $('libLangFilter');
-    const langs = [...new Set(VOICE_CATALOG.map(v => v.lang))];
-    langSel.innerHTML = '<option value="all">All</option>' + langs.map(l => `<option value="${l}">${l}</option>`).join('');
-    langSel.value = langFilter;
+    <div class="glass demo-console reveal in" style="animation-delay:.1s;">
+      <div class="provider-orbit">🎙️</div>
+      <div class="top">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span class="mono muted" style="font-size:.7rem;">live-preview.wav</span>
+      </div>
+      <textarea id="heroDemoText" maxlength="220" placeholder="Type something to hear it spoken...">Hello — welcome to Free Voice Labs. This is what natural, cloud-grade AI speech sounds like.</textarea>
+      <div class="demo-voice-row">
+        <select class="select" id="heroDemoVoice" style="flex:1;"></select>
+        <button class="btn btn-primary btn-icon" id="heroDemoPlay" title="Play preview">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="wave" id="heroWave"></div>
+      <div class="demo-foot">
+        <small>Instant browser preview · sign up for full cloud rendering</small>
+        <span class="badge badge-ok">● Ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="wrap" style="overflow:hidden;">
+    <div class="marquee" id="marqueeTrack">
+      <span>Neural Studio Voices</span><span>Cinematic Narration</span><span>Multilingual Engine</span><span>Conversational AI</span><span>Podcast Duo Voices</span><span>Whisper &amp; ASMR Styles</span><span>Announcer Presets</span><span>Voice Cloning Lab</span><span>Voice Blending</span>
+      <span>Neural Studio Voices</span><span>Cinematic Narration</span><span>Multilingual Engine</span><span>Conversational AI</span><span>Podcast Duo Voices</span><span>Whisper &amp; ASMR Styles</span><span>Announcer Presets</span><span>Voice Cloning Lab</span><span>Voice Blending</span>
+    </div>
+  </div>
+</div>
+<!-- ============ FEATURES ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why Free Voice Labs</span>
+      <h2>One studio, <span class="h-grad">every cloud voice engine.</span></h2>
+      <p>We route your script across multiple cloud TTS providers so you always get the best-fit voice — without juggling five different dashboards.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="glass card feat-card reveal">
+        <div class="feat-icon">🌐</div>
+        <h3>Multi-provider cloud engine</h3>
+        <p>Every generation is routed through our cloud voice pipeline, aggregating voices from several neural TTS providers into a single dropdown.</p>
+      </div>
+      <div class="glass card feat-card reveal" style="transition-delay:.05s;">
+        <div class="feat-icon">🗣️</div>
+        <h3>Hundreds of voices</h3>
+        <p>Male, female and neutral voices across dozens of languages and accents, tagged by style — narrative, promo, whisper, dramatic and more.</p>
+      </div>
+      <div class="glass card feat-card reveal" style="transition-delay:.1s;">
+        <div class="feat-icon">🧬</div>
+        <h3>Voice cloning</h3>
+        <p>Upload a short sample and clone a voice for your own scripts. Perfect for consistent narrator identity across projects.</p>
+      </div>
+      <div class="glass card feat-card reveal">
+        <div class="feat-icon">🎭</div>
+        <h3>Voice blending</h3>
+        <p>Mix two voices on a weighted ratio slider to design a hybrid tone that's entirely your own.</p>
+      </div>
+      <div class="glass card feat-card reveal" style="transition-delay:.05s;">
+        <div class="feat-icon">📻</div>
+        <h3>Two-host podcast studio</h3>
+        <p>Write a Host A / Host B script and render a full conversational episode with two distinct cloud voices.</p>
+      </div>
+      <div class="glass card feat-card reveal" style="transition-delay:.1s;">
+        <div class="feat-icon">⚡</div>
+        <h3>Fast, exportable audio</h3>
+        <p>Preview instantly, then export production-ready audio for your videos, apps, ads or podcasts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVIDER / VOICE COUNT STRIP ============ -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cloud voice coverage</span>
+      <h2>Built on <span class="h-grad">a stack of cloud TTS engines.</span></h2>
+    </div>
+    <div class="provider-grid">
+      <div class="glass provider-card reveal"><div class="n" id="provStudio">120+</div><small>Studio voices</small></div>
+      <div class="glass provider-card reveal" style="transition-delay:.05s;"><div class="n" id="provCinema">80+</div><small>Cinematic voices</small></div>
+      <div class="glass provider-card reveal" style="transition-delay:.1s;"><div class="n" id="provMulti">100+</div><small>Multilingual voices</small></div>
+      <div class="glass provider-card reveal" style="transition-delay:.15s;"><div class="n" id="provConvo">60+</div><small>Conversational voices</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>From script to speech <span class="h-grad">in four steps.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="glass step reveal"><h4>Write your script</h4><p>Paste or type your text into the Studio — up to 5,000 characters per generation.</p></div>
+      <div class="glass step reveal" style="transition-delay:.05s;"><h4>Pick a cloud voice</h4><p>Filter by language, gender and style across every connected provider.</p></div>
+      <div class="glass step reveal" style="transition-delay:.1s;"><h4>Tune &amp; generate</h4><p>Adjust speed, pitch and style, then render through the cloud pipeline.</p></div>
+      <div class="glass step reveal" style="transition-delay:.15s;"><h4>Export &amp; use</h4><p>Play it back, download the audio, and drop it straight into your project.</p></div>
+    </div>
+  </div>
+</section>
+<!-- ============ STUDIO ============ -->
+<section class="section-tight" id="studio">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The studio</span>
+      <h2>Everything you need to <span class="h-grad">put a voice to it.</span></h2>
+      <p>Text-to-speech, voice blending, podcast generation and voice cloning — powered live by the Free Voice Labs cloud API.</p>
+    </div>
+
+    <div class="tab-strip" id="studioTabs">
+      <button class="tab-btn active" data-tab="tts">🎙️ Text to Speech</button>
+      <button class="tab-btn" data-tab="blend">🎭 Voice Blend</button>
+      <button class="tab-btn" data-tab="podcast">📻 Podcast</button>
+      <button class="tab-btn" data-tab="clone">🧬 Voice Clone</button>
+    </div>
+
+    <!-- ===== TTS PANEL ===== -->
+    <div class="panel active" id="panel-tts">
+      <div class="studio-grid">
+        <div class="glass card">
+          <div class="field">
+            <label for="ttsVoice">Voice</label>
+            <select class="select" id="ttsVoice"><option value="">Loading cloud voices…</option></select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ttsLang">Language</label>
+              <select class="select" id="ttsLang"><option value="all">All languages</option></select>
+            </div>
+            <div class="field">
+              <label for="ttsStyle">Style</label>
+              <select class="select" id="ttsStyle">
+                <option value="default">Default</option>
+                <option value="narrative">Narrative</option>
+                <option value="promo">Promo</option>
+                <option value="whisper">Whisper</option>
+                <option value="dramatic">Dramatic</option>
+                <option value="conversational">Conversational</option>
+                <option value="announcer">Announcer</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ttsText">Script</label>
+            <textarea class="textarea" id="ttsText" maxlength="5000">Hello, and welcome to Free Voice Labs. Experience the future of AI voice synthesis with stunning clarity and natural expression.</textarea>
+            <div class="char-count"><span id="ttsCharCount">0</span> / 5,000</div>
+          </div>
+          <div class="field-row">
+            <div class="slider-box">
+              <div class="slider-top"><span>Speed</span><span class="slider-val" id="ttsRateVal">1.0x</span></div>
+              <input type="range" id="ttsRate" min="0.5" max="2" step="0.05" value="1">
+            </div>
+            <div class="slider-box">
+              <div class="slider-top"><span>Pitch</span><span class="slider-val" id="ttsPitchVal">1.0</span></div>
+              <input type="range" id="ttsPitch" min="0.5" max="2" step="0.05" value="1">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block mt-16" id="ttsGenerateBtn">
+            <span class="spinner"></span><span class="btn-label">🎙️ Generate speech</span>
+          </button>
+
+          <div class="player-box" id="ttsPlayerBox">
+            <div class="player-top">
+              <div><span class="t">Voice output</span><span class="m" id="ttsPlayerMeta">Ready</span></div>
+              <span class="badge badge-pink">Cloud</span>
+            </div>
+            <canvas class="canvas-wave" id="ttsCanvas"></canvas>
+            <audio id="ttsAudio" controls></audio>
+            <div class="player-actions">
+              <a class="btn btn-outline btn-sm" id="ttsDownloadBtn" download="free-voice-labs-tts.mp3">⬇ Download</a>
+              <button class="btn btn-ghost btn-sm" id="ttsClearBtn">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="glass card mb-16">
+            <div class="mono muted" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px;">Quick stats</div>
+            <div class="mini-stat-grid">
+              <div class="glass mini-stat"><b id="statGens">0</b><small>Generations</small></div>
+              <div class="glass mini-stat"><b id="statVoicesCount">0</b><small>Cloud voices</small></div>
+            </div>
+          </div>
+          <div class="glass card">
+            <div class="mono muted" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px;">Recent history</div>
+            <div id="historyList"><div class="empty-note">No generations yet</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BLEND PANEL ===== -->
+    <div class="panel" id="panel-blend">
+      <div class="studio-grid">
+        <div class="glass card">
+          <div class="field-row">
+            <div class="field"><label>Voice A</label><select class="select" id="blendA"></select></div>
+            <div class="field"><label>Voice B</label><select class="select" id="blendB"></select></div>
+          </div>
+          <div class="slider-box mb-16">
+            <div class="slider-top"><span>Blend ratio</span><span class="slider-val" id="blendRatioVal">50 / 50</span></div>
+            <input type="range" id="blendRatio" min="0" max="100" value="50">
+          </div>
+          <div class="field">
+            <label>Script</label>
+            <textarea class="textarea" id="blendText" style="min-height:100px;">This voice is a seamless blend of two distinct cloud AI voices.</textarea>
+          </div>
+          <button class="btn btn-primary btn-block" id="blendGenerateBtn"><span class="spinner"></span><span class="btn-label">🎭 Generate blend</span></button>
+          <div class="player-box" id="blendPlayerBox">
+            <div class="player-top"><div><span class="t">Blend output</span><span class="m">Hybrid voice</span></div><span class="badge badge-pink">Cloud</span></div>
+            <audio id="blendAudio" controls></audio>
+            <div class="player-actions">
+              <a class="btn btn-outline btn-sm" id="blendDownloadBtn" download="free-voice-labs-blend.mp3">⬇ Download</a>
+              <button class="btn btn-ghost btn-sm" id="blendClearBtn">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+        <div class="glass card">
+          <div class="mono muted" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;">How blending works</div>
+          <p class="muted" style="font-size:.86rem; line-height:1.8;">Voice blending renders your script through two cloud voices simultaneously and mixes them on a weighted ratio. Push the slider toward either side to favor that voice's tone and timbre.</p>
+          <div class="mono muted mt-24" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;">Blend history</div>
+          <div id="blendHistory"><div class="empty-note">No blends yet</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PODCAST PANEL ===== -->
+    <div class="panel" id="panel-podcast">
+      <div class="studio-grid">
+        <div class="glass card">
+          <div class="field-row">
+            <div class="field"><label>Host A voice</label><select class="select" id="podA"></select></div>
+            <div class="field"><label>Host B voice</label><select class="select" id="podB"></select></div>
+          </div>
+          <div class="field">
+            <label>Episode script</label>
+            <textarea class="textarea" id="podText" style="min-height:140px;">Host A: Welcome to the Free Voice Labs podcast! Host B: Thanks for having me. Host A: Today we're exploring the future of synthetic speech. Host B: It's amazing how natural these cloud voices sound.</textarea>
+            <div class="char-count"><span id="podCharCount">0</span> characters</div>
+            <div class="hint">Start each line with <b>Host A:</b> or <b>Host B:</b></div>
+          </div>
+          <button class="btn btn-primary btn-block" id="podGenerateBtn"><span class="spinner"></span><span class="btn-label">📻 Generate episode</span></button>
+          <div class="player-box" id="podPlayerBox">
+            <div class="player-top"><div><span class="t">Podcast episode</span><span class="m">Two voices</span></div><span class="badge badge-pink">Cloud</span></div>
+            <audio id="podAudio" controls></audio>
+            <div class="player-actions">
+              <a class="btn btn-outline btn-sm" id="podDownloadBtn" download="free-voice-labs-podcast.mp3">⬇ Download</a>
+              <button class="btn btn-ghost btn-sm" id="podClearBtn">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+        <div class="glass card">
+          <div class="mono muted" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;">Script tips</div>
+          <ul style="padding-left:18px; list-style:disc; color:var(--ink-dim); font-size:.86rem; line-height:1.9;">
+            <li>Label every line <b>Host A:</b> or <b>Host B:</b></li>
+            <li>Keep sentences conversational</li>
+            <li>Mix short and long lines for natural rhythm</li>
+            <li>Use punctuation to control pacing</li>
+          </ul>
+          <div class="mono muted mt-24" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;">Podcast history</div>
+          <div id="podHistory"><div class="empty-note">No episodes yet</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CLONE PANEL ===== -->
+    <div class="panel" id="panel-clone">
+      <div class="studio-grid">
+        <div class="glass card">
+          <div class="dropzone" id="cloneZone">
+            <div class="ico">🎤</div>
+            <div style="font-weight:600;">Drop an audio sample or click to browse</div>
+            <div class="muted" style="font-size:.8rem;">MP3, WAV or OGG · 5–60 seconds, single speaker</div>
+            <input type="file" id="cloneFile" accept="audio/*" style="display:none;">
+            <div class="fname" id="cloneFileName"></div>
+          </div>
+          <div class="field mt-16">
+            <label>Clone name</label>
+            <input class="input" id="cloneName" placeholder="e.g. Narrator Voice">
+          </div>
+          <div class="field">
+            <label>Script</label>
+            <textarea class="textarea" id="cloneText" style="min-height:90px;">This is a cloned voice speaking with cloud AI precision.</textarea>
+          </div>
+          <button class="btn btn-primary btn-block" id="cloneGenerateBtn"><span class="spinner"></span><span class="btn-label">🧬 Generate clone</span></button>
+          <div class="player-box" id="clonePlayerBox">
+            <div class="player-top"><div><span class="t" id="cloneOutTitle">Clone output</span><span class="m">AI generated</span></div><span class="badge badge-pink">Cloud</span></div>
+            <audio id="cloneAudio" controls></audio>
+            <div class="player-actions">
+              <a class="btn btn-outline btn-sm" id="cloneDownloadBtn" download="free-voice-labs-clone.mp3">⬇ Download</a>
+              <button class="btn btn-ghost btn-sm" id="cloneClearBtn">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+        <div class="glass card">
+          <div class="mono muted" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;">Requirements</div>
+          <ul style="padding-left:18px; list-style:disc; color:var(--ink-dim); font-size:.86rem; line-height:1.9;">
+            <li>Clear recording, minimal background noise</li>
+            <li>5–60 seconds of speech</li>
+            <li>Single speaker only</li>
+            <li>MP3, WAV or OGG format</li>
+          </ul>
+          <div class="mono muted mt-24" style="font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;">Clone history</div>
+          <div id="cloneHistory"><div class="empty-note">No clones yet</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ VOICE LIBRARY ============ -->
+<section class="section-tight" id="library">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Voice library</span>
+      <h2>Browse every <span class="h-grad">cloud voice.</span></h2>
+      <p>Search, filter and preview the full catalog before you commit a voice to your script.</p>
+    </div>
+    <div class="glass card">
+      <div class="lib-toolbar">
+        <input class="input search" id="libSearch" placeholder="Search voices by name…">
+        <select class="select" id="libLangFilter"><option value="all">All languages</option></select>
+        <select class="select" id="libGenderFilter">
+          <option value="all">All genders</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="neutral">Neutral</option>
+        </select>
+      </div>
+      <div class="voice-grid" id="voiceGrid">
+        <div class="skeleton skel-card"></div><div class="skeleton skel-card"></div><div class="skeleton skel-card"></div>
+        <div class="skeleton skel-card"></div><div class="skeleton skel-card"></div><div class="skeleton skel-card"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Start free, <span class="h-grad">scale when you need to.</span></h2>
+      <p>No credit card required to start generating. Upgrade only for priority cloud processing and advanced tools.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="glass price-card reveal">
+        <div class="plan">Starter</div>
+        <div class="amt">$0<span>/forever</span></div>
+        <ul>
+          <li>Unlimited TTS generations</li>
+          <li>All standard cloud voices</li>
+          <li>Basic speaking styles</li>
+          <li>Standard render queue</li>
+        </ul>
+        <button class="btn btn-outline btn-block" data-plan="starter">Current plan</button>
+      </div>
+      <div class="glass price-card featured reveal" style="transition-delay:.05s;">
+        <div class="ribbon">Most popular</div>
+        <div class="plan" style="color:var(--pink-2);">Pro</div>
+        <div class="amt">$4.99<span>/month</span></div>
+        <ul>
+          <li>Priority cloud processing</li>
+          <li>Voice cloning &amp; blending</li>
+          <li>All advanced styles</li>
+          <li>Full history &amp; analytics</li>
+          <li>Multi-format export</li>
+        </ul>
+        <button class="btn btn-primary btn-block" data-plan="pro">Go Pro</button>
+      </div>
+      <div class="glass price-card reveal" style="transition-delay:.1s;">
+        <div class="plan">Lifetime</div>
+        <div class="amt">$29.99<span>/one-time</span></div>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Lifetime access</li>
+          <li>Early access to new voices</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn btn-outline btn-block" data-plan="lifetime">Buy lifetime</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Loved by creators</span>
+      <h2>What people are <span class="h-grad">saying.</span></h2>
+    </div>
+    <div class="testi-track">
+      <div class="glass testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Switched three podcast intros over to Free Voice Labs in one afternoon. The blend tool alone is worth it."</p>
+        <div class="testi-who"><div class="av">MA</div><div><b>Mira A.</b><small>Podcast producer</small></div></div>
+      </div>
+      <div class="glass testi-card reveal" style="transition-delay:.05s;">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Voice cloning saved us a full re-record when our narrator went on leave. Sounded seamless."</p>
+        <div class="testi-who"><div class="av">DK</div><div><b>Daniyal K.</b><small>Video editor</small></div></div>
+      </div>
+      <div class="glass testi-card reveal" style="transition-delay:.1s;">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The voice library filters make it painless to find the right accent for every ad variant we ship."</p>
+        <div class="testi-who"><div class="av">SR</div><div><b>Sara R.</b><small>Marketing lead</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, <span class="h-grad">answered.</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="glass faq-item reveal">
+        <button class="faq-q">Is Free Voice Labs really free to start? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The Starter plan gives unlimited standard TTS generations across our cloud voice catalog with no credit card required.</div></div>
+      </div>
+      <div class="glass faq-item reveal">
+        <button class="faq-q">Which cloud voices are available? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Your account is connected to our cloud voice pipeline, which aggregates neural voices from multiple providers — spanning dozens of languages, accents and speaking styles, all listed live in the Voice Library.</div></div>
+      </div>
+      <div class="glass faq-item reveal">
+        <button class="faq-q">How does voice cloning work? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Upload a clean 5–60 second single-speaker sample in the Clone tab. Our cloud pipeline analyzes the sample and renders your script back in a matching voice profile.</div></div>
+      </div>
+      <div class="glass faq-item reveal">
+        <button class="faq-q">Can I use the audio commercially? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes, audio you generate is yours to use in videos, ads, apps and podcasts, subject to our Terms of Service.</div></div>
+      </div>
+      <div class="glass faq-item reveal">
+        <button class="faq-q">Do you save my generation history? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Create a free account and every generation, blend, podcast and clone is saved to your history so you can revisit or re-download it anytime.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <h2>Ready to give your project a <span class="h-grad">voice?</span></h2>
+      <p>Join for free and start generating in under a minute.</p>
+      <button class="btn btn-primary btn-lg" id="ctaSignupBtn">Create free account</button>
+    </div>
+  </div>
+</section>
+</main>
+<!-- ============ ADMIN PANEL (gated) ============ -->
+<main id="pageAdmin" class="admin-wrap">
+  <section class="section-tight wrap" style="padding-top:150px;">
+    <div id="adminGateNote" class="admin-gate glass" style="display:none;">
+      <div class="icon">🛡️</div>
+      <h3 class="font-display" style="font-size:1.3rem;margin-bottom:8px;">Admin access required</h3>
+      <p class="muted">This area is restricted to the Free Voice Labs admin account. Log in with your admin email to continue.</p>
+      <button class="btn btn-primary mt-16" id="adminGateLoginBtn">Log in</button>
+    </div>
+
+    <div id="adminContent" style="display:none;">
+      <div class="admin-head">
+        <div>
+          <span class="eyebrow">Admin panel</span>
+          <h2>Welcome back, <span class="h-grad" id="adminNameLabel">Admin</span></h2>
+        </div>
+        <button class="btn btn-outline btn-sm" id="adminRefreshBtn">↻ Refresh data</button>
+      </div>
+
+      <div class="admin-stats">
+        <div class="glass admin-stat"><div class="top"><div class="ic">👥</div></div><b id="adminStatUsers">—</b><small>Total users</small></div>
+        <div class="glass admin-stat"><div class="top"><div class="ic">🎙️</div></div><b id="adminStatGens">—</b><small>Total generations</small></div>
+        <div class="glass admin-stat"><div class="top"><div class="ic">💬</div></div><b id="adminStatFeedback">—</b><small>Pending feedback</small></div>
+        <div class="glass admin-stat"><div class="top"><div class="ic">🔊</div></div><b id="adminStatVoices">—</b><small>Cloud voices live</small></div>
+      </div>
+
+      <div class="tab-strip">
+        <button class="tab-btn active" data-atab="feedback">💬 Feedback</button>
+        <button class="tab-btn" data-atab="cms">📝 Site content (CMS)</button>
+        <button class="tab-btn" data-atab="users">👥 Users</button>
+      </div>
+
+      <div class="panel active" id="apanel-feedback">
+        <div class="glass card admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Message</th><th>Status</th><th>Submitted</th><th>Actions</th></tr></thead>
+            <tbody id="feedbackTableBody">
+              <tr><td colspan="5" class="empty-note">Loading feedback…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" id="apanel-cms">
+        <div class="glass card">
+          <div class="cms-editor">
+            <div class="field"><label>Hero headline</label><input class="input" id="cmsHeroTitle" placeholder="Give every word a voice worth hearing."></div>
+            <div class="field"><label>Hero subtext</label><textarea class="textarea" id="cmsHeroSub" style="min-height:80px;"></textarea></div>
+            <div class="field"><label>Announcement banner (optional)</label><input class="input" id="cmsAnnouncement" placeholder="e.g. New: 40 multilingual voices just added"></div>
+            <button class="btn btn-primary" id="cmsSaveBtn" style="align-self:flex-start;"><span class="spinner"></span><span class="btn-label">Save content</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="apanel-users">
+        <div class="glass card admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Email</th><th>Plan</th><th>Generations</th><th>Joined</th><th>Status</th></tr></thead>
+            <tbody id="usersTableBody"><tr><td colspan="5" class="empty-note">Loading users…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ HISTORY (logged-in view) ============ -->
+<main id="pageHistory" class="admin-wrap">
+  <section class="section-tight wrap" style="padding-top:150px;">
+    <span class="eyebrow">My account</span>
+    <h2 class="mb-24">Your generation <span class="h-grad">history.</span></h2>
+    <div class="glass card admin-table-wrap">
+      <table class="admin-table">
+        <thead><tr><th>Type</th><th>Voice / detail</th><th>Date</th><th></th></tr></thead>
+        <tbody id="fullHistoryBody"><tr><td colspan="4" class="empty-note">No history yet — generate something in the Studio.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- ============ LEGAL PAGES ============ -->
+<main id="pageLegal">
+  <section class="section wrap" style="padding-top:150px; max-width:820px;">
+    <div class="legal-page" id="legal-privacy">
+      <h2>Privacy Policy</h2>
+      <div class="updated">Last updated July 2026</div>
+      <h3>What we collect</h3>
+      <p>We collect your email address, generated script text, and usage metadata (such as voice selected and timestamps) to operate the Studio and your history.</p>
+      <h3>How we use it</h3>
+      <p>Your data is used solely to render audio, maintain your account and history, and improve voice routing. We do not sell your data to third parties.</p>
+      <h3>Audio storage</h3>
+      <p>Generated audio and uploaded voice samples are stored securely and are accessible only to your account and, where required for support, our admin team.</p>
+      <h3>Your rights</h3>
+      <p>You may request deletion of your account and associated data at any time by contacting support.</p>
+    </div>
+    <div class="legal-page" id="legal-terms">
+      <h2>Terms of Service</h2>
+      <div class="updated">Last updated July 2026</div>
+      <h3>Acceptable use</h3>
+      <p>You may not use Free Voice Labs to generate voice content that impersonates a real person without consent, spreads misinformation, or violates applicable law.</p>
+      <h3>Ownership</h3>
+      <p>Audio you generate is yours to use commercially, subject to these terms and the rights of any cloned voice you upload.</p>
+      <h3>Service availability</h3>
+      <p>The Studio is provided "as is." Cloud voice availability may vary as providers update their catalogs.</p>
+    </div>
+    <div class="legal-page" id="legal-faq-full">
+      <h2>Full FAQ</h2>
+      <div class="updated">See the FAQ section on the homepage for the most common questions.</div>
+    </div>
+  </section>
+</main>
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand"><div class="brand-mark" style="width:32px;height:32px;"><span></span><span></span><span></span></div><div class="brand-name">Free<b>VoiceLabs</b></div></div>
+        <p>Cloud-based AI text-to-speech, voice cloning, blending and podcast generation — one studio, hundreds of voices.</p>
+        <div class="foot-social">
+          <a href="#" class="icon-btn" aria-label="Twitter">𝕏</a>
+          <a href="#" class="icon-btn" aria-label="GitHub">GH</a>
+          <a href="#" class="icon-btn" aria-label="Discord">DC</a>
+        </div>
+      </div>
+      <div class="foot-col"><h5>Product</h5>
+        <a href="#studio" data-nav="studio">Studio</a>
+        <a href="#library" data-nav="library">Voice library</a>
+        <a href="#pricing" data-nav="pricing">Pricing</a>
+      </div>
+      <div class="foot-col"><h5>Tools</h5>
+        <a href="#studio" data-tabnav="tts">Text to speech</a>
+        <a href="#studio" data-tabnav="blend">Voice blending</a>
+        <a href="#studio" data-tabnav="podcast">Podcast studio</a>
+        <a href="#studio" data-tabnav="clone">Voice cloning</a>
+      </div>
+      <div class="foot-col"><h5>Company</h5>
+        <a href="#faq" data-nav="faq">FAQ</a>
+        <a href="#" id="footAdminLink">Admin</a>
+        <a href="mailto:support@freevoicelabs.com">Support</a>
+      </div>
+      <div class="foot-col"><h5>Legal</h5>
+        <a href="#" data-legal="privacy">Privacy policy</a>
+        <a href="#" data-legal="terms">Terms of service</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <small>© <span id="yearNow">2026</span> Free Voice Labs. All rights reserved.</small>
+      <small class="mono">Cloud TTS · Voice Cloning · Voice Blending · Podcast Studio</small>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ AUTH MODALS ============ -->
+<div class="modal-layer" id="loginModal">
+  <div class="scrim" data-close-modal></div>
+  <div class="modal-box glass">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div class="modal-head">
+      <div class="icon">🔐</div>
+      <h3>Welcome back</h3>
+      <p>Log in to access your Studio history and saved voices.</p>
+    </div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input class="input" type="email" id="loginEmail" required placeholder="you@example.com">
+        <div class="error-text">Enter a valid email address.</div>
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <div class="pw-row">
+          <input class="input" type="password" id="loginPassword" required placeholder="••••••••">
+          <button type="button" class="pw-toggle" data-toggle-pw="loginPassword">SHOW</button>
+        </div>
+        <div class="error-text">Password is required.</div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn"><span class="spinner"></span><span class="btn-label">Log in</span></button>
+    </form>
+    <div class="modal-switch">Don't have an account? <button id="switchToSignup">Sign up free</button></div>
+  </div>
+</div>
+
+<div class="modal-layer" id="signupModal">
+  <div class="scrim" data-close-modal></div>
+  <div class="modal-box glass">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div class="modal-head">
+      <div class="icon">✨</div>
+      <h3>Create your account</h3>
+      <p>Free forever — no credit card required.</p>
+    </div>
+    <form id="signupForm">
+      <div class="field-row">
+        <div class="field"><label for="signupName">Name</label><input class="input" id="signupName" required placeholder="Your name"></div>
+        <div class="field"><label for="signupEmail">Email</label><input class="input" type="email" id="signupEmail" required placeholder="you@example.com"></div>
+      </div>
+      <div class="field">
+        <label for="signupPassword">Password</label>
+        <div class="pw-row">
+          <input class="input" type="password" id="signupPassword" required minlength="8" placeholder="At least 8 characters">
+          <button type="button" class="pw-toggle" data-toggle-pw="signupPassword">SHOW</button>
+        </div>
+        <div class="error-text">Use at least 8 characters.</div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="signupSubmitBtn"><span class="spinner"></span><span class="btn-label">Create account</span></button>
+    </form>
+    <div class="modal-switch">Already have an account? <button id="switchToLogin">Log in</button></div>
+  </div>
+</div>
+
+<!-- ============ TOASTS ============ -->
+<div class="toast-stack" id="toastStack"></div>
+<script>
+/* ============================================================
+   FREE VOICE LABS — APP LOGIC
+   ============================================================ */
+const CONFIG = {
+  API_BASE: 'https://mohammadtalhaa-free-voice-labs-backend.hf.space',
+  ADMIN_EMAIL: 'talha@vfl.ai',
+  ENDPOINTS: {
+    voices: '/api/voices',
+    ttsGenerate: '/api/tts/generate',
+    ttsBlend: '/api/tts/blend',
+    ttsPodcast: '/api/tts/podcast',
+    ttsClone: '/api/tts/clone',
+    checkout: '/api/checkout',
+    login: '/api/login',
+    signup: '/api/signup',
+    feedbackApproved: '/api/feedback/approved',
+    cms: '/api/cms',
+    history: '/api/history'
   }
+};
 
-  function previewLibraryVoice(id) {
-    const v = VOICE_CATALOG.find(c => c.id === id);
-    if (!v) return;
-    speakText('Preview of ' + v.name + '. A ' + v.tags[0] + ' voice.', v, 0, 0);
-    toast('Previewing ' + v.name);
-  }
+const Store = {
+  get token(){ return localStorage.getItem('fvl_token') || null; },
+  set token(v){ v ? localStorage.setItem('fvl_token', v) : localStorage.removeItem('fvl_token'); },
+  get user(){ try{ return JSON.parse(localStorage.getItem('fvl_user') || 'null'); }catch(e){ return null; } },
+  set user(v){ v ? localStorage.setItem('fvl_user', JSON.stringify(v)) : localStorage.removeItem('fvl_user'); },
+  get history(){ try{ return JSON.parse(localStorage.getItem('fvl_history') || '[]'); }catch(e){ return []; } },
+  set history(v){ localStorage.setItem('fvl_history', JSON.stringify(v)); }
+};
 
-  // ---------- DASHBOARD ----------
-  function updateDashboard() {
-    $('dashGenCount').textContent = state.genCount;
-    $('dashFavCount').textContent = state.favorites.length;
-    $('dashPlan').textContent = state.session ? state.session.plan : 'Free';
-    const list = $('historyList');
-    if (!state.history.length) {
-      list.innerHTML = 'No activity yet.';
-      return;
-    }
-    list.innerHTML = state.history.slice(0, 8).map(h => {
-      const icon = h.kind === 'generate' ? '🎙️' : h.kind === 'blend' ? '🌀' : h.kind === 'podcast' ? '🎧' : '🧬';
-      const time = new Date(h.ts).toLocaleTimeString();
-      return `<div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid #1f1640;">
-        <span>${icon} ${h.title}</span>
-        <span style="color:#5f4e8a;font-size:0.8rem;">${time}</span>
-      </div>`;
-    }).join('');
-  }
+const State = {
+  voices: [],
+  voicesLoaded: false,
+  selectedCloneFile: null,
+  visualizers: {}
+};
 
-  // ---------- INIT ----------
-  function init() {
-    // load state
-    state.session = storageGet('session', null);
-    state.genCount = storageGet('genCount', 0);
-    state.favorites = storageGet('favorites', []);
-    state.history = storageGet('history', []);
-
-    renderAuth();
-    populateSelects();
-    setupGenerate();
-    setupBlend();
-    setupPodcast();
-    setupClone();
-    renderLibrary();
-
-    // nav tabs
-    qsa('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        navigate(tab.dataset.page);
-      });
+/* ---------- API wrapper ---------- */
+async function apiRequest(path, { method='GET', body=null, auth=false, isForm=false } = {}){
+  const headers = {};
+  if(!isForm) headers['Content-Type'] = 'application/json';
+  if(auth && Store.token) headers['Authorization'] = `Bearer ${Store.token}`;
+  try{
+    const res = await fetch(CONFIG.API_BASE + path, {
+      method,
+      headers,
+      body: body ? (isForm ? body : JSON.stringify(body)) : undefined
     });
+    let data = null;
+    try{ data = await res.json(); }catch(e){ /* non-json response */ }
+    if(!res.ok){
+      const msg = (data && (data.detail || data.message || data.error)) || `Request failed (${res.status})`;
+      throw new Error(msg);
+    }
+    return data;
+  }catch(err){
+    throw err;
+  }
+}
 
-    // generate voice select update preview
-    $('genVoiceSelect').addEventListener('change', updateVoicePreview);
-    // library filters
-    $('libLangFilter').addEventListener('change', renderLibrary);
-    $('libSort').addEventListener('change', renderLibrary);
+/* ---------- Toast system ---------- */
+function toast(msg, type='info'){
+  const stack = document.getElementById('toastStack');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+  el.innerHTML = `<span class="ic">${icon}</span><span>${msg}</span>`;
+  stack.appendChild(el);
+  setTimeout(() => {
+    el.style.animation = 'toastOut .25s ease forwards';
+    setTimeout(() => el.remove(), 250);
+  }, 3600);
+}
 
-    // default page
-    navigate('home');
-    toast('🎙️ FreeVoiceLabs ready');
+/* ---------- Button loading state ---------- */
+function setBtnLoading(btn, isLoading){
+  if(!btn) return;
+  btn.classList.toggle('loading', isLoading);
+  btn.disabled = isLoading;
+}
+</script>
+<script>
+/* ============================================================
+   AUTH
+   ============================================================ */
+function isLoggedIn(){ return !!Store.token && !!Store.user; }
+function isAdmin(){ const u = Store.user; return !!u && (u.email || '').toLowerCase() === CONFIG.ADMIN_EMAIL.toLowerCase(); }
+
+function refreshAuthUI(){
+  const out = document.getElementById('loggedOutActions');
+  const inn = document.getElementById('loggedInActions');
+  const adminLink = document.getElementById('menuAdminLink');
+  if(isLoggedIn()){
+    out.classList.add('hidden');
+    inn.classList.remove('hidden');
+    const u = Store.user;
+    const initial = (u.name || u.email || 'U').trim().charAt(0).toUpperCase();
+    document.getElementById('userAvatarInitial').textContent = initial;
+    document.getElementById('userChipName').textContent = u.name || u.email.split('@')[0];
+    adminLink.classList.toggle('hidden', !isAdmin());
+  } else {
+    out.classList.remove('hidden');
+    inn.classList.add('hidden');
+  }
+}
+
+async function handleLogin(e){
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginSubmitBtn');
+  if(!validateEmail(email)){ markInvalid('loginEmail'); return; }
+  setBtnLoading(btn, true);
+  try{
+    const data = await apiRequest(CONFIG.ENDPOINTS.login, { method:'POST', body:{ email, password } });
+    Store.token = data.token || data.access_token || 'session';
+    Store.user = data.user || { email, name: (data.name || email.split('@')[0]) };
+    toast('Welcome back!', 'success');
+    closeModal('loginModal');
+    refreshAuthUI();
+    if(isAdmin()) enableAdminEntry();
+  }catch(err){
+    toast(err.message || 'Login failed. Check your credentials.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+
+async function handleSignup(e){
+  e.preventDefault();
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  const btn = document.getElementById('signupSubmitBtn');
+  if(!validateEmail(email)){ markInvalid('signupEmail'); return; }
+  if(password.length < 8){ markInvalid('signupPassword'); return; }
+  setBtnLoading(btn, true);
+  try{
+    const data = await apiRequest(CONFIG.ENDPOINTS.signup, { method:'POST', body:{ name, email, password } });
+    Store.token = data.token || data.access_token || 'session';
+    Store.user = data.user || { email, name };
+    toast('Account created — welcome to Free Voice Labs!', 'success');
+    closeModal('signupModal');
+    refreshAuthUI();
+  }catch(err){
+    toast(err.message || 'Could not create account. Try again.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+
+function handleLogout(){
+  Store.token = null;
+  Store.user = null;
+  toast('Logged out', 'info');
+  refreshAuthUI();
+  showPage('home');
+}
+
+function validateEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function markInvalid(id){
+  const field = document.getElementById(id).closest('.field');
+  field.classList.add('invalid');
+  setTimeout(() => field.classList.remove('invalid'), 3000);
+}
+</script>
+<script>
+/* ============================================================
+   VOICES
+   ============================================================ */
+async function loadVoices(){
+  try{
+    const data = await apiRequest(CONFIG.ENDPOINTS.voices);
+    const list = Array.isArray(data) ? data : (data.voices || data.data || []);
+    State.voices = list.map(normalizeVoice);
+    State.voicesLoaded = true;
+  }catch(err){
+    State.voices = fallbackVoices();
+    State.voicesLoaded = false;
+    toast('Cloud voice list is warming up — showing a starter set.', 'info');
+  }
+  populateVoiceSelects();
+  renderVoiceLibrary();
+  document.getElementById('statVoicesCount').textContent = State.voices.length;
+  document.getElementById('trustVoices').textContent = State.voices.length + '+';
+}
+
+function normalizeVoice(v, i){
+  return {
+    id: v.id || v.voice_id || v.name || `voice-${i}`,
+    name: v.name || v.voice_name || `Voice ${i+1}`,
+    lang: v.lang || v.language || 'en-US',
+    gender: (v.gender || v.sex || 'neutral').toLowerCase(),
+    provider: v.provider || v.engine || 'Cloud Neural',
+    style: v.style || 'default'
+  };
+}
+
+function fallbackVoices(){
+  const langs = ['en-US','en-GB','en-AU','es-ES','fr-FR','de-DE','hi-IN','ur-PK','ar-SA','pt-BR','it-IT','ja-JP'];
+  const names = ['Aria','Nova','Orion','Vega','Iris','Kian','Selene','Rumi','Zara','Milo','Talia','Dax','Ember','Skye','Rhea','Faris'];
+  const genders = ['female','male','neutral'];
+  const arr = [];
+  for(let i=0;i<48;i++){
+    arr.push({ id:`local-${i}`, name:`${names[i % names.length]} ${Math.floor(i/names.length)+1}`, lang: langs[i % langs.length], gender: genders[i % genders.length], provider:'Cloud Neural', style:'default' });
+  }
+  return arr;
+}
+
+function populateVoiceSelects(){
+  const opts = State.voices.map(v => `<option value="${v.id}">${v.name} — ${v.lang} (${v.gender})</option>`).join('');
+  ['ttsVoice','blendA','blendB','podA','podB','heroDemoVoice'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const keep = el.value;
+    el.innerHTML = opts;
+    if(keep) el.value = keep;
+  });
+  const langs = [...new Set(State.voices.map(v => v.lang))].sort();
+  ['ttsLang','libLangFilter'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.innerHTML = '<option value="all">All languages</option>' + langs.map(l => `<option value="${l}">${l}</option>`).join('');
+  });
+}
+
+function getVoiceById(id){ return State.voices.find(v => v.id === id) || State.voices[0]; }
+
+/* ---------- Voice library render ---------- */
+function renderVoiceLibrary(){
+  const grid = document.getElementById('voiceGrid');
+  const search = (document.getElementById('libSearch')?.value || '').toLowerCase();
+  const lang = document.getElementById('libLangFilter')?.value || 'all';
+  const gender = document.getElementById('libGenderFilter')?.value || 'all';
+  let list = State.voices;
+  if(lang !== 'all') list = list.filter(v => v.lang === lang);
+  if(gender !== 'all') list = list.filter(v => v.gender === gender);
+  if(search) list = list.filter(v => v.name.toLowerCase().includes(search));
+  if(!list.length){ grid.innerHTML = '<div class="empty-note" style="grid-column:1/-1;">No voices match your filters.</div>'; return; }
+  grid.innerHTML = list.slice(0, 60).map(v => `
+    <div class="glass voice-card" data-voice-id="${v.id}">
+      <div class="head">
+        <div class="voice-avatar">${v.name.charAt(0)}</div>
+        <div><div class="name">${v.name}</div><div class="lang">${v.lang}</div></div>
+        <button class="play-mini" data-preview="${v.id}" aria-label="Preview voice">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="tags"><span class="tag">${v.gender}</span><span class="tag">${v.provider}</span></div>
+    </div>`).join('');
+}
+
+function previewVoice(id){
+  const voice = getVoiceById(id);
+  if(!voice) return;
+  speakBrowserPreview(`This is the ${voice.name} voice, from Free Voice Labs.`, voice.lang);
+  toast(`▶ Previewing ${voice.name}`, 'info');
+}
+
+/* Browser-side instant preview (Web Speech API) — used for hero demo & library preview only */
+function speakBrowserPreview(text, lang){
+  if(!('speechSynthesis' in window)) return;
+  const synthVoices = window.speechSynthesis.getVoices();
+  const utter = new SpeechSynthesisUtterance(text);
+  const match = synthVoices.find(sv => sv.lang && lang && sv.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  if(match) utter.voice = match;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utter);
+  animateHeroWave();
+}
+</script>
+<script>
+/* ============================================================
+   AUDIO OUTPUT HELPERS
+   ============================================================ */
+function resolveAudioUrl(data){
+  if(!data) return null;
+  if(typeof data === 'string') return data;
+  if(data.audio_url) return data.audio_url;
+  if(data.url) return data.url;
+  if(data.output_url) return data.output_url;
+  if(data.audio_base64){ return `data:audio/mpeg;base64,${data.audio_base64}`; }
+  if(data.audio){ return data.audio.startsWith('http') || data.audio.startsWith('data:') ? data.audio : `data:audio/mpeg;base64,${data.audio}`; }
+  return null;
+}
+
+function drawStaticWave(canvasId){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  canvas.width = canvas.offsetWidth * 2;
+  canvas.height = canvas.offsetHeight * 2;
+  const ctx = canvas.getContext('2d');
+  const bars = 60;
+  const bw = canvas.width / bars;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<bars;i++){
+    const h = (Math.sin(i*0.5) * 0.3 + 0.5) * canvas.height * (0.3 + Math.random()*0.5);
+    const x = i*bw, y = (canvas.height - h)/2;
+    const grad = ctx.createLinearGradient(0,y,0,y+h);
+    grad.addColorStop(0,'rgba(255,61,154,.15)');
+    grad.addColorStop(.5,'rgba(255,61,154,.9)');
+    grad.addColorStop(1,'rgba(157,77,255,.2)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x+1,y,bw-2,h);
+  }
+}
+
+function animateHeroWave(){
+  const wave = document.getElementById('heroWave');
+  if(!wave) return;
+  wave.innerHTML = Array.from({length:46}).map(() => '<i></i>').join('');
+  const bars = wave.querySelectorAll('i');
+  let ticks = 0;
+  const timer = setInterval(() => {
+    bars.forEach(b => b.style.height = (6 + Math.random()*52) + 'px');
+    ticks++;
+    if(ticks > 22){ clearInterval(timer); bars.forEach(b => b.style.height='6px'); }
+  }, 110);
+}
+
+/* ============================================================
+   TTS GENERATE
+   ============================================================ */
+async function handleTtsGenerate(){
+  const text = document.getElementById('ttsText').value.trim();
+  const voiceId = document.getElementById('ttsVoice').value;
+  const style = document.getElementById('ttsStyle').value;
+  const rate = parseFloat(document.getElementById('ttsRate').value);
+  const pitch = parseFloat(document.getElementById('ttsPitch').value);
+  const btn = document.getElementById('ttsGenerateBtn');
+  if(!text){ toast('Enter some script text first.', 'error'); return; }
+  if(!voiceId){ toast('Choose a voice.', 'error'); return; }
+  setBtnLoading(btn, true);
+  try{
+    const payload = { text, voice: voiceId, voice_id: voiceId, style, rate, speed: rate, pitch };
+    const data = await apiRequest(CONFIG.ENDPOINTS.ttsGenerate, { method:'POST', body: payload, auth:true });
+    const url = resolveAudioUrl(data);
+    if(!url) throw new Error('No audio returned by the server.');
+    const audio = document.getElementById('ttsAudio');
+    audio.src = url;
+    document.getElementById('ttsDownloadBtn').href = url;
+    document.getElementById('ttsPlayerBox').classList.add('active');
+    document.getElementById('ttsPlayerMeta').textContent = getVoiceById(voiceId)?.name || 'Ready';
+    drawStaticWave('ttsCanvas');
+    audio.play().catch(()=>{});
+    addHistory('tts', getVoiceById(voiceId)?.name || 'Voice', text.slice(0,60));
+    toast('Speech generated!', 'success');
+  }catch(err){
+    toast(err.message || 'Generation failed. Please try again.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+
+/* ============================================================
+   VOICE BLEND
+   ============================================================ */
+async function handleBlendGenerate(){
+  const text = document.getElementById('blendText').value.trim();
+  const voiceA = document.getElementById('blendA').value;
+  const voiceB = document.getElementById('blendB').value;
+  const ratio = parseInt(document.getElementById('blendRatio').value, 10);
+  const btn = document.getElementById('blendGenerateBtn');
+  if(!text){ toast('Enter some script text first.', 'error'); return; }
+  if(!voiceA || !voiceB){ toast('Choose both voices to blend.', 'error'); return; }
+  setBtnLoading(btn, true);
+  try{
+    const payload = { text, voice_a: voiceA, voice_b: voiceB, ratio, blend_ratio: ratio/100 };
+    const data = await apiRequest(CONFIG.ENDPOINTS.ttsBlend, { method:'POST', body: payload, auth:true });
+    const url = resolveAudioUrl(data);
+    if(!url) throw new Error('No audio returned by the server.');
+    const audio = document.getElementById('blendAudio');
+    audio.src = url;
+    document.getElementById('blendDownloadBtn').href = url;
+    document.getElementById('blendPlayerBox').classList.add('active');
+    audio.play().catch(()=>{});
+    addHistory('blend', `${getVoiceById(voiceA)?.name} + ${getVoiceById(voiceB)?.name}`, `${ratio}/${100-ratio}`);
+    toast('Blend generated!', 'success');
+  }catch(err){
+    toast(err.message || 'Blend failed. Please try again.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+
+/* ============================================================
+   PODCAST
+   ============================================================ */
+async function handlePodcastGenerate(){
+  const script = document.getElementById('podText').value.trim();
+  const hostA = document.getElementById('podA').value;
+  const hostB = document.getElementById('podB').value;
+  const btn = document.getElementById('podGenerateBtn');
+  if(!script){ toast('Write an episode script first.', 'error'); return; }
+  if(!hostA || !hostB){ toast('Choose voices for both hosts.', 'error'); return; }
+  setBtnLoading(btn, true);
+  try{
+    const payload = { script, text: script, host_a: hostA, host_b: hostB, voice_a: hostA, voice_b: hostB };
+    const data = await apiRequest(CONFIG.ENDPOINTS.ttsPodcast, { method:'POST', body: payload, auth:true });
+    const url = resolveAudioUrl(data);
+    if(!url) throw new Error('No audio returned by the server.');
+    const audio = document.getElementById('podAudio');
+    audio.src = url;
+    document.getElementById('podDownloadBtn').href = url;
+    document.getElementById('podPlayerBox').classList.add('active');
+    audio.play().catch(()=>{});
+    addHistory('podcast', `${getVoiceById(hostA)?.name} & ${getVoiceById(hostB)?.name}`, script.slice(0,60));
+    toast('Episode generated!', 'success');
+  }catch(err){
+    toast(err.message || 'Podcast generation failed. Please try again.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+
+/* ============================================================
+   VOICE CLONE
+   ============================================================ */
+async function handleCloneGenerate(){
+  const text = document.getElementById('cloneText').value.trim();
+  const name = document.getElementById('cloneName').value.trim() || 'My Clone';
+  const btn = document.getElementById('cloneGenerateBtn');
+  if(!text){ toast('Enter script text first.', 'error'); return; }
+  if(!State.selectedCloneFile){ toast('Upload a voice sample first.', 'error'); return; }
+  setBtnLoading(btn, true);
+  try{
+    const form = new FormData();
+    form.append('text', text);
+    form.append('name', name);
+    form.append('audio', State.selectedCloneFile);
+    const data = await apiRequest(CONFIG.ENDPOINTS.ttsClone, { method:'POST', body: form, auth:true, isForm:true });
+    const url = resolveAudioUrl(data);
+    if(!url) throw new Error('No audio returned by the server.');
+    const audio = document.getElementById('cloneAudio');
+    audio.src = url;
+    document.getElementById('cloneDownloadBtn').href = url;
+    document.getElementById('cloneOutTitle').textContent = `Clone: ${name}`;
+    document.getElementById('clonePlayerBox').classList.add('active');
+    audio.play().catch(()=>{});
+    addHistory('clone', name, text.slice(0,60));
+    toast('Clone generated!', 'success');
+  }catch(err){
+    toast(err.message || 'Cloning failed. Please try again.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+</script>
+<script>
+/* ============================================================
+   HISTORY
+   ============================================================ */
+function addHistory(type, name, detail){
+  const item = { type, name, detail, time: new Date().toLocaleString() };
+  const hist = Store.history;
+  hist.unshift(item);
+  if(hist.length > 100) hist.pop();
+  Store.history = hist;
+  renderHistoryPanels();
+  syncRemoteHistory(item);
+}
+
+async function syncRemoteHistory(item){
+  if(!isLoggedIn()) return;
+  try{ await apiRequest(CONFIG.ENDPOINTS.history, { method:'POST', body:item, auth:true }); }
+  catch(e){ /* history sync is best-effort; local copy already saved */ }
+}
+
+const HIST_ICON = { tts:'🎙️', blend:'🎭', podcast:'📻', clone:'🧬' };
+
+function renderHistoryPanels(){
+  const hist = Store.history;
+  const mainList = document.getElementById('historyList');
+  const byType = { blend: document.getElementById('blendHistory'), podcast: document.getElementById('podHistory'), clone: document.getElementById('cloneHistory') };
+  const full = document.getElementById('fullHistoryBody');
+
+  document.getElementById('statGens').textContent = hist.filter(h => h.type === 'tts').length;
+
+  if(mainList){
+    mainList.innerHTML = hist.length ? hist.slice(0,8).map(renderHistItem).join('') : '<div class="empty-note">No generations yet</div>';
+  }
+  Object.entries(byType).forEach(([type, el]) => {
+    if(!el) return;
+    const items = hist.filter(h => h.type === type);
+    el.innerHTML = items.length ? items.slice(0,6).map(renderHistItem).join('') : `<div class="empty-note">No ${type === 'pod' ? 'episodes' : type + 's'} yet</div>`;
+  });
+  if(full){
+    full.innerHTML = hist.length ? hist.map(h => `
+      <tr><td>${HIST_ICON[h.type] || '🎙️'} ${h.type}</td><td>${h.name} — ${h.detail}</td><td>${h.time}</td><td></td></tr>
+    `).join('') : '<tr><td colspan="4" class="empty-note">No history yet — generate something in the Studio.</td></tr>';
+  }
+}
+
+function renderHistItem(h){
+  return `<div class="hist-item"><div class="ic">${HIST_ICON[h.type] || '🎙️'}</div><div class="body"><div class="ttl">${h.name}</div><div class="sub">${h.detail}</div></div></div>`;
+}
+
+/* ============================================================
+   PRICING / CHECKOUT
+   ============================================================ */
+async function handlePlanClick(plan){
+  if(plan === 'starter'){ toast("You're already on the Starter plan.", 'info'); return; }
+  if(!isLoggedIn()){ openModal('signupModal'); toast('Create an account to upgrade.', 'info'); return; }
+  try{
+    const data = await apiRequest(CONFIG.ENDPOINTS.checkout, { method:'POST', body:{ plan }, auth:true });
+    if(data && data.checkout_url){ window.location.href = data.checkout_url; return; }
+    toast('Checkout started — check your email to complete payment.', 'success');
+  }catch(err){
+    toast(err.message || 'Could not start checkout right now.', 'error');
+  }
+}
+</script>
+<script>
+/* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+function enableAdminEntry(){
+  document.getElementById('menuAdminLink').classList.toggle('hidden', !isAdmin());
+}
+
+async function openAdminPanel(){
+  showPage('admin');
+  const gate = document.getElementById('adminGateNote');
+  const content = document.getElementById('adminContent');
+  if(!isLoggedIn()){
+    gate.style.display = 'block'; content.style.display = 'none';
+    return;
+  }
+  if(!isAdmin()){
+    gate.style.display = 'block'; content.style.display = 'none';
+    gate.querySelector('p').textContent = `Signed in as ${Store.user.email}. This account does not have admin access.`;
+    return;
+  }
+  gate.style.display = 'none'; content.style.display = 'block';
+  document.getElementById('adminNameLabel').textContent = (Store.user.name || 'Admin');
+  await loadAdminData();
+}
+
+async function loadAdminData(){
+  document.getElementById('adminStatVoices').textContent = State.voices.length;
+  document.getElementById('adminStatGens').textContent = Store.history.length;
+
+  // Feedback
+  try{
+    const fb = await apiRequest(CONFIG.ENDPOINTS.feedbackApproved, { auth:true });
+    const list = Array.isArray(fb) ? fb : (fb.feedback || fb.data || []);
+    document.getElementById('adminStatFeedback').textContent = list.filter(f => !f.approved).length || list.length || 0;
+    renderFeedbackTable(list);
+  }catch(err){
+    document.getElementById('adminStatFeedback').textContent = '—';
+    document.getElementById('feedbackTableBody').innerHTML = `<tr><td colspan="5" class="empty-note">Feedback endpoint unavailable right now.</td></tr>`;
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  // Users (best-effort; falls back gracefully if endpoint doesn't expose a list)
+  document.getElementById('adminStatUsers').textContent = '—';
+  document.getElementById('usersTableBody').innerHTML = `<tr><td colspan="5" class="empty-note">Connect a users endpoint to populate this table.</td></tr>`;
+
+  // CMS
+  try{
+    const cms = await apiRequest(CONFIG.ENDPOINTS.cms, { auth:true });
+    document.getElementById('cmsHeroTitle').value = cms.hero_title || cms.title || '';
+    document.getElementById('cmsHeroSub').value = cms.hero_subtitle || cms.subtitle || '';
+    document.getElementById('cmsAnnouncement').value = cms.announcement || '';
+  }catch(err){ /* leave fields blank if unavailable */ }
+}
+
+function renderFeedbackTable(list){
+  const body = document.getElementById('feedbackTableBody');
+  if(!list.length){ body.innerHTML = '<tr><td colspan="5" class="empty-note">No feedback submitted yet.</td></tr>'; return; }
+  body.innerHTML = list.slice(0,30).map(f => `
+    <tr>
+      <td>${f.user_email || f.email || 'Anonymous'}</td>
+      <td style="max-width:260px;">${(f.message || f.text || '').slice(0,120)}</td>
+      <td><span class="status-dot-row"><i class="${f.approved ? 'dot-ok' : 'dot-warn'}"></i>${f.approved ? 'Approved' : 'Pending'}</span></td>
+      <td>${f.created_at || f.date || '—'}</td>
+      <td class="row-actions">
+        <button class="btn btn-outline btn-sm" onclick="approveFeedback('${f.id || ''}')">Approve</button>
+      </td>
+    </tr>`).join('');
+}
+
+async function approveFeedback(id){
+  if(!id){ toast('Missing feedback id.', 'error'); return; }
+  try{
+    await apiRequest(`${CONFIG.ENDPOINTS.feedbackApproved}/${id}`, { method:'POST', auth:true });
+    toast('Feedback approved.', 'success');
+    loadAdminData();
+  }catch(err){ toast(err.message || 'Could not approve feedback.', 'error'); }
+}
+
+async function saveCmsContent(){
+  const btn = document.getElementById('cmsSaveBtn');
+  const payload = {
+    hero_title: document.getElementById('cmsHeroTitle').value,
+    hero_subtitle: document.getElementById('cmsHeroSub').value,
+    announcement: document.getElementById('cmsAnnouncement').value
+  };
+  setBtnLoading(btn, true);
+  try{
+    await apiRequest(CONFIG.ENDPOINTS.cms, { method:'POST', body: payload, auth:true });
+    toast('Site content saved.', 'success');
+  }catch(err){
+    toast(err.message || 'Could not save content.', 'error');
+  }finally{
+    setBtnLoading(btn, false);
+  }
+}
+</script>
+<script>
+/* ============================================================
+   NAVIGATION / PAGE ROUTING
+   The site is a single document; "pages" are shown/hidden sections.
+   ============================================================ */
+function showPage(name){
+  const home = document.getElementById('pageHome');
+  const admin = document.getElementById('pageAdmin');
+  const history = document.getElementById('pageHistory');
+  const legal = document.getElementById('pageLegal');
+  [home, admin, history, legal].forEach(el => el && el.classList.remove('active'));
+  home.style.display = 'none'; admin.classList.remove('active'); history.classList.remove('active'); legal.style.display = 'none';
+
+  if(name === 'admin'){ admin.classList.add('active'); window.scrollTo({top:0, behavior:'smooth'}); return; }
+  if(name === 'history'){
+    if(!isLoggedIn()){ openModal('loginModal'); return; }
+    history.classList.add('active'); renderHistoryPanels(); window.scrollTo({top:0, behavior:'smooth'}); return;
+  }
+  if(name && name.startsWith('legal:')){
+    legal.style.display = 'block';
+    document.querySelectorAll('.legal-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('legal-' + name.split(':')[1])?.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
+  }
+  home.style.display = 'block';
+}
+
+function goHomeAnchor(anchor){
+  showPage('home');
+  requestAnimationFrame(() => {
+    const el = document.getElementById(anchor);
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+}
+
+function switchStudioTab(tab){
+  document.querySelectorAll('#studioTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('#panel-tts,#panel-blend,#panel-podcast,#panel-clone').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+}
+
+function switchAdminTab(tab){
+  document.querySelectorAll('[data-atab]').forEach(b => b.classList.toggle('active', b.dataset.atab === tab));
+  document.querySelectorAll('#apanel-feedback,#apanel-cms,#apanel-users').forEach(p => p.classList.remove('active'));
+  document.getElementById('apanel-' + tab).classList.add('active');
+}
+
+/* ---------- Modals ---------- */
+function openModal(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+function closeAllModals(){ document.querySelectorAll('.modal-layer.open').forEach(m => m.classList.remove('open')); document.body.style.overflow=''; }
+
+/* ---------- FAQ accordion ---------- */
+function toggleFaq(item){
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => { f.classList.remove('open'); f.querySelector('.faq-a').style.maxHeight = null; });
+  if(!wasOpen){
+    item.classList.add('open');
+    const inner = item.querySelector('.faq-a');
+    inner.style.maxHeight = inner.scrollHeight + 40 + 'px';
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+function initScrollReveal(){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+/* ---------- Header scroll state ---------- */
+function initHeaderScroll(){
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+}
+</script>
+<script>
+/* ============================================================
+   INIT / EVENT WIRING
+   ============================================================ */
+function initNavLinks(){
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = a.dataset.nav;
+      closeDrawer();
+      if(target === 'home'){ showPage('home'); window.scrollTo({top:0,behavior:'smooth'}); }
+      else goHomeAnchor(target);
+      document.querySelectorAll('[data-nav]').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll(`[data-nav="${target}"]`).forEach(n => n.classList.add('active'));
+    });
+  });
+  document.querySelectorAll('[data-tabnav]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      goHomeAnchor('studio');
+      setTimeout(() => switchStudioTab(a.dataset.tabnav), 350);
+    });
+  });
+  document.querySelectorAll('[data-legal]').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); showPage('legal:' + a.dataset.legal); });
+  });
+}
+
+function initMobileDrawer(){
+  const drawer = document.getElementById('mobileDrawer');
+  const open = () => drawer.classList.add('open');
+  document.getElementById('mobileToggle').addEventListener('click', open);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  document.getElementById('drawerScrim').addEventListener('click', closeDrawer);
+  document.getElementById('drawerLoginBtn').addEventListener('click', () => { closeDrawer(); openModal('loginModal'); });
+  document.getElementById('drawerSignupBtn').addEventListener('click', () => { closeDrawer(); openModal('signupModal'); });
+}
+function closeDrawer(){ document.getElementById('mobileDrawer').classList.remove('open'); }
+
+function initAuthUI(){
+  document.getElementById('openLoginBtn').addEventListener('click', () => openModal('loginModal'));
+  document.getElementById('openSignupBtn').addEventListener('click', () => openModal('signupModal'));
+  document.getElementById('ctaSignupBtn').addEventListener('click', () => openModal('signupModal'));
+  document.getElementById('switchToSignup').addEventListener('click', () => { closeModal('loginModal'); openModal('signupModal'); });
+  document.getElementById('switchToLogin').addEventListener('click', () => { closeModal('signupModal'); openModal('loginModal'); });
+  document.querySelectorAll('[data-close-modal]').forEach(el => el.addEventListener('click', closeAllModals));
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeAllModals(); });
+  document.getElementById('loginForm').addEventListener('submit', handleLogin);
+  document.getElementById('signupForm').addEventListener('submit', handleSignup);
+  document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+  document.querySelectorAll('[data-toggle-pw]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.togglePw);
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.textContent = show ? 'HIDE' : 'SHOW';
+    });
+  });
+
+  const userChip = document.getElementById('userChipBtn');
+  const userMenu = document.getElementById('userMenu');
+  userChip.addEventListener('click', (e) => { e.stopPropagation(); userMenu.classList.toggle('open'); });
+  document.addEventListener('click', () => userMenu.classList.remove('open'));
+  document.getElementById('menuHistoryLink').addEventListener('click', (e) => { e.preventDefault(); showPage('history'); });
+  document.getElementById('menuAdminLink').addEventListener('click', (e) => { e.preventDefault(); openAdminPanel(); });
+  document.getElementById('footAdminLink').addEventListener('click', (e) => { e.preventDefault(); openAdminPanel(); });
+  document.getElementById('adminGateLoginBtn').addEventListener('click', () => openModal('loginModal'));
+}
+
+function initStudioTabs(){
+  document.querySelectorAll('#studioTabs .tab-btn').forEach(btn => btn.addEventListener('click', () => switchStudioTab(btn.dataset.tab)));
+  document.querySelectorAll('[data-atab]').forEach(btn => btn.addEventListener('click', () => switchAdminTab(btn.dataset.atab)));
+}
+
+function initSliders(){
+  const bind = (id, valId, fmt) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const update = () => document.getElementById(valId).textContent = fmt(el.value);
+    el.addEventListener('input', update); update();
+  };
+  bind('ttsRate','ttsRateVal', v => parseFloat(v).toFixed(2) + 'x');
+  bind('ttsPitch','ttsPitchVal', v => parseFloat(v).toFixed(2));
+  const blendRatio = document.getElementById('blendRatio');
+  blendRatio.addEventListener('input', () => {
+    document.getElementById('blendRatioVal').textContent = `${blendRatio.value} / ${100 - blendRatio.value}`;
+  });
+}
+
+function initCharCounters(){
+  const bind = (id, countId, max) => {
+    const el = document.getElementById(id);
+    const update = () => document.getElementById(countId).textContent = el.value.length + (max ? '' : '');
+    el.addEventListener('input', update); update();
+  };
+  bind('ttsText','ttsCharCount', 5000);
+  bind('podText','podCharCount', null);
+}
+
+function initDropzone(){
+  const zone = document.getElementById('cloneZone');
+  const input = document.getElementById('cloneFile');
+  const label = document.getElementById('cloneFileName');
+  zone.addEventListener('click', () => input.click());
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('drag'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag'));
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault(); zone.classList.remove('drag');
+    if(e.dataTransfer.files.length) setCloneFile(e.dataTransfer.files[0]);
+  });
+  input.addEventListener('change', () => { if(input.files.length) setCloneFile(input.files[0]); });
+  function setCloneFile(file){
+    State.selectedCloneFile = file;
+    label.style.display = 'block';
+    label.textContent = `✓ ${file.name}`;
+  }
+}
+
+function initGenerateButtons(){
+  document.getElementById('ttsGenerateBtn').addEventListener('click', handleTtsGenerate);
+  document.getElementById('blendGenerateBtn').addEventListener('click', handleBlendGenerate);
+  document.getElementById('podGenerateBtn').addEventListener('click', handlePodcastGenerate);
+  document.getElementById('cloneGenerateBtn').addEventListener('click', handleCloneGenerate);
+  document.getElementById('ttsClearBtn').addEventListener('click', () => { document.getElementById('ttsPlayerBox').classList.remove('active'); document.getElementById('ttsAudio').pause(); });
+  document.getElementById('blendClearBtn').addEventListener('click', () => { document.getElementById('blendPlayerBox').classList.remove('active'); document.getElementById('blendAudio').pause(); });
+  document.getElementById('podClearBtn').addEventListener('click', () => { document.getElementById('podPlayerBox').classList.remove('active'); document.getElementById('podAudio').pause(); });
+  document.getElementById('cloneClearBtn').addEventListener('click', () => { document.getElementById('clonePlayerBox').classList.remove('active'); document.getElementById('cloneAudio').pause(); });
+  document.getElementById('heroDemoPlay').addEventListener('click', () => {
+    const text = document.getElementById('heroDemoText').value.trim();
+    const voiceId = document.getElementById('heroDemoVoice').value;
+    const voice = getVoiceById(voiceId);
+    if(!text) return;
+    speakBrowserPreview(text, voice?.lang || 'en-US');
+  });
+  document.getElementById('heroStartBtn').addEventListener('click', () => goHomeAnchor('studio'));
+  document.getElementById('heroLibraryBtn').addEventListener('click', () => goHomeAnchor('library'));
+  document.getElementById('cmsSaveBtn').addEventListener('click', saveCmsContent);
+  document.getElementById('adminRefreshBtn').addEventListener('click', loadAdminData);
+}
+
+function initFaq(){
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => toggleFaq(item));
+  });
+}
+
+function initLibraryFilters(){
+  ['libSearch','libLangFilter','libGenderFilter'].forEach(id => {
+    document.getElementById(id).addEventListener('input', renderVoiceLibrary);
+  });
+  document.getElementById('voiceGrid').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-preview]');
+    if(btn){ previewVoice(btn.dataset.preview); return; }
+    const card = e.target.closest('.voice-card');
+    if(card){ document.getElementById('ttsVoice').value = card.dataset.voiceId; goHomeAnchor('studio'); toast('Voice selected in Studio.', 'success'); }
+  });
+}
+
+function initPricing(){
+  document.querySelectorAll('[data-plan]').forEach(btn => btn.addEventListener('click', () => handlePlanClick(btn.dataset.plan)));
+}
+
+document.getElementById('yearNow').textContent = new Date().getFullYear();
+
+document.addEventListener('DOMContentLoaded', () => {
+  initNavLinks();
+  initMobileDrawer();
+  initAuthUI();
+  initStudioTabs();
+  initSliders();
+  initCharCounters();
+  initDropzone();
+  initGenerateButtons();
+  initFaq();
+  initLibraryFilters();
+  initPricing();
+  initScrollReveal();
+  initHeaderScroll();
+  refreshAuthUI();
+  renderHistoryPanels();
+  loadVoices();
+
+  if('speechSynthesis' in window){
+    window.speechSynthesis.onvoiceschanged = () => {};
+  }
+});
 </script>
 </body>
 </html>
