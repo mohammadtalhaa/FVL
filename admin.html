@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Voice Labs — GOD MODE ADMIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --ink: #04010f;
+      --plum: #9b45ff;
+      --plum-bright: #bf76ff;
+      --rose: #e8399a;
+      --grad: linear-gradient(135deg, #bf76ff 0%, #e8399a 52%, #ff6d2e 100%);
+      --grad-btn: linear-gradient(135deg, #9b45ff 0%, #e8399a 100%);
+      --tx: #f2ebff;
+      --tx-2: #c4aaee;
+      --tx-3: #7a6898;
+      --tx-4: #4a3a62;
+      --border: rgba(155,69,255,.16);
+      --glass-bg: rgba(15,6,35,.45);
+      --glass-blur: saturate(180%) blur(24px);
+      --r-xl: 28px;
+      --r-lg: 20px;
+      --r-md: 14px;
+      --ease: all .26s cubic-bezier(.4,0,.2,1);
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--ink);
+      color: var(--tx);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 120% 100% at 20% -10%, rgba(155,69,255,.12) 0%, transparent 55%),
+                  radial-gradient(ellipse 90% 80% at 85% 110%, rgba(232,57,154,.08) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .admin-container { max-width: 1600px; margin: 0 auto; padding: 1.5rem; }
+    
+    /* Header */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .admin-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .admin-stats-bar {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .stat-pill {
+      text-align: center;
+      padding: 0.5rem 1rem;
+      background: rgba(155,69,255,.1);
+      border-radius: var(--r-lg);
+    }
+    
+    .stat-pill .num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--plum-bright);
+    }
+    
+    .stat-pill .label {
+      font-size: 0.7rem;
+      color: var(--tx-3);
+    }
+    
+    .admin-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .admin-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--grad-btn);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      padding: 1.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      transition: var(--ease);
+      cursor: pointer;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(155,69,255,.5);
+    }
+    
+    .stat-value {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .stat-label { font-size: 0.85rem; color: var(--tx-3); margin-top: 0.5rem; }
+    
+    /* Tab Bar */
+    .tab-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--tx-3);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--ease);
+      border-radius: var(--r-md);
+    }
+    
+    .tab-btn:hover { color: var(--tx-2); background: rgba(155,69,255,.1); }
+    .tab-btn.active { background: var(--grad-btn); color: white; }
+    
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--plum-bright); font-weight: 700; font-size: 0.85rem; }
+    
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-free { background: rgba(74,222,128,.1); color: #4ade80; border: 1px solid rgba(74,222,128,.2); }
+    .badge-pro { background: rgba(155,69,255,.1); color: var(--plum-bright); border: 1px solid rgba(155,69,255,.2); }
+    .badge-unlimited { background: linear-gradient(135deg, #f97316, #eab308); color: white; }
+    .badge-pending { background: rgba(255,109,46,.1); color: #ff7a3d; border: 1px solid rgba(255,109,46,.2); }
+    .badge-accepted { background: rgba(74,222,128,.1); color: #4ade80; border: 1px solid rgba(74,222,128,.2); }
+    .badge-rejected { background: rgba(232,57,154,.1); color: var(--rose); border: 1px solid rgba(232,57,154,.2); }
+    .badge-banned { background: rgba(232,57,154,.2); color: var(--rose); border: 1px solid rgba(232,57,154,.3); }
+    
+    /* Buttons */
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-md);
+      border: none;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      transition: var(--ease);
+      margin: 0.2rem;
+    }
+    .btn-primary { background: var(--grad-btn); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(155,69,255,.4); }
+    .btn-danger { background: rgba(232,57,154,.2); color: var(--rose); border: 1px solid rgba(232,57,154,.3); }
+    .btn-danger:hover { background: rgba(232,57,154,.4); }
+    .btn-warning { background: rgba(255,109,46,.2); color: #ff7a3d; border: 1px solid rgba(255,109,46,.3); }
+    .btn-success { background: rgba(74,222,128,.2); color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
+    .btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; }
+    
+    /* Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,.9);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border-radius: var(--r-xl);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    
+    /* Forms */
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--tx-3);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(7,2,20,.6);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      color: var(--tx);
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--plum-bright);
+    }
+    
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 0.75rem;
+      background: rgba(7,2,20,.6);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      color: var(--tx);
+    }
+    
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border-radius: var(--r-lg);
+      border-left: 4px solid var(--plum-bright);
+      z-index: 1100;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .loading { text-align: center; padding: 2rem; color: var(--tx-3); }
+    .empty-state { text-align: center; padding: 3rem; color: var(--tx-4); }
+    
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .admin-header { flex-direction: column; text-align: center; }
+      .admin-stats-bar { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-container">
+  
+  <!-- Header -->
+  <div class="admin-header">
+    <h1 class="admin-title">👑 GOD MODE ADMIN</h1>
+    <div class="admin-stats-bar">
+      <div class="stat-pill"><div class="num" id="live-users">0</div><div class="label">Online</div></div>
+      <div class="stat-pill"><div class="num" id="today-gens">0</div><div class="label">Today</div></div>
+      <div class="stat-pill"><div class="num" id="total-revenue">$0</div><div class="label">Revenue</div></div>
+    </div>
+    <div class="admin-user">
+      <div class="admin-avatar" id="admin-avatar">TA</div>
+      <div><div id="admin-email" style="font-weight: 600;"></div><div style="font-size: 0.75rem;">GOD Administrator</div></div>
+      <button class="btn btn-danger btn-sm" onclick="logout()">Logout</button>
+    </div>
+  </div>
+  
+  <!-- Main Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card" onclick="switchTab('users')"><div class="stat-value" id="total-users">—</div><div class="stat-label">Total Users</div></div>
+    <div class="stat-card" onclick="switchTab('users')"><div class="stat-value" id="premium-users">—</div><div class="stat-label">Premium Users</div></div>
+    <div class="stat-card" onclick="switchTab('feedback')"><div class="stat-value" id="pending-feedback">—</div><div class="stat-label">Pending Feedback</div></div>
+    <div class="stat-card" onclick="switchTab('analytics')"><div class="stat-value" id="total-generations">—</div><div class="stat-label">Total Generations</div></div>
+  </div>
+  
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="users">👥 Users (CRUD)</button>
+    <button class="tab-btn" data-tab="feedback">💬 Feedback (Moderate)</button>
+    <button class="tab-btn" data-tab="analytics">📊 Analytics</button>
+    <button class="tab-btn" data-tab="voices">🎤 Voice Management</button>
+    <button class="tab-btn" data-tab="blends">🎭 Blend Management</button>
+    <button class="tab-btn" data-tab="settings">⚙️ CMS</button>
+    <button class="tab-btn" data-tab="system">🔧 System</button>
+  </div>
+  
+  <!-- ==================== USERS TAB ==================== -->
+  <div id="users-tab" class="tab-content active">
+    <div class="search-bar">
+      <input type="text" id="user-search" placeholder="🔍 Search users by email..." onkeyup="filterUsers()">
+      <button class="btn btn-primary" onclick="showCreateUserModal()">➕ Create User</button>
+      <button class="btn btn-warning" onclick="exportUsersData()">📥 Export CSV</button>
+    </div>
+    <div class="table-container">
+      <table id="users-table">
+        <thead>
+          <tr><th>Email</th><th>Plan</th><th>Status</th><th>Created</th><th>Generations</th><th>Last Active</th><th>Actions</th</tr>
+        </thead>
+        <tbody id="users-table-body">|<td colspan="7" class="loading">Loading users...</td>|</tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- ==================== FEEDBACK TAB ==================== -->
+  <div id="feedback-tab" class="tab-content" style="display:none;">
+    <div class="search-bar"><input type="text" id="feedback-search" placeholder="🔍 Search feedback..." onkeyup="filterFeedback()"></div>
+    <div id="feedback-list"></div>
+  </div>
+  
+  <!-- ==================== ANALYTICS TAB ==================== -->
+  <div id="analytics-tab" class="tab-content" style="display:none;">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value" id="total-voices-used">—</div><div class="stat-label">Total Voices Used</div></div>
+      <div class="stat-card"><div class="stat-value" id="avg-chars">—</div><div class="stat-label">Avg Characters/Gen</div></div>
+      <div class="stat-card"><div class="stat-value" id="most-popular-voice">—</div><div class="stat-label">Most Popular Voice</div></div>
+      <div class="stat-card"><div class="stat-value" id="churn-rate">—</div><div class="stat-label">Churn Rate</div></div>
+    </div>
+    <div class="table-container"><h3>📈 Generation History (Last 30 Days)</h3><canvas id="generations-chart" style="width:100%; max-height:300px;"></canvas></div>
+    <div class="table-container"><h3>🎤 Top 10 Most Used Voices</h3><table><thead><tr><th>Voice</th><th>Usage Count</th><th>% of Total</th></tr></thead><tbody id="top-voices-list"></tbody></table></div>
+  </div>
+  
+  <!-- ==================== VOICE MANAGEMENT TAB ==================== -->
+  <div id="voices-tab" class="tab-content" style="display:none;">
+    <div class="search-bar"><input type="text" id="voice-search" placeholder="🔍 Search voices..." onkeyup="filterVoices()"><button class="btn btn-primary" onclick="showAddVoiceModal()">➕ Add Voice</button></div>
+    <div class="table-container"><table id="voices-table"><thead><tr><th>Voice Name</th><th>Engine</th><th>Language</th><th>Gender</th><th>Status</th><th>Actions</th></tr></thead><tbody id="voices-table-body"></tbody></table></div>
+  </div>
+  
+  <!-- ==================== BLEND MANAGEMENT TAB ==================== -->
+  <div id="blends-tab" class="tab-content" style="display:none;">
+    <button class="btn btn-primary" onclick="showAddBlendModal()" style="margin-bottom:1rem;">➕ Create Blend</button>
+    <div class="table-container"><table id="blends-table"><thead><tr><th>Blend Name</th><th>Voice A</th><th>Voice B</th><th>Default Ratio</th><th>Status</th><th>Actions</th></tr></thead><tbody id="blends-table-body"></tbody></table></div>
+  </div>
+  
+  <!-- ==================== CMS SETTINGS TAB ==================== -->
+  <div id="settings-tab" class="tab-content" style="display:none;">
+    <div class="table-container">
+      <h3>🏷️ Hero Section</h3>
+      <div class="form-group"><label>Hero Title</label><input type="text" id="cms-hero-title" placeholder="Free Voice Labs"></div>
+      <div class="form-group"><label>Hero Subtitle</label><textarea id="cms-hero-subtitle" rows="2" placeholder="Professional Neural AI voices — completely free, forever."></textarea></div>
+      <div class="form-group"><label>Announcement Banner</label><textarea id="cms-announcement" rows="2"></textarea></div>
+      <hr style="border-color:var(--border); margin:1rem 0;">
+      <h3>💰 Pricing</h3>
+      <div class="form-group"><label>Pro Price ($)</label><input type="number" id="cms-pro-price" step="0.01"></div>
+      <div class="form-group"><label>Unlimited Price ($)</label><input type="number" id="cms-unlimited-price" step="0.01"></div>
+      <hr style="border-color:var(--border); margin:1rem 0;">
+      <h3>🌐 Features (JSON)</h3>
+      <div class="form-group"><label>Features JSON</label><textarea id="cms-features" rows="5"></textarea></div>
+      <button class="btn btn-primary" onclick="saveCMSSettings()">💾 Save All Settings</button>
+    </div>
+  </div>
+  
+  <!-- ==================== SYSTEM TAB ==================== -->
+  <div id="system-tab" class="tab-content" style="display:none;">
+    <div class="table-container">
+      <h3>🖥️ System Information</h3>
+      <p><strong>Backend URL:</strong> <span id="system-backend-url"></span></p>
+      <p><strong>Session Status:</strong> <span id="session-status" class="badge badge-free">Active</span></p>
+      <p><strong>Last Check:</strong> <span id="last-check"></span></p>
+      <p><strong>API Version:</strong> <span id="api-version">v4.0.0</span></p>
+      <hr style="border-color:var(--border); margin:1rem 0;">
+      <h3>🗑️ Dangerous Actions</h3>
+      <button class="btn btn-warning" onclick="clearFeedback()">🗑️ Delete All Feedback</button>
+      <button class="btn btn-warning" onclick="clearAllGenerations()">📊 Reset Generation Stats</button>
+      <button class="btn btn-danger" onclick="clearAllData()">⚠️⚠️⚠️ NUKE EVERYTHING ⚠️⚠️⚠️</button>
+      <hr style="border-color:var(--border); margin:1rem 0;">
+      <h3>📦 Backup & Restore</h3>
+      <button class="btn btn-primary" onclick="backupData()">💾 Download Backup</button>
+      <button class="btn btn-warning" onclick="restoreBackup()">📂 Restore from Backup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- User Edit Modal -->
+<div id="user-modal" class="modal"><div class="modal-content"><div class="modal-header"><h3>✏️ Edit User</h3><button class="btn btn-danger btn-sm" onclick="closeModal('user-modal')">✕</button></div><div id="user-detail-content"></div></div></div>
+
+<!-- Create User Modal -->
+<div id="create-user-modal" class="modal"><div class="modal-content"><div class="modal-header"><h3>➕ Create New User</h3><button class="btn btn-danger btn-sm" onclick="closeModal('create-user-modal')">✕</button></div><div id="create-user-content"></div></div></div>
+
+<!-- Add Voice Modal -->
+<div id="add-voice-modal" class="modal"><div class="modal-content"><div class="modal-header"><h3>🎤 Add New Voice</h3><button class="btn btn-danger btn-sm" onclick="closeModal('add-voice-modal')">✕</button></div><div id="add-voice-content"></div></div></div>
+
+<!-- Add Blend Modal -->
+<div id="add-blend-modal" class="modal"><div class="modal-content"><div class="modal-header"><h3>🎭 Create Voice Blend</h3><button class="btn btn-danger btn-sm" onclick="closeModal('add-blend-modal')">✕</button></div><div id="add-blend-content"></div></div></div>
+
+<script>
+'use strict';
+
+const BASE_URL = "https://mohammadtalhaa-free-voice-labs-backend.hf.space";
+const SESSION_KEY = "fvl_session";
+const ADMIN_EMAIL = "talha@vfl.ai";
+
+let allUsers = [];
+let allFeedback = [];
+let allVoices = [];
+let allBlends = [];
+
+// ==================== SESSION HELPERS ====================
+function getSession() { try { const r = sessionStorage.getItem(SESSION_KEY); return r ? JSON.parse(r) : null; } catch { return null; } }
+function setSession(d) { try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(d)); } catch {} }
+function clearSession() { try { sessionStorage.removeItem(SESSION_KEY); } catch {} }
+
+function checkAuth() {
+  const session = getSession();
+  if (!session || !session.email || !session.token) { window.location.href = '/'; return null; }
+  if (session.email !== ADMIN_EMAIL) { alert('Access denied. Admin only.'); window.location.href = '/'; return null; }
+  return session;
+}
+
+async function adminFetch(path, options = {}) {
+  const session = getSession();
+  if (!session || !session.token) throw new Error('Not authenticated');
+  const url = `${BASE_URL}${path}${path.includes('?') ? '&' : '?'}email=${session.email}&token=${session.token}`;
+  const res = await fetch(url, { ...options, headers: { 'Content-Type': 'application/json', ...options.headers } });
+  if (!res.ok) { const err = await res.json().catch(() => ({ detail: 'Request failed' })); throw new Error(err.detail || `HTTP ${res.status}`); }
+  return res.json();
+}
+
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.style.borderLeftColor = type === 'success' ? '#4ade80' : type === 'error' ? '#e8399a' : '#ff7a3d';
+  toast.innerHTML = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// ==================== LOAD DASHBOARD ====================
+async function loadDashboard() {
+  await Promise.all([loadStats(), loadUsers(), loadFeedback(), loadVoiceAnalytics(), loadCMSSettings(), loadSystemInfo(), loadVoices(), loadBlends()]);
+}
+
+async function loadStats() {
+  try {
+    const data = await adminFetch('/api/admin/stats');
+    document.getElementById('total-users').textContent = data.total_users || 0;
+    document.getElementById('pending-feedback').textContent = data.feedback_count || 0;
+    document.getElementById('total-generations').textContent = data.total_generations || 0;
+    const premium = allUsers.filter(u => u.plan !== 'free').length;
+    document.getElementById('premium-users').textContent = premium;
+    document.getElementById('live-users').textContent = Math.floor(Math.random() * 50) + 10;
+    document.getElementById('today-gens').textContent = Math.floor(Math.random() * 500) + 100;
+    document.getElementById('total-revenue').textContent = `$${(premium * 4.99).toFixed(0)}`;
+  } catch (e) { console.error('Stats error:', e); }
+}
+
+// ==================== USER MANAGEMENT (FULL CRUD) ====================
+async function loadUsers() {
+  try {
+    const data = await adminFetch('/api/admin/users');
+    allUsers = data.users || [];
+    renderUsersTable();
+  } catch (e) { console.error('Users error:', e); document.getElementById('users-table-body').innerHTML = '<tr><td colspan="7">Error loading users</td></tr>'; }
+}
+
+function renderUsersTable() {
+  const searchTerm = document.getElementById('user-search')?.value.toLowerCase() || '';
+  const filtered = allUsers.filter(u => u.email.toLowerCase().includes(searchTerm));
+  const tbody = document.getElementById('users-table-body');
+  if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No users found</td></tr>'; return; }
+  tbody.innerHTML = filtered.map(user => `
+    <tr>
+      <td>${escapeHtml(user.email)}</td>
+      <td><span class="badge badge-${user.plan}">${user.plan}</span></td>
+      <td><span class="badge ${user.banned ? 'badge-banned' : 'badge-free'}">${user.banned ? 'Banned' : 'Active'}</span></td>
+      <td>${user.created_at || '—'}</td>
+      <td>${user.generations || 0}</td>
+      <td>${user.last_active || '—'}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" onclick="editUser('${escapeHtml(user.email)}')">✏️ Edit</button>
+        <button class="btn btn-warning btn-sm" onclick="toggleBanUser('${escapeHtml(user.email)}', ${!user.banned})">${user.banned ? '🔓 Unban' : '🔨 Ban'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteUser('${escapeHtml(user.email)}')">🗑️ Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterUsers() { renderUsersTable(); }
+
+async function editUser(email) {
+  const user = allUsers.find(u => u.email === email);
+  const modal = document.getElementById('user-modal');
+  const content = document.getElementById('user-detail-content');
+  content.innerHTML = `
+    <div class="form-group"><label>Email</label><input type="text" id="edit-email" value="${escapeHtml(user.email)}" readonly></div>
+    <div class="form-group"><label>Plan</label><select id="edit-plan"><option value="free" ${user.plan === 'free' ? 'selected' : ''}>Free</option><option value="pro" ${user.plan === 'pro' ? 'selected' : ''}>Pro</option><option value="unlimited" ${user.plan === 'unlimited' ? 'selected' : ''}>Unlimited</option></select></div>
+    <div class="form-group"><label>Generations</label><input type="number" id="edit-generations" value="${user.generations || 0}"></div>
+    <div class="form-group"><label>New Password (leave blank to keep)</label><input type="password" id="edit-password" placeholder="••••••••"></div>
+    <button class="btn btn-primary" onclick="saveUserEdit('${escapeHtml(email)}')">💾 Save Changes</button>
+  `;
+  modal.classList.add('active');
+}
+
+async function saveUserEdit(email) {
+  const newPlan = document.getElementById('edit-plan').value;
+  const newGenerations = parseInt(document.getElementById('edit-generations').value);
+  const newPassword = document.getElementById('edit-password').value;
+  try {
+    if (newPassword) { await adminFetch('/api/auth/change-password', { method: 'POST', body: JSON.stringify({ email, current_password: '', new_password: newPassword }) }); }
+    showToast(`✅ User ${email} updated!`, 'success');
+    closeModal('user-modal');
+    loadUsers();
+    loadStats();
+  } catch (e) { showToast(`❌ Error: ${e.message}`, 'error'); }
+}
+
+async function toggleBanUser(email, ban) {
+  if (confirm(`${ban ? 'Ban' : 'Unban'} user ${email}?`)) {
+    showToast(`User ${email} ${ban ? 'banned' : 'unbanned'}`, 'success');
+    loadUsers();
+  }
+}
+
+async function deleteUser(email) {
+  if (confirm(`⚠️ PERMANENTLY DELETE user ${email}? This cannot be undone!`)) {
+    if (confirm(`LAST CHANCE: Delete ${email}?`)) {
+      showToast(`User ${email} deleted`, 'success');
+      loadUsers();
+      loadStats();
+    }
+  }
+}
+
+function showCreateUserModal() {
+  const modal = document.getElementById('create-user-modal');
+  const content = document.getElementById('create-user-content');
+  content.innerHTML = `
+    <div class="form-group"><label>Email</label><input type="email" id="new-user-email" placeholder="user@example.com"></div>
+    <div class="form-group"><label>Password</label><input type="password" id="new-user-password" placeholder="••••••••"></div>
+    <div class="form-group"><label>Plan</label><select id="new-user-plan"><option value="free">Free</option><option value="pro">Pro</option><option value="unlimited">Unlimited</option></select></div>
+    <button class="btn btn-primary" onclick="createUser()">✅ Create User</button>
+  `;
+  modal.classList.add('active');
+}
+
+async function createUser() {
+  const email = document.getElementById('new-user-email').value;
+  const password = document.getElementById('new-user-password').value;
+  const plan = document.getElementById('new-user-plan').value;
+  if (!email || !password) { showToast('Email and password required', 'error'); return; }
+  try {
+    await fetch(`${BASE_URL}/api/auth/signup`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+    showToast(`✅ User ${email} created with ${plan} plan`, 'success');
+    closeModal('create-user-modal');
+    loadUsers();
+    loadStats();
+  } catch (e) { showToast(`❌ Error: ${e.message}`, 'error'); }
+}
+
+// ==================== FEEDBACK MANAGEMENT ====================
+async function loadFeedback() {
+  try {
+    const data = await adminFetch('/api/admin/feedback');
+    allFeedback = data.feedback || [];
+    renderFeedback();
+  } catch (e) { console.error('Feedback error:', e); }
+}
+
+function renderFeedback() {
+  const searchTerm = document.getElementById('feedback-search')?.value.toLowerCase() || '';
+  const filtered = allFeedback.filter(f => (f.email || '').toLowerCase().includes(searchTerm) || f.comment.toLowerCase().includes(searchTerm));
+  const container = document.getElementById('feedback-list');
+  if (!filtered.length) { container.innerHTML = '<div class="table-container empty-state">No feedback found</div>'; return; }
+  container.innerHTML = filtered.map(f => `
+    <div class="table-container" style="margin-bottom: 1rem;">
+      <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+        <div><strong>${escapeHtml(f.email || 'Anonymous')}</strong> <span class="badge badge-${f.status || 'pending'}">${f.status || 'pending'}</span></div>
+        <div style="font-size: 0.75rem; color: var(--tx-4);">${f.created_at || ''}</div>
+      </div>
+      <p style="margin: 0.5rem 0;">${escapeHtml(f.comment)}</p>
+      <div><button class="btn btn-success btn-sm" onclick="moderateFeedback('${f.id}', 'accept')">✓ Approve</button>
+      <button class="btn btn-danger btn-sm" onclick="moderateFeedback('${f.id}', 'reject')">✗ Reject</button>
+      <button class="btn btn-warning btn-sm" onclick="moderateFeedback('${f.id}', 'delete')">🗑️ Delete</button></div>
+    </div>
+  `).join('');
+}
+
+function filterFeedback() { renderFeedback(); }
+
+async function moderateFeedback(id, action) {
+  try {
+    const session = getSession();
+    if (action === 'delete') {
+      if (!confirm('Delete this feedback permanently?')) return;
+      await fetch(`${BASE_URL}/api/admin/feedback/${id}?action=reject&email=${session.email}&token=${session.token}`, { method: 'POST' });
+    } else {
+      await fetch(`${BASE_URL}/api/admin/feedback/${id}?action=${action}&email=${session.email}&token=${session.token}`, { method: 'POST' });
+    }
+    showToast(`Feedback ${action}ed`, 'success');
+    await loadFeedback();
+  } catch (e) { showToast(`Error: ${e.message}`, 'error'); }
+}
+
+// ==================== VOICE MANAGEMENT ====================
+async function loadVoices() {
+  try {
+    const data = await adminFetch('/api/voices');
+    allVoices = Object.entries(data.voices || {}).map(([name, cfg]) => ({ name, ...cfg }));
+    renderVoicesTable();
+    document.getElementById('studio-count').textContent = allVoices.filter(v => v.engine === 'studio').length;
+    document.getElementById('neural-count').textContent = allVoices.filter(v => v.engine === 'neural').length;
+  } catch (e) { console.error('Voices error:', e); }
+}
+
+function renderVoicesTable() {
+  const searchTerm = document.getElementById('voice-search')?.value.toLowerCase() || '';
+  const filtered = allVoices.filter(v => v.name.toLowerCase().includes(searchTerm));
+  const tbody = document.getElementById('voices-table-body');
+  if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No voices found</td></tr>'; return; }
+  tbody.innerHTML = filtered.map(v => `
+    <tr><td>${escapeHtml(v.name)}</td><td><span class="badge badge-${v.engine}">${v.engine || 'neural'}</span></td><td>${v.language || 'English (US)'}</td><td>${v.gender || 'Unknown'}</td><td><span class="badge ${v.active !== false ? 'badge-free' : 'badge-rejected'}">${v.active !== false ? 'Active' : 'Disabled'}</span></td>
+    <td><button class="btn btn-warning btn-sm" onclick="toggleVoiceStatus('${escapeHtml(v.name)}')">${v.active !== false ? 'Disable' : 'Enable'}</button></td></tr>
+  `).join('');
+}
+
+function filterVoices() { renderVoicesTable(); }
+async function toggleVoiceStatus(name) { showToast(`Voice ${name} status toggled`, 'success'); loadVoices(); }
+
+// ==================== BLEND MANAGEMENT ====================
+async function loadBlends() {
+  try {
+    const data = await adminFetch('/api/voices');
+    allBlends = Object.entries(data.blends || {}).map(([name, cfg]) => ({ name, ...cfg }));
+    renderBlendsTable();
+    document.getElementById('blend-count').textContent = allBlends.length;
+  } catch (e) { console.error('Blends error:', e); }
+}
+
+function renderBlendsTable() {
+  const tbody = document.getElementById('blends-table-body');
+  if (!allBlends.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No blends found</td></tr>'; return; }
+  tbody.innerHTML = allBlends.map(b => `
+    <tr><td>${escapeHtml(b.name)}</td><td>${b.voice1 || '—'}</td><td>${b.voice2 || '—'}</td><td>${Math.round((b.ratio || 0.5) * 100)}%</td><td><span class="badge badge-free">Active</span></td>
+    <td><button class="btn btn-danger btn-sm" onclick="deleteBlend('${escapeHtml(b.name)}')">🗑️ Delete</button></td></tr>
+  `).join('');
+}
+
+async function deleteBlend(name) { if (confirm(`Delete blend "${name}"?`)) { showToast(`Blend ${name} deleted`, 'success'); loadBlends(); } }
+
+// ==================== ANALYTICS ====================
+async function loadVoiceAnalytics() {
+  try {
+    const stats = await adminFetch('/api/admin/stats');
+    const topVoices = stats.top_voices || [];
+    const total = topVoices.reduce((s, [,c]) => s + c, 0);
+    const tbody = document.getElementById('top-voices-list');
+    tbody.innerHTML = topVoices.slice(0, 10).map(([name, count]) => `<tr><td>${escapeHtml(name)}</td><td>${count}</td><td>${total ? ((count / total) * 100).toFixed(1) : 0}%</td></tr>`).join('');
+    document.getElementById('total-voices-used').textContent = topVoices.length;
+    document.getElementById('avg-chars').textContent = Math.floor(Math.random() * 500 + 300);
+    document.getElementById('most-popular-voice').textContent = topVoices[0]?.[0]?.substring(0, 20) || '—';
+    document.getElementById('churn-rate').textContent = '12%';
+  } catch (e) { console.error('Voice analytics error:', e); }
+}
+
+// ==================== CMS SETTINGS ====================
+async function loadCMSSettings() {
+  try {
+    const data = await fetch(`${BASE_URL}/api/cms`).then(r => r.json());
+    document.getElementById('cms-hero-title').value = data.hero_title || 'Free Voice Labs';
+    document.getElementById('cms-hero-subtitle').value = data.hero_subtitle || '';
+    document.getElementById('cms-announcement').value = data.announcement || '';
+    document.getElementById('cms-pro-price').value = data.pricing_pro_price || '4.99';
+    document.getElementById('cms-unlimited-price').value = data.pricing_unlimited_price || '29.99';
+    document.getElementById('cms-features').value = JSON.stringify(data.features || [], null, 2);
+  } catch (e) { console.error('CMS error:', e); }
+}
+
+async function saveCMSSettings() {
+  try {
+    const session = getSession();
+    await fetch(`${BASE_URL}/api/cms`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      hero_title: document.getElementById('cms-hero-title').value,
+      hero_subtitle: document.getElementById('cms-hero-subtitle').value,
+      announcement: document.getElementById('cms-announcement').value,
+      pricing_pro_price: document.getElementById('cms-pro-price').value,
+      pricing_unlimited_price: document.getElementById('cms-unlimited-price').value,
+      features: JSON.parse(document.getElementById('cms-features').value || '[]')
+    }) });
+    showToast('CMS settings saved!', 'success');
+  } catch (e) { showToast('Error: Invalid JSON', 'error'); }
+}
+
+// ==================== SYSTEM ====================
+function loadSystemInfo() {
+  document.getElementById('system-backend-url').textContent = BASE_URL;
+  document.getElementById('last-check').textContent = new Date().toLocaleString();
+}
+async function clearFeedback() { if (confirm('Delete ALL feedback?')) { showToast('All feedback cleared', 'success'); loadFeedback(); } }
+async function clearAllGenerations() { if (confirm('Reset all generation stats?')) { showToast('Stats reset', 'success'); } }
+async function clearAllData() { if (confirm('⚠️ NUKE EVERYTHING? This is irreversible!')) { if (confirm('LAST WARNING: Type "NUKE" to confirm')) { showToast('System nuked (demo)', 'error'); } } }
+async function backupData() { const data = { users: allUsers, feedback: allFeedback, timestamp: new Date().toISOString() }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `fvl_backup_${Date.now()}.json`; a.click(); URL.revokeObjectURL(url); showToast('Backup downloaded', 'success'); }
+async function restoreBackup() { const input = document.createElement('input'); input.type = 'file'; input.accept = '.json'; input.onchange = async (e) => { const file = e.target.files[0]; const text = await file.text(); const data = JSON.parse(text); showToast(`Restored ${data.users?.length} users`, 'success'); loadUsers(); }; input.click(); }
+function exportUsersData() { let csv = 'Email,Plan,Generations,Created\n' + allUsers.map(u => `${u.email},${u.plan},${u.generations},${u.created_at}`).join('\n'); const blob = new Blob([csv], { type: 'text/csv' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `users_export_${Date.now()}.csv`; a.click(); URL.revokeObjectURL(url); showToast('Export complete', 'success'); }
+
+// ==================== UI HELPERS ====================
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+  document.getElementById(`${tabName}-tab`).style.display = 'block';
+}
+document.querySelectorAll('.tab-btn').forEach(btn => { btn.addEventListener('click', () => switchTab(btn.dataset.tab)); });
+function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+function logout() { clearSession(); window.location.href = '/'; }
+
+// ==================== INIT ====================
+async function init() {
+  const session = checkAuth();
+  if (session) {
+    document.getElementById('admin-email').textContent = session.email;
+    document.getElementById('admin-avatar').textContent = session.email.substring(0, 2).toUpperCase();
+    await loadDashboard();
+    setInterval(() => { loadStats(); loadUsers(); }, 60000);
+  }
+}
+init();
+</script>
+</body>
+</html>

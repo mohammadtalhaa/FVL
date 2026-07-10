@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feature Requests | Free Voice Labs</title>
+<meta name="description" content="Feature Requests — Free Voice Labs neural AI voice generator.">
+<link rel="stylesheet" href="shared.css">
+
+</head>
+<body>
+<div class="bg-canvas">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-grid"></div>
+</div>
+<nav class="top-nav">
+  <a href="index.html" class="nav-brand">🎙️ Free Voice Labs</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="premium-voices.html" class="nav-link" id="nav-premium">⭐ Premium</a>
+    <a href="realistic-voices.html" class="nav-link" id="nav-realistic">🎯 Realistic</a>
+    <a href="ai-voices.html" class="nav-link" id="nav-ai">🤖 AI Voices</a>
+    <a href="about.html" class="nav-link" id="nav-about">📖 About</a>
+    <a href="faqs.html" class="nav-link" id="nav-faqs">❓ FAQs</a>
+    <a href="contact.html" class="nav-link" id="nav-contact">📧 Contact</a>
+  </div>
+</nav>
+<div class="page-wrap">
+<div class="page-hero">
+  <h1>💡 Feature Requests</h1>
+  <p>Help shape the future of Free Voice Labs — your ideas drive our roadmap.</p>
+</div>
+<a href="index.html" class="back-link">← Back to Home</a>
+
+<div class="section">
+  <h2>📌 How It Works</h2>
+  <ol>
+    <li><strong>Suggest</strong> a feature or improvement below</li>
+    <li><strong>View</strong> what the community has requested</li>
+    <li><strong>Watch</strong> as we build and ship your requests!</li>
+  </ol>
+  <p style="margin-top:12px">We review all suggestions and prioritise based on community interest and feasibility.</p>
+</div>
+
+<div class="section">
+  <h2>🚀 Coming Soon</h2>
+  <ul>
+    <li><strong>Voice Cloning (Q3 2026)</strong> — Upload a short audio sample and generate custom voice matches.</li>
+    <li><strong>Video Integration (Q3 2026)</strong> — Add voiceovers directly to MP4 with auto-sync.</li>
+    <li><strong>Batch Processing (Q4 2026)</strong> — Generate hundreds of voiceovers at once.</li>
+    <li><strong>Advanced Audio Editing (Q4 2026)</strong> — Built-in trimming, fade effects, and multi-track mixing.</li>
+    <li><strong>Team Collaboration (2027)</strong> — Share projects, manage permissions, collaborate in real-time.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>✨ Submit a Feature Request</h2>
+  <div class="form-row">
+    <div class="form-group" style="margin-bottom:0">
+      <label for="ft-title">Feature title</label>
+      <input type="text" id="ft-title" placeholder="e.g., Add German language support">
+    </div>
+    <div class="form-group" style="margin-bottom:0">
+      <label for="ft-cat">Category</label>
+      <select id="ft-cat">
+        <option>Voice</option>
+        <option>Audio</option>
+        <option>Speed</option>
+        <option>UI/UX</option>
+        <option>Integration</option>
+        <option>Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group" style="margin-top:14px">
+    <label for="ft-desc">Describe your feature idea</label>
+    <textarea id="ft-desc" placeholder="Tell us why this feature would be useful and how it would improve Free Voice Labs..."></textarea>
+  </div>
+  <button class="btn" onclick="submitRequest()">✨ Submit Request</button>
+  <p style="margin-top:10px;font-size:.83rem;color:var(--tx-4)">💬 Your feedback directly shapes our roadmap!</p>
+</div>
+
+<div class="section">
+  <h2>🎯 Recent Feature Requests</h2>
+  <div id="req-list">
+    <div class="req-card">
+      <div>
+        <div class="req-card-title">Real-time voice streaming</div>
+        <div class="req-card-meta">Category: Audio · Submitted: 2026-05-10</div>
+        <div class="req-card-desc">Stream audio as it generates so we don't have to wait for full generation.</div>
+      </div>
+      <div class="vote-badge"><span class="num">24</span><span class="lbl">votes</span></div>
+    </div>
+    <div class="req-card">
+      <div>
+        <div class="req-card-title">German language support</div>
+        <div class="req-card-meta">Category: Voice · Submitted: 2026-04-28</div>
+        <div class="req-card-desc">Add native German voices for content creators targeting German-speaking audiences.</div>
+      </div>
+      <div class="vote-badge"><span class="num">18</span><span class="lbl">votes</span></div>
+    </div>
+    <div class="req-card">
+      <div>
+        <div class="req-card-title">Dark/Light mode toggle</div>
+        <div class="req-card-meta">Category: UI/UX · Submitted: 2026-04-15</div>
+        <div class="req-card-desc">Allow users to switch between dark and light themes.</div>
+      </div>
+      <div class="vote-badge"><span class="num">11</span><span class="lbl">votes</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Why Your Feedback Matters</h2>
+  <p>At Free Voice Labs, our users guide development. We regularly review requests and prioritise based on:</p>
+  <ul>
+    <li><strong>Community Interest</strong> — How many people want this feature?</li>
+    <li><strong>Impact</strong> — How much will this improve the user experience?</li>
+    <li><strong>Feasibility</strong> — Can we build this with our current resources?</li>
+    <li><strong>Strategic Fit</strong> — Does this align with our vision?</li>
+  </ul>
+  <hr>
+  <p>📧 <strong>Email</strong>: <span class="email-pill">freevoicelabs@gmail.com</span></p>
+  <p style="margin-top:12px"><em>Thank you for helping us build the future of Free Voice Labs! 🙌</em></p>
+</div>
+<div class="toast" id="toast">✅ Request submitted! Thank you.</div>
+<div class="page-footer">© <span id="yr"></span> Free Voice Labs. All rights reserved.</div>
+</div>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('nav-feature')?.classList.add('active');
+const STORAGE_KEY = 'fvl_requests';
+function getRequests(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch{return[]}}
+function saveRequests(r){localStorage.setItem(STORAGE_KEY,JSON.stringify(r))}
+function submitRequest(){
+  const title=document.getElementById('ft-title').value.trim();
+  const cat=document.getElementById('ft-cat').value;
+  const desc=document.getElementById('ft-desc').value.trim();
+  if(!title||!desc){alert('Please fill in the title and description.');return;}
+  const reqs=getRequests();
+  reqs.unshift({title,cat,desc,votes:1,date:new Date().toISOString().slice(0,10)});
+  saveRequests(reqs);
+  document.getElementById('ft-title').value='';
+  document.getElementById('ft-desc').value='';
+  renderUserRequests(reqs);
+  const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
+}
+function renderUserRequests(reqs){
+  if(!reqs.length)return;
+  const list=document.getElementById('req-list');
+  reqs.slice(0,5).forEach(r=>{
+    const d=document.createElement('div');d.className='req-card';
+    d.innerHTML=`<div><div class="req-card-title">${r.title}</div><div class="req-card-meta">Category: ${r.cat} · Submitted: ${r.date}</div><div class="req-card-desc">${r.desc.slice(0,150)}${r.desc.length>150?'...':''}</div></div><div class="vote-badge"><span class="num">${r.votes}</span><span class="lbl">votes</span></div>`;
+    list.insertBefore(d,list.firstChild);
+  });
+}
+renderUserRequests(getRequests());
+
+</script>
+</body>
+</html>
