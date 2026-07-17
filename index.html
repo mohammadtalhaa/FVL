@@ -478,6 +478,7 @@ body {
 }
 
 
+
 /* ── 6. Hamburger ────────────────────────────────────────────────────────────── */
 .hamburger {
   display: none;
@@ -1818,6 +1819,8 @@ audio::-webkit-media-controls-panel {
   border-radius: 4px;
 }
 
+
+
   </style>
 </head>
 
@@ -2249,19 +2252,18 @@ audio::-webkit-media-controls-panel {
               </div>
 
               <div class="field-row">
-                <div class="field">
-                  <label for="pod-voice-a">Voice A (Host 1)</label>
-                  <div class="select-wrap">
-                    <select id="pod-voice-a" aria-label="Voice A"></select>
-                  </div>
-                </div>
-                <div class="field">
-                  <label for="pod-voice-b">Voice B (Host 2)</label>
-                  <div class="select-wrap">
-                    <select id="pod-voice-b" aria-label="Voice B"></select>
-                  </div>
-                </div>
+            <div class="field">
+              <label for="voice-model">AI Model / Engine</label>
+              <div class="select-wrap">
+                <select id="voice-model" aria-label="Select AI model">
+                  <option value="">All Models</option>
+                </select>
               </div>
+            </div>
+            <div class="field">
+              <!-- empty spacer for alignment -->
+            </div>
+          </div>
 
               <!-- Podcast meta -->
               <div class="pod-meta-row" id="pod-meta-row" style="display:none;">
@@ -2603,7 +2605,7 @@ audio::-webkit-media-controls-panel {
 /* ──────────────────────────────────────────────────────────────────────────────
    CONFIG & STATE
    ────────────────────────────────────────────────────────────────────────────── */
-const BASE_URL    = "https://mohammadtalhaa-free-voice-labs-backend.hf.space";
+const BASE_URL = "https://mohammadtalhaa-free-voice-labs-backend.hf.space";
 const SESSION_KEY = "fvl_session";
 
 // Session helpers
@@ -2639,7 +2641,7 @@ let cmsData      = {};
 let activeTab    = "standard";
 let selectedVoice = "";
 let selectedLib   = "Live";
-let selectedLang  = "";
+let selectedLang  = "English (US)";   // ✅ Default to English US
 let selectedStyle = "Studio";
 let customRate    = 0;
 let customPitch   = 0;
@@ -2666,6 +2668,7 @@ let genLabel     = "";
 let progressInterval = null;
 let checkoutPlan = null;
 let authTab      = "signin";
+let selectedModel = ""; // Tracks the selected model filter
 
 /* ──────────────────────────────────────────────────────────────────────────────
    DERIVED HELPERS
@@ -2686,7 +2689,13 @@ function getProVoiceNames() {
 }
 function getLanguages() {
   const vs = getVoices();
-  const order = ["English (US)", "English (UK)", "Japanese", "Mandarin Chinese", "Spanish", "French", "Hindi", "Italian", "Brazilian Portuguese"];
+  // Add your new languages to this list!
+  const order = [
+    "English (US)", "English (UK)", "Spanish (Spain)", "Spanish (US)", 
+    "French", "German", "Italian", "Japanese", "Mandarin Chinese",
+    "Urdu", "Hindi", "Arabic", "Afrikaans", "Zulu", "Swahili",
+    "Portuguese (Brazil)", "Portuguese (Portugal)", "Russian", "Turkish"
+  ];
   return [...new Set(Object.values(vs).filter(v => v.library === selectedLib).map(v => v.language))]
     .sort((a, b) => (order.indexOf(a) + 1 || 999) - (order.indexOf(b) + 1 || 999));
 }
@@ -2991,13 +3000,15 @@ async function handleGenerate() {
         text, voice_name: "", style_name: blendStyle, custom_rate: blendRate,
         custom_pitch: blendPitch, use_blend: true, blend_name: selectedBlend,
         blend_ratio: blendRatio,
-        use_multicore: document.getElementById("blend-multicore")?.checked ?? true
+        use_multicore: document.getElementById("blend-multicore")?.checked ?? true,
+        model: document.getElementById("voice-model")?.value || ""   // 🆕 ADDED
       };
     } else {
       body = {
         text, voice_name: selectedVoice, style_name: selectedStyle,
         custom_rate: customRate, custom_pitch: customPitch,
-        use_multicore: useMulticore
+        use_multicore: useMulticore,
+        model: document.getElementById("voice-model")?.value || ""   // 🆕 ADDED
       };
     }
 
@@ -3673,6 +3684,11 @@ function setupEvents() {
   });
   document.getElementById("voice-language")?.addEventListener("change", e => {
     selectedLang = e.target.value; populateStandardForm();
+  });
+
+  document.getElementById("voice-model")?.addEventListener("change", e => {
+    selectedModel = e.target.value;
+    populateStandardForm();
   });
   document.getElementById("voice-select")?.addEventListener("change", e => {
     selectedVoice = e.target.value; renderVoiceCard();
