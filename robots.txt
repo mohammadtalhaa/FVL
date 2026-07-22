@@ -21,10 +21,10 @@ Allow: /shared.css
 Disallow: /admin.html
 
 # Sitemap location
-Sitemap: https://www.freevoicelabs.com/sitemap.xml
+Sitemap: https://freevoicelabs.com/sitemap.xml
 
 # Crawl delay to be respectful
 Crawl-delay: 1
 
 # Specify your host
-Host: www.freevoicelabs.com
+Host: freevoicelabs.com
