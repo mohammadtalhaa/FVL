@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- ═══════════════════════════════════════════════════════════════════════════
-    FREE VOICE LABS — ULTIMATE SEO v5.1 (Fixed: Admin redirect & mobile nav)
+    FREE VOICE LABS — ULTIMATE SEO v5.2 (Fixed mobile admin link)
     ═══════════════════════════════════════════════════════════════════════════ -->
 
     <meta charset="UTF-8" />
@@ -3399,7 +3399,7 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
-    JAVASCRIPT — FREE VOICE LABS v5.1 (Fixed: Admin redirect & mobile nav)
+    JAVASCRIPT — FREE VOICE LABS v5.2 (Fixed mobile admin link)
     ═══════════════════════════════════════════════════════════════════════════ -->
     <script>
         'use strict';
@@ -3586,17 +3586,17 @@
             const engineClass = cfg.engine === "neural" ? "neural" : "studio";
             const engineLabel = cfg.engine === "neural" ? "⚡ Neural" : "🎯 Studio";
             wrap.innerHTML = `
-                            <div class="voice-card">
-                                <div class="vc-label">${cfg.collection_label || ""} · ${cfg.language || ""}</div>
-                                <div class="vc-name">${selectedVoice}</div>
-                                <div class="vc-desc">${cfg.tone || ""}</div>
-                                <div class="vc-tags">
-                                    <span class="vc-tag ${engineClass}">${engineLabel}</span>
-                                    <span class="vc-tag">🎤 ${cfg.gender || ""}</span>
-                                    <span class="vc-tag">🌍 ${cfg.accent || ""}</span>
-                                    ${cfg.age ? `<span class="vc-tag">👤 ${cfg.age}</span>` : ""}
-                                </div>
-                            </div>`;
+                                <div class="voice-card">
+                                    <div class="vc-label">${cfg.collection_label || ""} · ${cfg.language || ""}</div>
+                                    <div class="vc-name">${selectedVoice}</div>
+                                    <div class="vc-desc">${cfg.tone || ""}</div>
+                                    <div class="vc-tags">
+                                        <span class="vc-tag ${engineClass}">${engineLabel}</span>
+                                        <span class="vc-tag">🎤 ${cfg.gender || ""}</span>
+                                        <span class="vc-tag">🌍 ${cfg.accent || ""}</span>
+                                        ${cfg.age ? `<span class="vc-tag">👤 ${cfg.age}</span>` : ""}
+                                    </div>
+                                </div>`;
         }
 
         /* ── Form population ──────────────────────────────────────────────────────── */
@@ -3704,10 +3704,10 @@
                 p2 = blendPct2();
             if (pctLbl) pctLbl.textContent = `${p1}% / ${p2}%`;
             card.innerHTML = `
-                            <span class="blend-v-a">${cfg.voice_a || "Voice A"}</span>
-                            <span class="blend-vs">×</span>
-                            <span class="blend-v-b">${cfg.voice_b || "Voice B"}</span>
-                            <span class="blend-pct">${p1}% · ${p2}%</span>`;
+                                <span class="blend-v-a">${cfg.voice_a || "Voice A"}</span>
+                                <span class="blend-vs">×</span>
+                                <span class="blend-v-b">${cfg.voice_b || "Voice B"}</span>
+                                <span class="blend-pct">${p1}% · ${p2}%</span>`;
         }
 
         function updatePodMeta() {
@@ -3751,13 +3751,13 @@
             if (list) {
                 const slice = sents.slice(0, 10);
                 list.innerHTML = slice.map((s, i) => `
-                                    <div class="pod-row" role="listitem">
-                                        <div class="pod-badge ${i % 2 === 0 ? 'a' : 'b'}">${i % 2 === 0 ? 'A' : 'B'}</div>
-                                        <div>
-                                            <div class="pod-voice-name">${i % 2 === 0 ? podVoiceA : podVoiceB}</div>
-                                            <div class="pod-text">${s.slice(0, 130)}${s.length > 130 ? '…' : ''}</div>
-                                        </div>
-                                    </div>`).join("") +
+                                        <div class="pod-row" role="listitem">
+                                            <div class="pod-badge ${i % 2 === 0 ? 'a' : 'b'}">${i % 2 === 0 ? 'A' : 'B'}</div>
+                                            <div>
+                                                <div class="pod-voice-name">${i % 2 === 0 ? podVoiceA : podVoiceB}</div>
+                                                <div class="pod-text">${s.slice(0, 130)}${s.length > 130 ? '…' : ''}</div>
+                                            </div>
+                                        </div>`).join("") +
                     (sents.length > 10 ? `<div class="char-caption" style="padding:8px 0 0;">+ ${sents.length - 10} more sentences</div>` :
                         "");
             }
@@ -4069,19 +4069,19 @@
             if (s?.email) {
                 const initials = s.email.substring(0, 2).toUpperCase();
                 container.innerHTML = `
-                                    <div class="nav-profile" onclick="handleNavProfileClick()">
-                                        <div class="nav-avatar">${initials}</div>
-                                        <span class="nav-profile-email">${s.email}</span>
-                                        <span class="chevron">▾</span>
-                                    </div>
-                                    <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Sign Out</button>
-                                `;
+                                        <div class="nav-profile" onclick="handleNavProfileClick()">
+                                            <div class="nav-avatar">${initials}</div>
+                                            <span class="nav-profile-email">${s.email}</span>
+                                            <span class="chevron">▾</span>
+                                        </div>
+                                        <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Sign Out</button>
+                                    `;
                 checkAndShowAdminLink();
             } else {
                 container.innerHTML = `
-                                    <button class="btn btn-secondary btn-sm" onclick="openSignInModal()">Sign In</button>
-                                    <button class="btn btn-primary btn-sm" onclick="openCheckout('pro')">Get Started</button>
-                                `;
+                                        <button class="btn btn-secondary btn-sm" onclick="openSignInModal()">Sign In</button>
+                                        <button class="btn btn-primary btn-sm" onclick="openCheckout('pro')">Get Started</button>
+                                    `;
                 const adminLink = document.getElementById("nav-admin-link");
                 if (adminLink) adminLink.style.display = "none";
             }
@@ -4094,7 +4094,7 @@
             const s = getSession();
             if (adminLink && s && s.email === "talha@vfl.ai") {
                 adminLink.style.display = "flex";
-                // Open admin in new tab to avoid redirect issues
+                // Use window.open for desktop dropdown too (consistent)
                 adminLink.onclick = (e) => {
                     e.preventDefault();
                     window.open("/admin.html", "_blank");
@@ -4129,17 +4129,17 @@
             const body = document.getElementById("modal-body");
             if (!body) return;
             body.innerHTML = `
-                                <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
-                                <div class="modal-kicker">🔐 Welcome Back</div>
-                                <div class="modal-title">Sign in to your account</div>
-                                <div class="modal-body-text">Access your saved voices, history, and premium features.</div>
-                                <div class="auth-seg" style="margin-bottom:14px;">
-                                    <button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button>
-                                    <button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button>
-                                </div>
-                                <div id="modal-auth-form"></div>
-                                <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>
-                            `;
+                                    <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
+                                    <div class="modal-kicker">🔐 Welcome Back</div>
+                                    <div class="modal-title">Sign in to your account</div>
+                                    <div class="modal-body-text">Access your saved voices, history, and premium features.</div>
+                                    <div class="auth-seg" style="margin-bottom:14px;">
+                                        <button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button>
+                                        <button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button>
+                                    </div>
+                                    <div id="modal-auth-form"></div>
+                                    <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>
+                                `;
             renderModalAuthForm();
         }
 
@@ -4150,50 +4150,50 @@
             const s = getSession();
             const isAdmin = s && s.email === "talha@vfl.ai";
             overlay.innerHTML = `
-                                <div class="mob-section-label">Products</div>
-                                <a href="#studio" class="mob-link" onclick="switchTab('standard');closeMobileNav();">
-                                    <span class="mob-icon">🧠</span> Neural Text To Speech
-                                </a>
-                                <a href="#studio" class="mob-link" onclick="switchTab('blend');closeMobileNav();">
-                                    <span class="mob-icon">🎭</span> Blends
-                                </a>
-                                <a href="#studio" class="mob-link" onclick="switchTab('podcast');closeMobileNav();">
-                                    <span class="mob-icon">📻</span> Podcast Mode
-                                </a>
-                                <a href="#studio" class="mob-link" onclick="switchTab('clone');closeMobileNav();">
-                                    <span class="mob-icon">🔬</span> Voice Cloning <span style="font-size:.5rem;font-weight:800;text-transform:uppercase;color:var(--rose-bright);background:rgba(232,57,154,.12);padding:1px 6px;border-radius:var(--r-pill);border:1px solid rgba(232,57,154,.2);margin-left:4px;">Beta</span>
-                                </a>
-                                <div class="mob-divider"></div>
-                                <a href="#pricing" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">💎</span> Pricing</a>
-                                <a href="#platform" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⚙️</span> Platform</a>
-                                <a href="#testimonials" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⭐</span> Testimonials</a>
-                                <div class="mob-divider"></div>
-                                <div class="mob-section-label">About</div>
-                                <a href="/about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a>
-                                <a href="/contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a>
-                                <a href="/feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a>
-                                <a href="/privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy Policy</a>
-                                <a href="/terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a>
-                                <a href="/disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a>
-                                <a href="/sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>
-                                ${isAdmin ? `<a href="/admin.html" class="mob-link" target="_blank"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""}
-                                <div class="mob-divider"></div>
-                                ${s?.email ? `
-                                    <div style="padding:8px 16px;font-size:.78rem;color:var(--tx-3);">
-                                        Signed in as <strong style="color:var(--tx-2);">${s.email}</strong>
-                                    </div>
-                                    <button class="mob-link" onclick="handleLogout();closeMobileNav();" style="color:var(--rose-bright);">
-                                        <span class="mob-icon">🚪</span> Sign Out
-                                    </button>
-                                ` : `
-                                    <button class="mob-link" onclick="openSignInModal();closeMobileNav();" style="color:var(--plum-bright);">
-                                        <span class="mob-icon">🔑</span> Sign In
-                                    </button>
-                                    <button class="mob-link" onclick="openCheckout('pro');closeMobileNav();" style="color:var(--tx-2);">
-                                        <span class="mob-icon">🚀</span> Get Started
-                                    </button>
-                                `}
-                            `;
+                                    <div class="mob-section-label">Products</div>
+                                    <a href="#studio" class="mob-link" onclick="switchTab('standard');closeMobileNav();">
+                                        <span class="mob-icon">🧠</span> Neural Text To Speech
+                                    </a>
+                                    <a href="#studio" class="mob-link" onclick="switchTab('blend');closeMobileNav();">
+                                        <span class="mob-icon">🎭</span> Blends
+                                    </a>
+                                    <a href="#studio" class="mob-link" onclick="switchTab('podcast');closeMobileNav();">
+                                        <span class="mob-icon">📻</span> Podcast Mode
+                                    </a>
+                                    <a href="#studio" class="mob-link" onclick="switchTab('clone');closeMobileNav();">
+                                        <span class="mob-icon">🔬</span> Voice Cloning <span style="font-size:.5rem;font-weight:800;text-transform:uppercase;color:var(--rose-bright);background:rgba(232,57,154,.12);padding:1px 6px;border-radius:var(--r-pill);border:1px solid rgba(232,57,154,.2);margin-left:4px;">Beta</span>
+                                    </a>
+                                    <div class="mob-divider"></div>
+                                    <a href="#pricing" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">💎</span> Pricing</a>
+                                    <a href="#platform" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⚙️</span> Platform</a>
+                                    <a href="#testimonials" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⭐</span> Testimonials</a>
+                                    <div class="mob-divider"></div>
+                                    <div class="mob-section-label">About</div>
+                                    <a href="/about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a>
+                                    <a href="/contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a>
+                                    <a href="/feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a>
+                                    <a href="/privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy Policy</a>
+                                    <a href="/terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a>
+                                    <a href="/disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a>
+                                    <a href="/sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>
+                                    ${isAdmin ? `<a href="#" class="mob-link" onclick="event.preventDefault(); window.open('/admin.html', '_blank'); closeMobileNav();"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""}
+                                    <div class="mob-divider"></div>
+                                    ${s?.email ? `
+                                        <div style="padding:8px 16px;font-size:.78rem;color:var(--tx-3);">
+                                            Signed in as <strong style="color:var(--tx-2);">${s.email}</strong>
+                                        </div>
+                                        <button class="mob-link" onclick="handleLogout();closeMobileNav();" style="color:var(--rose-bright);">
+                                            <span class="mob-icon">🚪</span> Sign Out
+                                        </button>
+                                    ` : `
+                                        <button class="mob-link" onclick="openSignInModal();closeMobileNav();" style="color:var(--plum-bright);">
+                                            <span class="mob-icon">🔑</span> Sign In
+                                        </button>
+                                        <button class="mob-link" onclick="openCheckout('pro');closeMobileNav();" style="color:var(--tx-2);">
+                                            <span class="mob-icon">🚀</span> Get Started
+                                        </button>
+                                    `}
+                                `;
         }
 
         function closeMobileNav() {
@@ -4243,39 +4243,39 @@
             const s = getSession();
             if (checkoutPlan === "free") {
                 body.innerHTML = `
-                                    <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
-                                    <div class="modal-kicker">Plan Info</div>
-                                    <div class="modal-title">You're on Free ✓</div>
-                                    <div class="modal-body-text">You're already on the Free plan — no action needed. Enjoy unlimited generations!</div>
-                                    <button class="btn btn-primary btn-full" onclick="closeCheckout()">Got it ✓</button>`;
+                                        <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
+                                        <div class="modal-kicker">Plan Info</div>
+                                        <div class="modal-title">You're on Free ✓</div>
+                                        <div class="modal-body-text">You're already on the Free plan — no action needed. Enjoy unlimited generations!</div>
+                                        <button class="btn btn-primary btn-full" onclick="closeCheckout()">Got it ✓</button>`;
             } else if (!s?.email) {
                 body.innerHTML = `
-                                    <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
-                                    <div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div>
-                                    <div class="modal-title">Sign in to Continue</div>
-                                    <div class="modal-body-text">Create an account or sign in to complete your purchase.</div>
-                                    <div class="auth-seg" style="margin-bottom:14px;">
-                                        <button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button>
-                                        <button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button>
-                                    </div>
-                                    <div id="modal-auth-form"></div>
-                                    <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
+                                        <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
+                                        <div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div>
+                                        <div class="modal-title">Sign in to Continue</div>
+                                        <div class="modal-body-text">Create an account or sign in to complete your purchase.</div>
+                                        <div class="auth-seg" style="margin-bottom:14px;">
+                                            <button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button>
+                                            <button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button>
+                                        </div>
+                                        <div id="modal-auth-form"></div>
+                                        <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
                 renderModalAuthForm();
             } else {
                 body.innerHTML = `
-                                    <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
-                                    <div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div>
-                                    <div class="modal-title">Unlock ${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)}</div>
-                                    <div class="modal-body-text">Complete your payment to activate your plan instantly.</div>
-                                    <div class="field"><label for="ck-name">Name on Card</label><input id="ck-name" type="text" placeholder="John Smith"></div>
-                                    <div class="field"><label for="ck-email">Billing Email</label><input id="ck-email" type="email" placeholder="you@example.com" value="${s.email}"></div>
-                                    <div class="field"><label for="ck-card">Card Number</label><input id="ck-card" type="text" placeholder="4242 4242 4242 4242" maxlength="19"></div>
-                                    <div class="checkout-row">
-                                        <div class="field"><label for="ck-expiry">Expiry</label><input id="ck-expiry" type="text" placeholder="MM/YY" maxlength="5"></div>
-                                        <div class="field"><label for="ck-cvv">CVV</label><input id="ck-cvv" type="text" placeholder="123" maxlength="4"></div>
-                                    </div>
-                                    <div id="ck-err" class="err" style="display:none; margin-bottom:8px;"></div>
-                                    <button class="btn btn-primary btn-full" onclick="handleCheckout()">Pay &amp; Activate →</button>`;
+                                        <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
+                                        <div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div>
+                                        <div class="modal-title">Unlock ${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)}</div>
+                                        <div class="modal-body-text">Complete your payment to activate your plan instantly.</div>
+                                        <div class="field"><label for="ck-name">Name on Card</label><input id="ck-name" type="text" placeholder="John Smith"></div>
+                                        <div class="field"><label for="ck-email">Billing Email</label><input id="ck-email" type="email" placeholder="you@example.com" value="${s.email}"></div>
+                                        <div class="field"><label for="ck-card">Card Number</label><input id="ck-card" type="text" placeholder="4242 4242 4242 4242" maxlength="19"></div>
+                                        <div class="checkout-row">
+                                            <div class="field"><label for="ck-expiry">Expiry</label><input id="ck-expiry" type="text" placeholder="MM/YY" maxlength="5"></div>
+                                            <div class="field"><label for="ck-cvv">CVV</label><input id="ck-cvv" type="text" placeholder="123" maxlength="4"></div>
+                                        </div>
+                                        <div id="ck-err" class="err" style="display:none; margin-bottom:8px;"></div>
+                                        <button class="btn btn-primary btn-full" onclick="handleCheckout()">Pay &amp; Activate →</button>`;
             }
         }
 
@@ -4290,19 +4290,19 @@
             if (!el) return;
             if (authTab === "signin") {
                 el.innerHTML = `
-                                    <div class="field"><label for="m-login-email">Email</label><input type="email" id="m-login-email" autocomplete="email"></div>
-                                    <div class="field"><label for="m-login-pw">Password</label><input type="password" id="m-login-pw"></div>
-                                    <div id="m-login-err" class="err" style="display:none; margin-bottom:8px;"></div>
-                                    <button class="btn btn-primary btn-full" onclick="handleModalLogin()">Sign In</button>
-                                `;
+                                        <div class="field"><label for="m-login-email">Email</label><input type="email" id="m-login-email" autocomplete="email"></div>
+                                        <div class="field"><label for="m-login-pw">Password</label><input type="password" id="m-login-pw"></div>
+                                        <div id="m-login-err" class="err" style="display:none; margin-bottom:8px;"></div>
+                                        <button class="btn btn-primary btn-full" onclick="handleModalLogin()">Sign In</button>
+                                    `;
             } else {
                 el.innerHTML = `
-                                    <div class="field"><label for="m-signup-email">Email</label><input type="email" id="m-signup-email" autocomplete="email"></div>
-                                    <div class="field"><label for="m-signup-pw">Password</label><input type="password" id="m-signup-pw"></div>
-                                    <div class="field"><label for="m-signup-pw2">Confirm</label><input type="password" id="m-signup-pw2"></div>
-                                    <div id="m-signup-err" class="err" style="display:none; margin-bottom:8px;"></div>
-                                    <button class="btn btn-primary btn-full" onclick="handleModalSignup()">Create Account</button>
-                                `;
+                                        <div class="field"><label for="m-signup-email">Email</label><input type="email" id="m-signup-email" autocomplete="email"></div>
+                                        <div class="field"><label for="m-signup-pw">Password</label><input type="password" id="m-signup-pw"></div>
+                                        <div class="field"><label for="m-signup-pw2">Confirm</label><input type="password" id="m-signup-pw2"></div>
+                                        <div id="m-signup-err" class="err" style="display:none; margin-bottom:8px;"></div>
+                                        <button class="btn btn-primary btn-full" onclick="handleModalSignup()">Create Account</button>
+                                    `;
             }
         }
 
@@ -4360,21 +4360,21 @@
                 const body = document.getElementById("modal-body");
                 if (body) {
                     body.innerHTML = `
-                                        <div style="text-align:center;padding:24px 0;">
-                                            <div style="font-size:3.5rem;margin-bottom:18px;animation:bounceIn .6s ease both;">🎉</div>
-                                            <div class="modal-kicker">Payment Successful</div>
-                                            <div class="modal-title">${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)} Activated!</div>
-                                            <div class="modal-body-text">Your plan has been activated immediately. Start creating!</div>
-                                            ${r.receipt ? `
-                                                <div style="background:rgba(155,69,255,.06);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin:16px 0;text-align:left;">
-                                                    <div style="font-size:.75rem;color:var(--tx-3);line-height:1.9;">
-                                                        <div>Reference: <strong style="color:var(--plum-bright);">${r.receipt.reference}</strong></div>
-                                                        <div>Amount: <strong style="color:var(--tx);">${r.receipt.amount}</strong></div>
-                                                        <div>Card: **** ${r.receipt.card_last4}</div>
-                                                    </div>
-                                                </div>` : ""}
-                                            <button class="btn btn-primary btn-full" onclick="closeCheckout()">Start Creating 🎙️</button>
-                                        </div>`;
+                                            <div style="text-align:center;padding:24px 0;">
+                                                <div style="font-size:3.5rem;margin-bottom:18px;animation:bounceIn .6s ease both;">🎉</div>
+                                                <div class="modal-kicker">Payment Successful</div>
+                                                <div class="modal-title">${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)} Activated!</div>
+                                                <div class="modal-body-text">Your plan has been activated immediately. Start creating!</div>
+                                                ${r.receipt ? `
+                                                    <div style="background:rgba(155,69,255,.06);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin:16px 0;text-align:left;">
+                                                        <div style="font-size:.75rem;color:var(--tx-3);line-height:1.9;">
+                                                            <div>Reference: <strong style="color:var(--plum-bright);">${r.receipt.reference}</strong></div>
+                                                            <div>Amount: <strong style="color:var(--tx);">${r.receipt.amount}</strong></div>
+                                                            <div>Card: **** ${r.receipt.card_last4}</div>
+                                                        </div>
+                                                    </div>` : ""}
+                                                <button class="btn btn-primary btn-full" onclick="closeCheckout()">Start Creating 🎙️</button>
+                                            </div>`;
                 }
                 setSession({ ...s, plan: checkoutPlan });
                 renderNavAuth();
@@ -4406,17 +4406,17 @@
             grid.innerHTML = data.slice(0, 6).map((t, i) => {
                 const initials = t.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
                 return `
-                                    <div class="testimonial-card" style="animation-delay:${i * .09}s;">
-                                        <div class="t-stars">${"★".repeat(t.rating || 5)}</div>
-                                        <div class="t-text">"${t.text}"</div>
-                                        <div class="t-author">
-                                            <div class="t-avatar">${initials}</div>
-                                            <div>
-                                                <div class="t-name">${t.name}</div>
-                                                <div class="t-role">${t.role}</div>
+                                        <div class="testimonial-card" style="animation-delay:${i * .09}s;">
+                                            <div class="t-stars">${"★".repeat(t.rating || 5)}</div>
+                                            <div class="t-text">"${t.text}"</div>
+                                            <div class="t-author">
+                                                <div class="t-avatar">${initials}</div>
+                                                <div>
+                                                    <div class="t-name">${t.name}</div>
+                                                    <div class="t-role">${t.role}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>`;
+                                        </div>`;
             }).join("");
         }
 
