@@ -1,142 +1,3737 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>About Us | Free Voice Labs</title>
-<meta name="description" content="About Us — Free Voice Labs neural AI voice generator.">
-<link rel="stylesheet" href="shared.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>About Us | Free Voice Labs</title>
+    <meta name="description" content="About Us — Free Voice Labs neural AI voice generator." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#04010f" />
 
+    <link rel="canonical" href="https://freevoicelabs.com/about.html" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://mohammadtalhaa-free-voice-labs-backend.hf.space" />
+
+    <!-- Google Fonts with font-display: swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ═══════ TOKENS ═══════ */
+        :root {
+            --ink: #04010f;
+            --ink-mid: #080318;
+            --plum: #9b45ff;
+            --plum-bright: #bf76ff;
+            --rose: #e8399a;
+            --amber: #ff6d2e;
+            --grad: linear-gradient(135deg, #bf76ff 0%, #e8399a 52%, #ff6d2e 100%);
+            --grad-btn: linear-gradient(135deg, #9b45ff 0%, #e8399a 100%);
+            --tx: #f2ebff;
+            --tx-2: #c4aaee;
+            --tx-3: #7a6898;
+            --tx-4: #4a3a62;
+            --border: rgba(155, 69, 255, .16);
+            --glass-bg: rgba(15, 6, 35, .45);
+            --glass-border: rgba(191, 118, 255, .18);
+            --glass-blur: saturate(180%) blur(24px);
+            --r-2xl: 36px;
+            --r-xl: 28px;
+            --r-lg: 20px;
+            --r-md: 14px;
+            --r-sm: 10px;
+            --r-pill: 999px;
+            --ease: all .26s cubic-bezier(.4, 0, .2, 1);
+            --spring: all .42s cubic-bezier(.34, 1.56, .64, 1);
+            --nav-h: 60px;
+        }
+
+        /* ═══════ RESET ═══════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            height: 100%;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--ink);
+            color: var(--tx);
+            min-height: 100vh;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(155, 69, 255, .22);
+            border-radius: 2px;
+        }
+
+        /* ═══════ BACKGROUND (lighter) ═══════ */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .bg-orb-1 {
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(155, 69, 255, .15) 0%, transparent 70%);
+        }
+        .bg-orb-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            right: -80px;
+            background: radial-gradient(circle, rgba(232, 57, 154, .10) 0%, transparent 70%);
+            animation-delay: -8s;
+        }
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(155, 69, 255, .02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(155, 69, 255, .02) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+        @keyframes orbFloat {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(30px, 30px) scale(1.03);
+            }
+        }
+
+        /* ═══════ SKIP ═══════ */
+        .skip-link {
+            position: absolute;
+            top: -9999px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: var(--plum);
+            color: #fff;
+            border-radius: var(--r-md);
+            font-weight: 700;
+            z-index: 9999;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        /* ═══════ DYNAMIC ISLAND NAV ═══════ */
+        .dynamic-island {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: auto;
+            min-width: 280px;
+            max-width: 92vw;
+            height: 56px;
+            background: rgba(8, 3, 22, .82);
+            backdrop-filter: saturate(180%) blur(24px);
+            -webkit-backdrop-filter: saturate(180%) blur(24px);
+            border-radius: var(--r-pill);
+            border: 1px solid rgba(191, 118, 255, .12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            gap: 2px;
+            user-select: none;
+            transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        .dynamic-island::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--r-pill);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(191, 118, 255, .12), rgba(232, 57, 154, .06));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .island-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            padding: 0 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .island-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            text-decoration: none;
+            padding: 0 6px 0 4px;
+            border-radius: var(--r-sm);
+            transition: var(--ease);
+        }
+        .island-brand:hover {
+            background: rgba(155, 69, 255, .04);
+        }
+        .island-brand-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--r-xs);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .2), rgba(232, 57, 154, .12));
+            border: 1px solid rgba(155, 69, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .island-brand-logo img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+        .island-brand-text {
+            font-family: 'Clash Display', sans-serif;
+            font-size: .92rem;
+            font-weight: 700;
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+            white-space: nowrap;
+        }
+        .island-brand-badge {
+            font-size: .48rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: 1px 6px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .10);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--plum-bright);
+            flex-shrink: 0;
+        }
+
+        .island-links {
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            flex: 1;
+            justify-content: center;
+            padding: 0 4px;
+        }
+        .island-link {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 5px 12px;
+            border-radius: var(--r-sm);
+            color: var(--tx-3);
+            font-size: .75rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--ease);
+            font-family: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+        }
+        .island-link:hover {
+            color: var(--tx-2);
+            background: rgba(155, 69, 255, .06);
+        }
+        .island-link .chevron {
+            font-size: .5rem;
+            opacity: .5;
+            transition: transform .22s ease;
+            margin-left: 1px;
+        }
+        .island-link .link-badge {
+            font-size: .45rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 1px 5px;
+            border-radius: var(--r-pill);
+            background: rgba(232, 57, 154, .12);
+            border: 1px solid rgba(232, 57, 154, .18);
+            color: var(--rose);
+            margin-left: 1px;
+        }
+
+        .island-dropdown-wrap {
+            position: relative;
+        }
+        .island-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            min-width: 200px;
+            background: rgba(8, 3, 22, .96);
+            backdrop-filter: saturate(180%) blur(24px);
+            -webkit-backdrop-filter: saturate(180%) blur(24px);
+            border: 1px solid rgba(155, 69, 255, .12);
+            border-radius: var(--r-lg);
+            padding: 6px 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s ease, transform .2s ease;
+            z-index: 100;
+        }
+        .island-dropdown-wrap:hover .island-dropdown,
+        .island-dropdown-wrap.open .island-dropdown {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(-50%) translateY(0);
+        }
+        .island-dropdown a,
+        .island-dropdown .dd-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: var(--r-sm);
+            color: var(--tx-3);
+            font-size: .73rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--ease);
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+        .island-dropdown a:hover,
+        .island-dropdown .dd-item:hover {
+            background: rgba(155, 69, 255, .06);
+            color: var(--tx-2);
+        }
+        .island-dropdown .dd-icon {
+            font-size: .9rem;
+            flex-shrink: 0;
+        }
+        .island-dropdown .dd-label {
+            flex: 1;
+        }
+        .island-dropdown .dd-badge {
+            font-size: .45rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 1px 6px;
+            border-radius: var(--r-pill);
+            background: rgba(232, 57, 154, .10);
+            border: 1px solid rgba(232, 57, 154, .16);
+            color: var(--rose);
+        }
+        .island-dropdown .dd-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .08), transparent);
+            margin: 4px 8px;
+        }
+        .island-dropdown .dd-admin {
+            display: none;
+        }
+        .island-dropdown .dd-admin.visible {
+            display: flex;
+        }
+
+        .island-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            padding-right: 2px;
+        }
+        .island-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 5px 14px;
+            border-radius: var(--r-pill);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .73rem;
+            font-weight: 700;
+            transition: var(--spring);
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .island-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
+            transition: left .5s ease;
+            pointer-events: none;
+        }
+        .island-btn:hover::before {
+            left: 140%;
+        }
+        .island-btn-primary {
+            background: var(--grad-btn);
+            color: #fff;
+            box-shadow: 0 2px 12px rgba(155, 69, 255, .25);
+        }
+        .island-btn-primary:hover {
+            box-shadow: 0 4px 20px rgba(155, 69, 255, .35);
+            transform: translateY(-1px);
+        }
+        .island-btn-secondary {
+            background: rgba(155, 69, 255, .06);
+            color: var(--plum-bright);
+            border: 1px solid rgba(155, 69, 255, .12);
+        }
+        .island-btn-secondary:hover {
+            background: rgba(155, 69, 255, .12);
+            border-color: rgba(155, 69, 255, .22);
+            transform: translateY(-1px);
+        }
+        .island-btn-ghost {
+            background: transparent;
+            color: var(--tx-3);
+            border: 1px solid rgba(255, 255, 255, .04);
+        }
+        .island-btn-ghost:hover {
+            background: rgba(255, 255, 255, .04);
+            color: var(--tx-2);
+        }
+        .island-btn-sm {
+            padding: 4px 10px;
+            font-size: .68rem;
+        }
+
+        .island-profile {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 10px 2px 4px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .04);
+            border: 1px solid rgba(155, 69, 255, .08);
+            cursor: pointer;
+            transition: var(--ease);
+        }
+        .island-profile:hover {
+            background: rgba(155, 69, 255, .08);
+        }
+        .island-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--grad-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px rgba(155, 69, 255, .15);
+        }
+        .island-profile-email {
+            font-size: .68rem;
+            font-weight: 600;
+            color: var(--tx-2);
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .island-profile .chevron {
+            font-size: .45rem;
+            color: var(--tx-4);
+        }
+
+        .island-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            padding: 6px 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--tx);
+            border-radius: var(--r-sm);
+            transition: var(--ease);
+            flex-shrink: 0;
+        }
+        .island-hamburger:hover {
+            background: rgba(155, 69, 255, .04);
+        }
+        .island-hamburger span {
+            display: block;
+            width: 18px;
+            height: 1.5px;
+            background: currentColor;
+            border-radius: 1px;
+            transition: transform .28s cubic-bezier(.4, 0, .2, 1), opacity .2s ease;
+        }
+        .island-hamburger.open span:nth-child(1) {
+            transform: translateY(4.5px) rotate(45deg);
+        }
+        .island-hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .island-hamburger.open span:nth-child(3) {
+            transform: translateY(-4.5px) rotate(-45deg);
+        }
+
+        .island-mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(4, 1, 15, .92);
+            backdrop-filter: blur(32px) saturate(160%);
+            -webkit-backdrop-filter: blur(32px) saturate(160%);
+            padding: 80px 20px 32px;
+            overflow-y: auto;
+            flex-direction: column;
+            gap: 2px;
+            animation: overlayFade .3s ease both;
+        }
+        @keyframes overlayFade {
+            from {
+                opacity: 0;
+                transform: scale(.97);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .island-mobile-overlay.open {
+            display: flex;
+        }
+        .island-mobile-overlay .mob-section {
+            padding: 8px 0 2px 12px;
+            font-size: .55rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--tx-4);
+            font-weight: 800;
+            margin-top: 4px;
+        }
+        .island-mobile-overlay .mob-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            color: var(--tx-3);
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--ease);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .island-mobile-overlay .mob-link:hover {
+            background: rgba(155, 69, 255, .05);
+            color: var(--tx-2);
+        }
+        .island-mobile-overlay .mob-link .mob-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .island-mobile-overlay .mob-link .mob-badge {
+            font-size: .45rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 1px 6px;
+            border-radius: var(--r-pill);
+            background: rgba(232, 57, 154, .10);
+            border: 1px solid rgba(232, 57, 154, .16);
+            color: var(--rose);
+            margin-left: auto;
+        }
+        .island-mobile-overlay .mob-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .08), transparent);
+            margin: 4px 12px;
+        }
+        .island-mobile-overlay .mob-auth-row {
+            padding: 12px 14px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .island-mobile-overlay .mob-auth-row .mob-email {
+            font-size: .78rem;
+            color: var(--tx-2);
+            font-weight: 600;
+            padding: 0 4px 4px;
+        }
+
+        .island-overlay-close {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(155, 69, 255, .06);
+            border: 1px solid rgba(155, 69, 255, .12);
+            color: var(--tx-3);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: var(--ease);
+        }
+        .island-overlay-close:hover {
+            background: rgba(155, 69, 255, .12);
+            color: var(--tx);
+        }
+        .island-overlay-close.visible {
+            display: flex;
+        }
+
+        @keyframes gradShift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* ═══════ RESPONSIVE NAV ═══════ */
+        @media (max-width:1024px) {
+            .dynamic-island {
+                min-width: 200px;
+                height: 50px;
+                top: 10px;
+            }
+            .island-brand-text {
+                font-size: .8rem;
+            }
+            .island-brand-badge {
+                display: none;
+            }
+            .island-link {
+                font-size: .7rem;
+                padding: 4px 8px;
+            }
+            .island-btn {
+                font-size: .68rem;
+                padding: 4px 10px;
+            }
+            .island-profile-email {
+                max-width: 60px;
+                font-size: .62rem;
+            }
+        }
+        @media (max-width:820px) {
+            .island-links {
+                display: none;
+            }
+            .island-hamburger {
+                display: flex;
+            }
+            .dynamic-island {
+                min-width: 140px;
+                height: 44px;
+                top: 8px;
+                padding: 0 4px;
+            }
+            .island-brand-text {
+                font-size: .72rem;
+            }
+            .island-brand-logo {
+                width: 26px;
+                height: 26px;
+            }
+            .island-brand-logo img {
+                width: 15px;
+                height: 15px;
+            }
+            .island-right .island-btn-secondary {
+                display: none;
+            }
+            .island-right .island-btn-primary {
+                padding: 3px 10px;
+                font-size: .62rem;
+            }
+            .island-profile-email {
+                max-width: 50px;
+                font-size: .58rem;
+            }
+            .island-avatar {
+                width: 22px;
+                height: 22px;
+                font-size: .55rem;
+            }
+            .island-profile {
+                padding: 1px 6px 1px 2px;
+            }
+            .island-overlay-close.visible {
+                display: flex;
+            }
+            body {
+                padding-top: 64px;
+            }
+        }
+        @media (max-width:480px) {
+            .dynamic-island {
+                min-width: 100px;
+                height: 40px;
+                top: 6px;
+                padding: 0 2px;
+            }
+            .island-brand-text {
+                font-size: .65rem;
+            }
+            .island-brand-logo {
+                width: 22px;
+                height: 22px;
+            }
+            .island-brand-logo img {
+                width: 13px;
+                height: 13px;
+            }
+            .island-brand {
+                gap: 4px;
+                padding: 0 2px;
+            }
+            .island-right .island-btn-primary {
+                padding: 2px 8px;
+                font-size: .55rem;
+            }
+            .island-right .island-btn-ghost {
+                display: none;
+            }
+            .island-hamburger span {
+                width: 15px;
+                height: 1.5px;
+            }
+            .island-hamburger {
+                padding: 4px 6px;
+                gap: 2.5px;
+            }
+            .island-profile-email {
+                max-width: 36px;
+                font-size: .52rem;
+            }
+            .island-avatar {
+                width: 20px;
+                height: 20px;
+                font-size: .5rem;
+            }
+            body {
+                padding-top: 56px;
+            }
+        }
+
+        /* ═══════ UTILITY ═══════ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: var(--r-md);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            transition: var(--spring);
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .1), transparent);
+            transition: left .5s ease;
+            pointer-events: none;
+        }
+        .btn:hover::before {
+            left: 140%;
+        }
+        .btn-primary {
+            background: var(--grad-btn);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(155, 69, 255, .35);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 32px rgba(155, 69, 255, .5);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: rgba(155, 69, 255, .08);
+            color: var(--plum-bright);
+            border: 1px solid rgba(155, 69, 255, .18);
+        }
+        .btn-secondary:hover {
+            background: rgba(155, 69, 255, .16);
+            border-color: rgba(155, 69, 255, .35);
+            transform: translateY(-1px);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--tx-3);
+            border: 1px solid rgba(255, 255, 255, .06);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, .04);
+            color: var(--tx-2);
+            border-color: rgba(255, 255, 255, .12);
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: .74rem;
+        }
+        .btn-full {
+            width: 100%;
+        }
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, .25);
+            border-top-color: #fff;
+            animation: spin .65s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .main-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ═══════ HERO ═══════ */
+        .hero {
+            text-align: center;
+            padding: 24px 0 16px;
+            animation: heroIn .7s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+        @keyframes heroIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .14);
+            font-size: .7rem;
+            font-weight: 700;
+            color: var(--tx-3);
+            margin-bottom: 20px;
+        }
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+            animation: dotPulse 2s ease infinite;
+        }
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .35;
+            }
+        }
+        .hero h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -.03em;
+            line-height: 1.08;
+            color: var(--tx);
+            max-width: 820px;
+            margin: 0 auto 16px;
+        }
+        .hero h1 .grad {
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+        }
+        .hero p {
+            font-size: clamp(1rem, 1.4vw, 1.2rem);
+            color: var(--tx-3);
+            max-width: 640px;
+            margin: 0 auto 28px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero-stats-mini {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .78rem;
+            color: var(--tx-3);
+        }
+        .hero-stat-item strong {
+            color: var(--tx-2);
+            font-weight: 800;
+            font-size: .95rem;
+        }
+
+        /* ═══════ STUDIO ═══════ */
+        .studio-section {
+            margin-top: 20px;
+            margin-bottom: 48px;
+        }
+        .studio-description {
+            font-size: .95rem;
+            color: var(--tx-3);
+            max-width: 760px;
+            margin: 0 auto 24px;
+            text-align: center;
+            line-height: 1.7;
+        }
+        .studio-card {
+            border-radius: var(--r-2xl);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 60px rgba(155, 69, 255, .08), 0 32px 80px rgba(0, 0, 0, .5);
+            overflow: hidden;
+            position: relative;
+            animation: heroIn .7s cubic-bezier(.34, 1.56, .64, 1) both .08s;
+        }
+        .studio-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 28px 0;
+            position: relative;
+        }
+        .studio-head h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.02em;
+            margin: 0;
+        }
+        .studio-head-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--r-lg);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .2), rgba(232, 57, 154, .14));
+            border: 1px solid rgba(155, 69, 255, .3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.4rem;
+            box-shadow: 0 0 20px rgba(155, 69, 255, .15);
+        }
+        .studio-subtitle {
+            font-size: .73rem;
+            color: var(--tx-3);
+            margin-top: 2px;
+        }
+
+        .tab-rail {
+            display: flex;
+            gap: 4px;
+            padding: 14px 28px 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tab-rail::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: var(--r-md);
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--tx-3);
+            font-family: inherit;
+            font-size: .78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--ease);
+            white-space: nowrap;
+            position: relative;
+        }
+        .tab-btn:hover {
+            color: var(--tx-2);
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(155, 69, 255, .16), rgba(232, 57, 154, .08));
+            border-color: rgba(155, 69, 255, .25);
+            color: var(--tx);
+            box-shadow: 0 4px 16px rgba(155, 69, 255, .10);
+        }
+        .tab-icon {
+            font-size: .9rem;
+        }
+        .tab-rail-underline {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .1), transparent);
+            margin: 10px 28px 0;
+        }
+
+        .studio-body {
+            padding: 18px 28px 28px;
+        }
+        .tab-panel {
+            display: none;
+            animation: panelIn .3s cubic-bezier(.4, 0, .2, 1) both;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        @keyframes panelIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════ FORM ═══════ */
+        .info-pill {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: var(--r-md);
+            background: rgba(155, 69, 255, .05);
+            border: 1px solid rgba(155, 69, 255, .12);
+            font-size: .78rem;
+            color: var(--tx-3);
+            margin-bottom: 16px;
+            line-height: 1.55;
+        }
+        .info-pill-icon {
+            font-size: .9rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .field {
+            margin-bottom: 14px;
+        }
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .field label,
+        .field-label {
+            display: block;
+            font-size: .7rem;
+            font-weight: 700;
+            color: var(--tx-3);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 5px;
+        }
+        select,
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            background: rgba(7, 2, 20, .6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--tx);
+            font-family: inherit;
+            font-size: .84rem;
+            font-weight: 500;
+            outline: none;
+            transition: var(--ease);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        select:focus,
+        input:focus {
+            border-color: rgba(155, 69, 255, .35);
+            box-shadow: 0 0 0 3px rgba(155, 69, 255, .08);
+            background: rgba(10, 4, 28, .7);
+        }
+        select:hover,
+        input:hover {
+            border-color: rgba(155, 69, 255, .22);
+        }
+        .select-wrap {
+            position: relative;
+        }
+        .select-wrap::after {
+            content: '▾';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--tx-3);
+            pointer-events: none;
+            font-size: .7rem;
+        }
+        .select-wrap select {
+            padding-right: 30px;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: var(--r-lg);
+            background: rgba(7, 2, 20, .6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--tx);
+            font-family: inherit;
+            font-size: .84rem;
+            font-weight: 400;
+            outline: none;
+            transition: var(--ease);
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+        textarea:focus {
+            border-color: rgba(155, 69, 255, .35);
+            box-shadow: 0 0 0 3px rgba(155, 69, 255, .08);
+            background: rgba(10, 4, 28, .7);
+        }
+        textarea::placeholder,
+        input::placeholder {
+            color: var(--tx-4);
+        }
+        .char-caption {
+            font-size: .68rem;
+            color: var(--tx-4);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .slider-group {
+            background: rgba(7, 2, 20, .4);
+            border: 1px solid rgba(155, 69, 255, .10);
+            border-radius: var(--r-lg);
+            padding: 12px 14px;
+            transition: var(--ease);
+        }
+        .slider-group:hover {
+            border-color: rgba(155, 69, 255, .2);
+        }
+        .slider-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .slider-label {
+            font-size: .7rem;
+            color: var(--tx-3);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+        .slider-val {
+            font-size: .7rem;
+            color: var(--plum-bright);
+            font-weight: 800;
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .16);
+            padding: 1px 8px;
+            border-radius: var(--r-pill);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, rgba(155, 69, 255, .25), rgba(232, 57, 154, .18));
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #bf76ff, #e8399a);
+            box-shadow: 0 0 10px rgba(155, 69, 255, .4);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, .15);
+            transition: transform .18s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.12);
+        }
+        .sliders-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .cpu-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--r-lg);
+            background: rgba(7, 2, 20, .35);
+            border: 1px solid rgba(155, 69, 255, .10);
+            cursor: pointer;
+            transition: var(--ease);
+            margin-bottom: 14px;
+        }
+        .cpu-toggle:hover {
+            border-color: rgba(155, 69, 255, .2);
+            background: rgba(7, 2, 20, .55);
+        }
+        .toggle-switch {
+            position: relative;
+            flex-shrink: 0;
+            width: 38px;
+            height: 20px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+            background: rgba(155, 69, 255, .14);
+            border: 1px solid rgba(155, 69, 255, .18);
+            transition: var(--ease);
+            cursor: pointer;
+        }
+        .toggle-switch input:checked+.toggle-track {
+            background: linear-gradient(135deg, rgba(155, 69, 255, .45), rgba(232, 57, 154, .3));
+            border-color: rgba(155, 69, 255, .35);
+        }
+        .toggle-track::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--tx-3);
+            transition: transform .22s ease, background .22s ease;
+        }
+        .toggle-switch input:checked+.toggle-track::after {
+            transform: translateX(18px);
+            background: #fff;
+            box-shadow: 0 0 6px rgba(155, 69, 255, .4);
+        }
+        .toggle-label {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--tx-2);
+        }
+        .toggle-desc {
+            font-size: .66rem;
+            color: var(--tx-4);
+            margin-top: 1px;
+        }
+
+        /* ═══════ PROGRESS ═══════ */
+        .progress-wrap {
+            padding: 12px 14px;
+            border-radius: var(--r-lg);
+            background: rgba(7, 2, 20, .4);
+            border: 1px solid rgba(155, 69, 255, .10);
+            margin-bottom: 14px;
+            animation: panelIn .3s ease both;
+        }
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: .72rem;
+        }
+        .progress-label {
+            color: var(--tx-3);
+            font-weight: 600;
+        }
+        .progress-pct {
+            color: var(--plum-bright);
+            font-weight: 800;
+        }
+        .progress-track {
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(155, 69, 255, .08);
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--plum), var(--rose));
+            transition: width .4s ease;
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .3));
+            animation: shimmerSlide 1.5s ease infinite;
+        }
+        @keyframes shimmerSlide {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        /* ═══════ AUDIO CARD ═══════ */
+        .audio-card {
+            padding: 18px 20px;
+            border-radius: var(--r-xl);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .08), rgba(232, 57, 154, .04));
+            border: 1px solid rgba(155, 69, 255, .18);
+            margin-top: 14px;
+            position: relative;
+            overflow: hidden;
+            animation: bounceIn .5s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+        .audio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(191, 118, 255, .3), rgba(232, 57, 154, .2), transparent);
+        }
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: scale(.95) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .audio-eyebrow {
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--plum-bright);
+            font-weight: 800;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .audio-eyebrow .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 6px #4ade80;
+            animation: dotPulse 2s ease infinite;
+        }
+        .audio-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--tx);
+            margin-bottom: 2px;
+        }
+        .audio-meta {
+            font-size: .72rem;
+            color: var(--tx-3);
+            margin-bottom: 12px;
+        }
+        audio {
+            width: 100%;
+            height: 38px;
+            border-radius: var(--r-md);
+            outline: none;
+            margin-bottom: 10px;
+        }
+        audio::-webkit-media-controls-panel {
+            background: rgba(20, 8, 50, .7);
+        }
+        .audio-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ═══════ VOICE CARD ═══════ */
+        .voice-card {
+            padding: 12px 16px;
+            border-radius: var(--r-lg);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .07), rgba(232, 57, 154, .03));
+            border: 1px solid rgba(155, 69, 255, .14);
+            margin: -2px 0 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .vc-label {
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--tx-4);
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        .vc-name {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.01em;
+            margin-bottom: 3px;
+        }
+        .vc-desc {
+            font-size: .76rem;
+            color: var(--tx-3);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        .vc-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .vc-tag {
+            padding: 2px 8px;
+            border-radius: var(--r-pill);
+            font-size: .6rem;
+            font-weight: 700;
+            background: rgba(155, 69, 255, .06);
+            border: 1px solid rgba(155, 69, 255, .12);
+            color: var(--tx-3);
+        }
+        .vc-tag.neural {
+            background: rgba(155, 69, 255, .1);
+            border-color: rgba(155, 69, 255, .2);
+            color: var(--plum-bright);
+        }
+        .vc-tag.studio {
+            background: rgba(96, 165, 250, .08);
+            border-color: rgba(96, 165, 250, .18);
+            color: #60a5fa;
+        }
+
+        /* ═══════ BLEND ═══════ */
+        .blend-pill-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: var(--r-lg);
+            background: rgba(155, 69, 255, .05);
+            border: 1px solid rgba(155, 69, 255, .12);
+            margin: -2px 0 14px;
+            font-size: .8rem;
+        }
+        .blend-v-a {
+            color: var(--plum-bright);
+            font-weight: 700;
+        }
+        .blend-vs {
+            color: var(--tx-4);
+            font-size: .7rem;
+        }
+        .blend-v-b {
+            color: #60a5fa;
+            font-weight: 700;
+        }
+        .blend-pct {
+            margin-left: auto;
+            font-size: .68rem;
+            color: var(--tx-3);
+            font-weight: 600;
+        }
+
+        /* ═══════ PODCAST ═══════ */
+        .pod-meta-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .pod-meta-card {
+            flex: 1;
+            padding: 9px 12px;
+            border-radius: var(--r-md);
+            border: 1px solid rgba(155, 69, 255, .10);
+            background: rgba(7, 2, 20, .35);
+            font-size: .74rem;
+        }
+        .pod-meta-label {
+            color: var(--tx-4);
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .pod-meta-val {
+            color: var(--tx-2);
+            font-weight: 700;
+        }
+        .pod-preview {
+            padding: 12px 14px;
+            border-radius: var(--r-lg);
+            background: rgba(7, 2, 20, .35);
+            border: 1px solid rgba(155, 69, 255, .10);
+            margin-bottom: 14px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .pod-row {
+            display: flex;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .03);
+            font-size: .78rem;
+            align-items: flex-start;
+        }
+        .pod-row:last-child {
+            border-bottom: none;
+        }
+        .pod-badge {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 800;
+            margin-top: 1px;
+        }
+        .pod-badge.a {
+            background: rgba(155, 69, 255, .18);
+            border: 1px solid rgba(155, 69, 255, .25);
+            color: var(--plum-bright);
+        }
+        .pod-badge.b {
+            background: rgba(96, 165, 250, .14);
+            border: 1px solid rgba(96, 165, 250, .2);
+            color: #60a5fa;
+        }
+        .pod-voice-name {
+            font-size: .6rem;
+            color: var(--tx-4);
+            margin-bottom: 1px;
+        }
+        .pod-text {
+            color: var(--tx-2);
+            line-height: 1.4;
+        }
+        .pod-voice-select {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: var(--r-md);
+            background: rgba(7, 2, 20, .5);
+            border: 1px solid rgba(155, 69, 255, .12);
+            color: var(--tx);
+            font-family: inherit;
+            font-size: .8rem;
+            font-weight: 500;
+            outline: none;
+            transition: var(--ease);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .pod-voice-select:focus {
+            border-color: rgba(155, 69, 255, .35);
+            box-shadow: 0 0 0 3px rgba(155, 69, 255, .08);
+        }
+        .pod-voice-select option {
+            background: #0a0420;
+        }
+        .pod-voice-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        @media (max-width:480px) {
+            .pod-voice-pair {
+                grid-template-columns: 1fr;
+            }
+        }
+        .pod-voice-pair .field {
+            margin-bottom: 0;
+        }
+        .pod-voice-pair .field label {
+            font-size: .65rem;
+        }
+
+        /* ═══════ CLONE ═══════ */
+        .dropzone {
+            border: 2px dashed rgba(155, 69, 255, .18);
+            border-radius: var(--r-xl);
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--ease);
+            position: relative;
+            overflow: hidden;
+            background: rgba(155, 69, 255, .02);
+            margin-bottom: 14px;
+        }
+        .dropzone:hover,
+        .dropzone.drag-over {
+            border-color: rgba(155, 69, 255, .4);
+            background: rgba(155, 69, 255, .05);
+            transform: scale(1.003);
+        }
+        .dropzone.has-file {
+            border-color: rgba(74, 222, 128, .3);
+            background: rgba(74, 222, 128, .03);
+        }
+        .dropzone-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .dropzone-title {
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--tx-2);
+            margin-bottom: 4px;
+        }
+        .dropzone-sub {
+            font-size: .73rem;
+            color: var(--tx-4);
+        }
+        .dropzone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .loading-ring {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 32px;
+            color: var(--tx-3);
+            font-size: .82rem;
+        }
+        .ring {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(155, 69, 255, .15);
+            border-top-color: var(--plum-bright);
+            animation: spin .7s linear infinite;
+        }
+
+        /* ═══════ SECTIONS ═══════ */
+        .section {
+            margin-bottom: 44px;
+        }
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 4px 12px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .06);
+            border: 1px solid rgba(155, 69, 255, .12);
+            font-size: .6rem;
+            font-weight: 800;
+            color: var(--plum-bright);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -.03em;
+            line-height: 1.1;
+            color: var(--tx);
+            margin-bottom: 10px;
+        }
+        .section-title .grad {
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+        }
+        .section-sub {
+            font-size: .87rem;
+            color: var(--tx-3);
+            line-height: 1.65;
+            max-width: 600px;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .08), rgba(232, 57, 154, .05), transparent);
+            margin: 32px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .feature-card {
+            padding: 20px 18px;
+            border-radius: var(--r-xl);
+            background: var(--glass-bg);
+            backdrop-filter: saturate(140%) blur(12px);
+            -webkit-backdrop-filter: saturate(140%) blur(12px);
+            border: 1px solid var(--glass-border);
+            transition: var(--ease);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .4);
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(155, 69, 255, .25);
+            box-shadow: 0 48px 120px rgba(0, 0, 0, .5), 0 0 0 1px rgba(155, 69, 255, .12);
+        }
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .feature-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--tx);
+            margin-bottom: 6px;
+        }
+        .feature-desc {
+            font-size: .78rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+        }
+
+        /* ═══════ PRICING ═══════ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .pricing-card {
+            border-radius: var(--r-xl);
+            background: var(--glass-bg);
+            backdrop-filter: saturate(140%) blur(12px);
+            -webkit-backdrop-filter: saturate(140%) blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 26px 22px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--ease);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .4);
+        }
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 48px 120px rgba(0, 0, 0, .5);
+            border-color: rgba(155, 69, 255, .25);
+        }
+        .pricing-card.featured {
+            background: linear-gradient(155deg, rgba(20, 8, 50, .7) 0%, rgba(155, 69, 255, .08) 50%, rgba(10, 4, 28, .7) 100%);
+            border-color: rgba(155, 69, 255, .25);
+            box-shadow: 0 0 60px rgba(155, 69, 255, .10), 0 32px 80px rgba(0, 0, 0, .5);
+        }
+        .pricing-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: var(--r-pill);
+            font-size: .58rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            background: var(--grad-btn);
+            color: #fff;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(155, 69, 255, .25);
+        }
+        .pricing-tier {
+            font-family: 'Clash Display', sans-serif;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--tx-3);
+            margin-bottom: 6px;
+        }
+        .pricing-price {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+        .pricing-price.grad {
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+        }
+        .pricing-interval {
+            font-size: .78rem;
+            color: var(--tx-3);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+        .pricing-summary {
+            font-size: .76rem;
+            color: var(--tx-3);
+            margin: 10px 0 16px;
+            line-height: 1.55;
+        }
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: .77rem;
+            color: var(--tx-3);
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .02);
+            line-height: 1.4;
+        }
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        .feat-check {
+            flex-shrink: 0;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: rgba(74, 222, 128, .08);
+            border: 1px solid rgba(74, 222, 128, .18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            color: #4ade80;
+            font-weight: 900;
+            margin-top: 1px;
+        }
+
+        /* ═══════ TESTIMONIALS ═══════ */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .testimonial-card {
+            padding: 18px 20px;
+            border-radius: var(--r-xl);
+            background: var(--glass-bg);
+            backdrop-filter: saturate(140%) blur(12px);
+            -webkit-backdrop-filter: saturate(140%) blur(12px);
+            border: 1px solid var(--glass-border);
+            transition: var(--ease);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .4);
+            animation: panelIn .4s ease both;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(155, 69, 255, .2);
+        }
+        .t-stars {
+            color: #fbbf24;
+            font-size: .85rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .t-text {
+            font-size: .8rem;
+            color: var(--tx-2);
+            line-height: 1.6;
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+        .t-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .t-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--grad-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(155, 69, 255, .25);
+        }
+        .t-name {
+            font-size: .76rem;
+            font-weight: 700;
+            color: var(--tx);
+        }
+        .t-role {
+            font-size: .63rem;
+            color: var(--tx-4);
+        }
+
+        /* ═══════ FEEDBACK ═══════ */
+        .feedback-glass {
+            padding: 24px 24px;
+            border-radius: var(--r-xl);
+            background: var(--glass-bg);
+            backdrop-filter: saturate(140%) blur(12px);
+            -webkit-backdrop-filter: saturate(140%) blur(12px);
+            border: 1px solid var(--glass-border);
+            margin-top: 28px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .4);
+        }
+        .msg-ok {
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            background: rgba(74, 222, 128, .06);
+            border: 1px solid rgba(74, 222, 128, .18);
+            color: #4ade80;
+            font-size: .78rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            animation: panelIn .3s ease;
+        }
+        .msg-err {
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            background: rgba(232, 57, 154, .06);
+            border: 1px solid rgba(232, 57, 154, .18);
+            color: var(--rose);
+            font-size: .78rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            animation: panelIn .3s ease;
+        }
+
+        /* ═══════ FOOTER ═══════ */
+        .footer {
+            padding: 40px 0 24px;
+            position: relative;
+            margin-top: 20px;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .12), rgba(232, 57, 154, .06), transparent);
+        }
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 28px;
+        }
+        .footer-brand-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .footer-logo-wrap {
+            width: 34px;
+            height: 34px;
+            border-radius: var(--r-sm);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .18), rgba(232, 57, 154, .12));
+            border: 1px solid rgba(155, 69, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-logo-wrap img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        .footer-brand-name {
+            font-family: 'Clash Display', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+        }
+        .footer-copy {
+            font-size: .7rem;
+            color: var(--tx-4);
+            margin-bottom: 3px;
+        }
+        .footer-badges {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .footer-badge {
+            padding: 3px 8px;
+            border-radius: var(--r-pill);
+            font-size: .6rem;
+            font-weight: 700;
+        }
+        .badge-purple {
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--plum-bright);
+        }
+        .badge-amber {
+            background: rgba(255, 109, 46, .08);
+            border: 1px solid rgba(255, 109, 46, .14);
+            color: var(--amber);
+        }
+        .badge-green {
+            background: rgba(74, 222, 128, .06);
+            border: 1px solid rgba(74, 222, 128, .12);
+            color: #4ade80;
+        }
+        .footer-col-label {
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--tx-4);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .footer-link {
+            font-size: .76rem;
+            color: var(--tx-3);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: var(--r-sm);
+            transition: var(--ease);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-link:hover {
+            color: var(--tx-2);
+            background: rgba(155, 69, 255, .05);
+        }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, .03);
+            font-size: .7rem;
+            color: var(--tx-4);
+        }
+        .back-top-btn {
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--plum-bright);
+            cursor: pointer;
+            padding: 5px 14px;
+            border-radius: var(--r-pill);
+            font-size: .7rem;
+            font-weight: 700;
+            transition: var(--ease);
+            font-family: inherit;
+        }
+        .back-top-btn:hover {
+            background: rgba(155, 69, 255, .16);
+            transform: translateY(-2px);
+        }
+
+        /* ═══════ MODAL ═══════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(4, 1, 15, .82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn .25s ease both;
+        }
+        .modal-overlay.hidden {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .modal-box {
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--r-2xl);
+            background: rgba(8, 3, 22, .96);
+            backdrop-filter: saturate(200%) blur(32px);
+            -webkit-backdrop-filter: saturate(200%) blur(32px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 48px 120px rgba(0, 0, 0, .6);
+            padding: 28px 26px;
+            position: relative;
+            animation: bounceIn .4s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 30px;
+            height: 30px;
+            border-radius: var(--r-sm);
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .06);
+            color: var(--tx-3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            transition: var(--ease);
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, .08);
+            color: var(--tx);
+        }
+        .modal-kicker {
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--plum-bright);
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .modal-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.02em;
+            margin-bottom: 8px;
+        }
+        .modal-body-text {
+            font-size: .82rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .auth-seg {
+            display: flex;
+            gap: 3px;
+            background: rgba(0, 0, 0, .25);
+            border: 1px solid rgba(155, 69, 255, .08);
+            border-radius: var(--r-sm);
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+        .auth-seg-btn {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: calc(var(--r-sm) - 2px);
+            border: none;
+            cursor: pointer;
+            font-size: .74rem;
+            font-weight: 700;
+            background: transparent;
+            color: var(--tx-3);
+            transition: var(--ease);
+            font-family: inherit;
+        }
+        .auth-seg-btn.active {
+            background: linear-gradient(135deg, rgba(155, 69, 255, .3), rgba(232, 57, 154, .2));
+            color: var(--tx);
+            box-shadow: 0 0 12px rgba(155, 69, 255, .15);
+            border: 1px solid rgba(155, 69, 255, .2);
+        }
+        .checkout-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .err {
+            color: var(--rose);
+            font-size: .76rem;
+            font-weight: 600;
+        }
+
+        /* ═══════ RESPONSIVE ═══════ */
+        @media (max-width:1024px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width:768px) {
+            .main-wrap {
+                padding: 12px 14px 40px;
+            }
+            .studio-head {
+                padding: 14px 16px 0;
+            }
+            .tab-rail {
+                padding: 10px 16px 0;
+            }
+            .tab-rail-underline {
+                margin: 6px 16px 0;
+            }
+            .studio-body {
+                padding: 14px 16px 18px;
+            }
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+            .sliders-row {
+                grid-template-columns: 1fr;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            .pod-meta-row {
+                flex-direction: column;
+            }
+            .audio-actions {
+                flex-direction: column;
+            }
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .hero-stats-mini {
+                gap: 12px;
+            }
+            .checkout-row {
+                grid-template-columns: 1fr;
+            }
+            .pricing-card {
+                padding: 20px 16px;
+            }
+            .modal-box {
+                padding: 20px 18px;
+            }
+            .pod-voice-pair {
+                grid-template-columns: 1fr;
+            }
+            .studio-description {
+                font-size: .85rem;
+                padding: 0 8px;
+            }
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width:480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: .92rem;
+            }
+            .studio-head {
+                flex-wrap: wrap;
+            }
+            .studio-head h2 {
+                font-size: 1rem;
+            }
+            .tab-btn .tab-label {
+                display: none;
+            }
+            .tab-btn {
+                padding: 6px 12px;
+                font-size: .7rem;
+            }
+        }
+
+        /* ═══════ UTILITY ═══════ */
+        .hidden {
+            display: none !important;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal.stagger-1 {
+            transition-delay: .05s;
+        }
+        .reveal.stagger-2 {
+            transition-delay: .10s;
+        }
+        .reveal.stagger-3 {
+            transition-delay: .15s;
+        }
+        .glass-sep {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .08), rgba(232, 57, 154, .05), transparent);
+            margin: 14px 0;
+        }
+
+        @media print {
+            .dynamic-island,
+            .bg-canvas,
+            .island-mobile-overlay,
+            .modal-overlay {
+                display: none !important;
+            }
+            body {
+                padding-top: 0;
+            }
+        }
+
+        /* ─── About page extra styles ─── */
+        .page-hero {
+            text-align: center;
+            padding: 20px 0 10px;
+            animation: heroIn .7s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+        .page-hero h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -.03em;
+            color: var(--tx);
+            margin-bottom: 8px;
+        }
+        .page-hero p {
+            font-size: clamp(.95rem, 1.2vw, 1.1rem);
+            color: var(--tx-3);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 6px 0 24px;
+            color: var(--plum-bright);
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: var(--ease);
+        }
+        .back-link:hover {
+            color: var(--tx-2);
+            transform: translateX(-4px);
+        }
+        .section h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.02em;
+            margin-bottom: 12px;
+        }
+        .section p,
+        .section li {
+            color: var(--tx-3);
+            line-height: 1.75;
+            font-size: .92rem;
+        }
+        .section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 8px;
+        }
+        .section ul li {
+            padding: 4px 0 4px 24px;
+            position: relative;
+        }
+        .section ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--plum-bright);
+            font-weight: 700;
+        }
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 4px;
+        }
+        .badge {
+            padding: 4px 14px;
+            border-radius: var(--r-pill);
+            font-size: .78rem;
+            font-weight: 700;
+            background: rgba(155, 69, 255, .06);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--tx-2);
+        }
+        .email-pill {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .2);
+            color: var(--plum-bright);
+            font-weight: 700;
+            font-size: .9rem;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .12), transparent);
+            margin: 24px 0;
+        }
+        .section:last-child {
+            margin-bottom: 12px;
+        }
+    </style>
 </head>
 <body>
-<div class="bg-canvas">
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-  <div class="bg-grid"></div>
-</div>
-<nav class="top-nav">
-  <a href="index.html" class="nav-brand">🎙️ Free Voice Labs</a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link">🏠 Home</a>
-    <a href="premium-voices.html" class="nav-link" id="nav-premium">⭐ Premium</a>
-    <a href="realistic-voices.html" class="nav-link" id="nav-realistic">🎯 Realistic</a>
-    <a href="ai-voices.html" class="nav-link" id="nav-ai">🤖 AI Voices</a>
-    <a href="about.html" class="nav-link" id="nav-about">📖 About</a>
-    <a href="faqs.html" class="nav-link" id="nav-faqs">❓ FAQs</a>
-    <a href="contact.html" class="nav-link" id="nav-contact">📧 Contact</a>
-  </div>
-</nav>
-<div class="page-wrap">
-<div class="page-hero">
-  <h1>🎯 About Us</h1>
-  <p>Democratising professional text-to-speech for every creator</p>
-</div>
-<a href="index.html" class="back-link">← Back to Home</a>
 
-<div class="section">
-  <h2>Our Mission</h2>
-  <p><strong>Free Voice Labs</strong> exists to democratise professional-quality text-to-speech technology. We believe every creator deserves access to powerful, easy-to-use voice generation tools — regardless of technical expertise or budget.</p>
-</div>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-<div class="section">
-  <h2>The Story</h2>
-  <p>Founded in 2025, Free Voice Labs started with a simple question: <strong>"Why is high-quality TTS so expensive and complicated?"</strong></p>
-  <p style="margin-top:12px">We realised that creators, educators, marketers, and small business owners were struggling to find affordable voice solutions. Existing options were:</p>
-  <ul>
-    <li>Too expensive for individuals and small teams</li>
-    <li>Clunky and unintuitive</li>
-    <li>Limited in voice variety and quality</li>
-    <li>Locked behind complex interfaces</li>
-  </ul>
-  <p style="margin-top:12px">That's when we decided to build something different.</p>
-</div>
+    <div class="bg-canvas" aria-hidden="true">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-grid"></div>
+    </div>
 
-<div class="section">
-  <h2>Our Vision</h2>
-  <p>We envision a world where:</p>
-  <ul>
-    <li><strong>Anyone</strong> can create professional voiceovers in minutes, not hours</li>
-    <li><strong>Creators</strong> get paid for their content, not for tools</li>
-    <li><strong>Quality</strong> meets affordability</li>
-    <li><strong>Technology</strong> enhances human creativity rather than replacing it</li>
-  </ul>
-</div>
+    <!-- ═══ DYNAMIC ISLAND NAV ═══ -->
+    <header class="dynamic-island" role="navigation" aria-label="Main navigation">
+        <div class="island-inner">
+            <a href="/" class="island-brand" aria-label="Free Voice Labs Home">
+                <div class="island-brand-logo">
+                    <img src="logo.png" alt="Free Voice Labs logo" loading="lazy" width="18" height="18" />
+                </div>
+                <span class="island-brand-text">Free Voice Labs</span>
+                <span class="island-brand-badge">v6</span>
+            </a>
 
-<div class="section">
-  <h2>What Makes Us Different</h2>
-  <div class="badge-grid">
-    <div class="badge">🎭 Premium Voice Quality</div>
-    <div class="badge">💰 Truly Affordable</div>
-    <div class="badge">⚡ Lightning Fast</div>
-    <div class="badge">🌍 Global Support</div>
-    <div class="badge">🛠️ Creator-First Design</div>
-  </div>
-  <p style="margin-top:16px">We partner with the best AI voice providers to ensure our voices sound natural, expressive, and human-like across 9+ languages. Unlike competitors charging $50–300/month, we offer unlimited access on our Free plan and Pro at just <strong>$4.99/month</strong>.</p>
-</div>
+            <div class="island-links" role="menubar">
+                <div class="island-dropdown-wrap" role="none">
+                    <button class="island-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Products <span class="chevron">▾</span>
+                    </button>
+                    <div class="island-dropdown" role="menu">
+                        <a href="index.html#studio" role="menuitem"><span class="dd-icon">🧠</span><span class="dd-label">Neural TTS</span></a>
+                        <a href="index.html#studio" role="menuitem"><span class="dd-icon">🎭</span><span class="dd-label">Blends</span></a>
+                        <a href="index.html#studio" role="menuitem"><span class="dd-icon">📻</span><span class="dd-label">Podcast Mode</span></a>
+                        <a href="index.html#studio" role="menuitem"><span class="dd-icon">🔬</span><span class="dd-label">Voice Cloning</span><span class="dd-badge">Beta</span></a>
+                    </div>
+                </div>
+                <a href="index.html#pricing" class="island-link" role="menuitem">Pricing</a>
+                <a href="index.html#platform" class="island-link" role="menuitem">Platform</a>
+                <a href="index.html#testimonials" class="island-link" role="menuitem">Testimonials</a>
+                <div class="island-dropdown-wrap" role="none">
+                    <button class="island-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        About <span class="chevron">▾</span>
+                    </button>
+                    <div class="island-dropdown" role="menu">
+                        <a href="about.html" role="menuitem"><span class="dd-icon">📖</span><span class="dd-label">About Us</span></a>
+                        <a href="contact.html" role="menuitem"><span class="dd-icon">📧</span><span class="dd-label">Contact</span></a>
+                        <a href="feature-requests.html" role="menuitem"><span class="dd-icon">💡</span><span class="dd-label">Feature Requests</span></a>
+                        <div class="dd-divider"></div>
+                        <a href="privacy.html" role="menuitem"><span class="dd-icon">🔒</span><span class="dd-label">Privacy</span></a>
+                        <a href="terms.html" role="menuitem"><span class="dd-icon">📜</span><span class="dd-label">Terms</span></a>
+                        <a href="disclaimers.html" role="menuitem"><span class="dd-icon">⚠️</span><span class="dd-label">Disclaimers</span></a>
+                        <a href="sitemap.html" role="menuitem"><span class="dd-icon">🗺️</span><span class="dd-label">Sitemap</span></a>
+                        <div class="dd-divider"></div>
+                        <a href="javascript:void(0)" id="nav-admin-link" class="dd-admin" role="menuitem"><span class="dd-icon">👑</span><span class="dd-label">Admin Dashboard</span></a>
+                    </div>
+                </div>
+            </div>
 
-<div class="section">
-  <h2>Our Team</h2>
-  <p>Free Voice Labs is built by a small, dedicated team of engineers, designers, and creators who are passionate about making content creation more accessible.</p>
-  <ul>
-    <li><strong>Engineering</strong>: Building fast, reliable infrastructure</li>
-    <li><strong>Product</strong>: Listening to creator feedback and iterating</li>
-    <li><strong>Community</strong>: Supporting our users on their journey</li>
-  </ul>
-</div>
+            <div class="island-right" id="island-right"></div>
 
-<div class="section">
-  <h2>Core Values</h2>
-  <ul>
-    <li><strong>Accessibility</strong> — Powerful tools shouldn't be gatekept by price or complexity.</li>
-    <li><strong>Quality</strong> — Obsessed with voice clarity, accuracy, and natural sound.</li>
-    <li><strong>Speed</strong> — Your time is valuable. Generation should be instantaneous.</li>
-    <li><strong>Transparency</strong> — Honest about limitations and always improving.</li>
-    <li><strong>Community</strong> — We listen to our users and build what they need.</li>
-  </ul>
-</div>
+            <button class="island-hamburger" id="island-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
 
-<div class="section">
-  <h2>Why Choose Free Voice Labs?</h2>
-  <div class="badge-grid">
-    <div class="badge">✅ Free Forever</div>
-    <div class="badge">✅ Unlimited Access</div>
-    <div class="badge">✅ Professional Quality</div>
-    <div class="badge">✅ Fast Processing</div>
-    <div class="badge">✅ Royalty-Free</div>
-    <div class="badge">✅ Privacy-First</div>
-    <div class="badge">✅ Active Development</div>
-  </div>
-</div>
+    <button class="island-overlay-close" id="island-overlay-close" aria-label="Close menu">✕</button>
 
-<div class="section">
-  <h2>Looking Forward</h2>
-  <ul>
-    <li><strong>2026</strong> — Multi-language expansion, voice cloning enhancements, batch processing, API access for developers.</li>
-    <li><strong>2027</strong> — Advanced audio editing, video integration, project management, team collaboration.</li>
-    <li><strong>2028+</strong> — Studio-grade audio processing, real-time voice streaming, enterprise solutions.</li>
-  </ul>
-</div>
+    <div class="island-mobile-overlay" id="island-mobile-overlay"></div>
 
-<div class="section">
-  <h2>Get Involved</h2>
-  <ul>
-    <li><strong>Use Free Voice Labs</strong> — Start creating with our Free plan today.</li>
-    <li><strong>Give Feedback</strong> — Tell us what you love and what we can improve.</li>
-    <li><strong>Share Your Creations</strong> — Show us what you're building — we love sharing creator wins!</li>
-  </ul>
-</div>
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="main-wrap" id="main" role="main">
 
-<div class="section">
-  <h2>Contact Us</h2>
-  <p>📧 <strong>General Inquiries &amp; Support</strong>: <span class="email-pill">freevoicelabs@gmail.com</span></p>
-  <hr>
-  <p><em>"The best tool is one that gets out of your way and lets you create."</em></p>
-</div>
-<div class="page-footer">© <span id="yr"></span> Free Voice Labs. All rights reserved.</div>
-</div>
-<script>
-document.getElementById('yr').textContent = new Date().getFullYear();
-document.getElementById('nav-about')?.classList.add('active');
-</script>
+        <div class="page-hero">
+            <h1>🎯 About Us</h1>
+            <p>Democratising professional text-to-speech for every creator</p>
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="section">
+            <h2>Our Mission</h2>
+            <p><strong>Free Voice Labs</strong> exists to democratise professional-quality text-to-speech technology. We believe every creator deserves access to powerful, easy-to-use voice generation tools — regardless of technical expertise or budget.</p>
+        </div>
+
+        <div class="section">
+            <h2>The Story</h2>
+            <p>Founded in 2025, Free Voice Labs started with a simple question: <strong>"Why is high-quality TTS so expensive and complicated?"</strong></p>
+            <p style="margin-top:12px">We realised that creators, educators, marketers, and small business owners were struggling to find affordable voice solutions. Existing options were:</p>
+            <ul>
+                <li>Too expensive for individuals and small teams</li>
+                <li>Clunky and unintuitive</li>
+                <li>Limited in voice variety and quality</li>
+                <li>Locked behind complex interfaces</li>
+            </ul>
+            <p style="margin-top:12px">That's when we decided to build something different.</p>
+        </div>
+
+        <div class="section">
+            <h2>Our Vision</h2>
+            <p>We envision a world where:</p>
+            <ul>
+                <li><strong>Anyone</strong> can create professional voiceovers in minutes, not hours</li>
+                <li><strong>Creators</strong> get paid for their content, not for tools</li>
+                <li><strong>Quality</strong> meets affordability</li>
+                <li><strong>Technology</strong> enhances human creativity rather than replacing it</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>What Makes Us Different</h2>
+            <div class="badge-grid">
+                <div class="badge">🎭 Premium Voice Quality</div>
+                <div class="badge">💰 Truly Affordable</div>
+                <div class="badge">⚡ Lightning Fast</div>
+                <div class="badge">🌍 Global Support</div>
+                <div class="badge">🛠️ Creator-First Design</div>
+            </div>
+            <p style="margin-top:16px">We partner with the best AI voice providers to ensure our voices sound natural, expressive, and human-like across 9+ languages. Unlike competitors charging $50–300/month, we offer unlimited access on our Free plan and Pro at just <strong>$4.99/month</strong>.</p>
+        </div>
+
+        <div class="section">
+            <h2>Our Team</h2>
+            <p>Free Voice Labs is built by a small, dedicated team of engineers, designers, and creators who are passionate about making content creation more accessible.</p>
+            <ul>
+                <li><strong>Engineering</strong>: Building fast, reliable infrastructure</li>
+                <li><strong>Product</strong>: Listening to creator feedback and iterating</li>
+                <li><strong>Community</strong>: Supporting our users on their journey</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Core Values</h2>
+            <ul>
+                <li><strong>Accessibility</strong> — Powerful tools shouldn't be gatekept by price or complexity.</li>
+                <li><strong>Quality</strong> — Obsessed with voice clarity, accuracy, and natural sound.</li>
+                <li><strong>Speed</strong> — Your time is valuable. Generation should be instantaneous.</li>
+                <li><strong>Transparency</strong> — Honest about limitations and always improving.</li>
+                <li><strong>Community</strong> — We listen to our users and build what they need.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Why Choose Free Voice Labs?</h2>
+            <div class="badge-grid">
+                <div class="badge">✅ Free Forever</div>
+                <div class="badge">✅ Unlimited Access</div>
+                <div class="badge">✅ Professional Quality</div>
+                <div class="badge">✅ Fast Processing</div>
+                <div class="badge">✅ Royalty-Free</div>
+                <div class="badge">✅ Privacy-First</div>
+                <div class="badge">✅ Active Development</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Looking Forward</h2>
+            <ul>
+                <li><strong>2026</strong> — Multi-language expansion, voice cloning enhancements, batch processing, API access for developers.</li>
+                <li><strong>2027</strong> — Advanced audio editing, video integration, project management, team collaboration.</li>
+                <li><strong>2028+</strong> — Studio-grade audio processing, real-time voice streaming, enterprise solutions.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Get Involved</h2>
+            <ul>
+                <li><strong>Use Free Voice Labs</strong> — Start creating with our Free plan today.</li>
+                <li><strong>Give Feedback</strong> — Tell us what you love and what we can improve.</li>
+                <li><strong>Share Your Creations</strong> — Show us what you're building — we love sharing creator wins!</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>📧 <strong>General Inquiries &amp; Support</strong>: <span class="email-pill">freevoicelabs@gmail.com</span></p>
+            <hr>
+            <p><em>"The best tool is one that gets out of your way and lets you create."</em></p>
+        </div>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer" aria-label="Site footer">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-brand-row">
+                    <div class="footer-logo-wrap"><img src="logo.png" alt="Free Voice Labs logo" loading="lazy" width="20" height="20" /></div>
+                    <span class="footer-brand-name">Free Voice Labs</span>
+                </div>
+                <div class="footer-copy" id="footer-year">© 2025 Free Voice Labs. All rights reserved.</div>
+                <div class="footer-copy">Created by MT</div>
+                <div class="footer-badges">
+                    <span class="footer-badge badge-purple">🧠 Neural TTS</span>
+                    <span class="footer-badge badge-amber">🔬 Voice Cloning</span>
+                    <span class="footer-badge badge-green">∞ 100% Free</span>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-label">Navigation</div>
+                <nav class="footer-links" aria-label="Footer navigation">
+                    <a href="/" class="footer-link">🏠 Home</a>
+                    <a href="/about.html" class="footer-link">📖 About Us</a>
+                    <a href="/premium-voices.html" class="footer-link">⭐ Premium Voices</a>
+                    <a href="/realistic-voices.html" class="footer-link">🎯 Realistic Voices</a>
+                    <a href="/ai-voices.html" class="footer-link">🤖 AI Voices</a>
+                    <a href="/faqs.html" class="footer-link">❓ FAQs</a>
+                </nav>
+            </div>
+            <div>
+                <div class="footer-col-label">Legal &amp; Support</div>
+                <nav class="footer-links" aria-label="Legal navigation">
+                    <a href="/privacy.html" class="footer-link">🔒 Privacy Policy</a>
+                    <a href="/terms.html" class="footer-link">📜 Terms</a>
+                    <a href="/disclaimers.html" class="footer-link">⚠️ Disclaimers</a>
+                    <a href="/contact.html" class="footer-link">📧 Contact</a>
+                    <a href="/feature-requests.html" class="footer-link">💡 Feature Requests</a>
+                    <a href="/sitemap.html" class="footer-link">🗺️ Sitemap</a>
+                </nav>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>🚀 Professional AI Voice · 🌍 90+ Languages · 🎭 8 Blends · Zero cost · No signup</span>
+            <button class="back-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑ Top</button>
+        </div>
+    </footer>
+
+    <!-- ═══ MODAL ═══ -->
+    <div class="modal-overlay hidden" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Checkout">
+        <div class="modal-box" id="modal-body">
+            <button class="modal-close" onclick="closeCheckout()" aria-label="Close checkout">✕</button>
+        </div>
+    </div>
+
+    <!-- ═══ JAVASCRIPT (full nav/footer logic, defensive for pages without studio) ═══ -->
+    <script>
+        'use strict';
+
+        /* ─── CONFIG ─── */
+        const BASE_URL = "https://mohammadtalhaa-free-voice-labs-backend.hf.space";
+        const SESSION_KEY = "fvl_session";
+
+        const getSession = () => { try { const r = sessionStorage.getItem(SESSION_KEY); return r ? JSON.parse(r) : null; } catch {
+                return null; } };
+        const setSession = d => { try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(d)); } catch {} };
+        const clearSession = () => { try { sessionStorage.removeItem(SESSION_KEY); } catch {} };
+        const isLoggedIn = () => { const s = getSession(); return !!(s?.email && s?.token); };
+
+        async function apiFetch(path, opts = {}) {
+            const s = getSession();
+            const headers = { "Content-Type": "application/json", ...(s?.token ? { Authorization: `Bearer ${s.token}` } : {}),
+                ...(opts.headers || {}) };
+            const res = await fetch(`${BASE_URL}${path}`, { ...opts, headers: opts.formData ? (opts.headers || {}) :
+                    headers });
+            if (!res.ok) { let m = `HTTP ${res.status}`; try { const e = await res.json();
+                    m = e.detail || e.message || m; } catch {} throw new Error(m); }
+            if (opts.binary) return res;
+            return res.json();
+        }
+
+        /* ─── STATE ─── */
+        let voicesData = { voices: {}, counts: {}, blends: {}, styles: {} };
+        let cmsData = {};
+        let activeTab = "standard";
+        let selectedVoice = "",
+            selectedLib = "Live",
+            selectedLang = "English (US)",
+            selectedStyle = "Studio";
+        let customRate = 0,
+            customPitch = 0,
+            useMulticore = true;
+        let selectedBlend = "",
+            blendRatio = 0.5,
+            blendStyle = "Studio",
+            blendRate = 0,
+            blendPitch = 0;
+        let podVoiceA = "",
+            podVoiceB = "";
+        let cloneFile = null,
+            cloneFileName = "";
+        let audioBlob = null,
+            audioURL = null,
+            audioFormat = "wav";
+        let blendAudioBlob = null,
+            blendAudioURL = null,
+            blendAudioFormat = "wav";
+        let podAudioBlob = null,
+            podAudioURL = null,
+            podSegCount = 0;
+        let generating = false,
+            genPodcast = false,
+            progressInterval = null;
+        let checkoutPlan = null,
+            authTab = "signin";
+        let isSignInMode = false;
+
+        const getVoices = () => voicesData.voices || {};
+        const getBlends = () => voicesData.blends || {};
+        const getStyles = () => voicesData.styles || {};
+
+        function getVoiceNames() {
+            const vs = getVoices();
+            return Object.entries(vs).filter(([, v]) => v.library === selectedLib && (!selectedLang || v.language ===
+                selectedLang)).map(([name]) => name);
+        }
+
+        function getAllVoiceNames() { const vs = getVoices(); return Object.keys(vs); }
+
+        function getLanguages() {
+            const vs = getVoices();
+            const order = ["English (US)", "English (UK)", "Spanish (Spain)", "Spanish (US)", "French", "German", "Italian",
+                "Japanese", "Mandarin Chinese", "Urdu", "Hindi", "Arabic", "Afrikaans", "Zulu", "Swahili",
+                "Portuguese (Brazil)", "Portuguese (Portugal)", "Russian", "Turkish"
+            ];
+            return [...new Set(Object.values(vs).filter(v => v.library === selectedLib).map(v => v.language))].sort((a, b) =>
+                (order.indexOf(a) + 1 || 999) - (order.indexOf(b) + 1 || 999));
+        }
+
+        function blendPct1() { return Math.round(blendRatio * 100); }
+
+        function blendPct2() { return 100 - blendPct1(); }
+
+        function podSentences(text) { return text.trim() ? text.trim().split(/(?<=[.!?])\s+/).filter(Boolean) : []; }
+
+        /* ─── PROGRESS SIM (safe) ─── */
+        function startProgressSim(labels, prefix = "gen") {
+            let i = 0,
+                genProgress = 0,
+                genLabel = labels[0] || "Initialising…";
+            const steps = [10, 30, 55, 75, 90];
+            const fillId = `${prefix}-progress-fill`,
+                pctId = `${prefix}-progress-pct`,
+                lblId = `${prefix}-progress-label`,
+                wrapId = `${prefix}-progress-wrap`;
+            const wrap = document.getElementById(wrapId);
+            if (wrap) wrap.style.display = "";
+            progressInterval = setInterval(() => {
+                if (i < steps.length - 1) { i++;
+                    genProgress = steps[i];
+                    genLabel = labels[Math.min(i, labels.length - 1)]; }
+                const fill = document.getElementById(fillId),
+                    pct = document.getElementById(pctId),
+                    lbl = document.getElementById(lblId);
+                if (fill) fill.style.width = genProgress + "%";
+                if (pct) pct.textContent = genProgress + "%";
+                if (lbl) lbl.textContent = genLabel;
+            }, 700);
+        }
+
+        function stopProgressSim(prefix = "gen") {
+            clearInterval(progressInterval);
+            progressInterval = null;
+            const fill = document.getElementById(`${prefix}-progress-fill`),
+                pct = document.getElementById(`${prefix}-progress-pct`),
+                lbl = document.getElementById(`${prefix}-progress-label`),
+                wrap = document.getElementById(`${prefix}-progress-wrap`);
+            if (fill) fill.style.width = "100%";
+            if (pct) pct.textContent = "100%";
+            if (lbl) lbl.textContent = "Done!";
+            setTimeout(() => { if (wrap) wrap.style.display = "none"; }, 800);
+        }
+
+        /* ─── AUDIO HELPERS ─── */
+        function clearAudio() { if (audioURL) URL.revokeObjectURL(audioURL);
+            audioURL = null;
+            audioBlob = null; const c = document.getElementById("audio-output-card"); if (c) c.style.display = "none"; }
+
+        function clearBlendAudio() { if (blendAudioURL) URL.revokeObjectURL(blendAudioURL);
+            blendAudioURL = null;
+            blendAudioBlob = null; const c = document.getElementById("blend-audio-output-card"); if (c) c.style.display =
+                "none"; }
+
+        function clearPodcastAudio() { if (podAudioURL) URL.revokeObjectURL(podAudioURL);
+            podAudioURL = null;
+            podAudioBlob = null;
+            podSegCount = 0; const c = document.getElementById("pod-output-card"); if (c) c.style.display = "none"; }
+
+        /* ─── VOICE CARD (safe) ─── */
+        function renderVoiceCard() {
+            const vs = getVoices(),
+                cfg = vs[selectedVoice],
+                wrap = document.getElementById("voice-card-wrap");
+            if (!wrap) return;
+            if (!cfg) { wrap.innerHTML = ""; return; }
+            const engineClass = cfg.engine === "neural" ? "neural" : "studio";
+            const engineLabel = cfg.engine === "neural" ? "⚡ Neural" : "🎯 Studio";
+            wrap.innerHTML = `<div class="voice-card"><div class="vc-label">${cfg.collection_label || ""} · ${cfg.language || ""}</div><div class="vc-name">${selectedVoice}</div><div class="vc-desc">${cfg.tone || ""}</div><div class="vc-tags"><span class="vc-tag ${engineClass}">${engineLabel}</span><span class="vc-tag">🎤 ${cfg.gender || ""}</span><span class="vc-tag">🌍 ${cfg.accent || ""}</span>${cfg.age ? `<span class="vc-tag">👤 ${cfg.age}</span>` : ""}</div></div>`;
+        }
+
+        /* ─── POPULATE (safe) ─── */
+        function populateStandardForm() {
+            const langEl = document.getElementById("voice-language");
+            if (langEl) {
+                const langs = getLanguages();
+                const defaultLang = "English (US)";
+                if (!selectedLang) selectedLang = defaultLang;
+                langEl.innerHTML = `<option value="">All Languages</option>` + langs.map(l =>
+                    `<option value="${l}"${l === selectedLang ? " selected" : ""}>${l}</option>`).join("");
+                if (langs.includes(defaultLang) && selectedLang === defaultLang) langEl.value = defaultLang;
+            }
+            const voiceEl = document.getElementById("voice-select");
+            if (voiceEl) {
+                const names = getVoiceNames();
+                if (names.length) { voiceEl.innerHTML = names.map(n =>
+                        `<option value="${n}"${n === selectedVoice ? " selected" : ""}>${n}</option>`).join("");
+                    selectedVoice = voiceEl.value || names[0]; } else { voiceEl.innerHTML =
+                    `<option value="">No voices available</option>`;
+                    selectedVoice = ""; }
+            }
+            const styleEl = document.getElementById("style-select");
+            if (styleEl) {
+                const styles = getStyles();
+                styleEl.innerHTML = Object.entries(styles).map(([k, v]) =>
+                    `<option value="${k}"${k === selectedStyle ? " selected" : ""}>${v.label || k}</option>`).join(
+                    "");
+                selectedStyle = styleEl.value || "Studio";
+            }
+            renderVoiceCard();
+            const ld = document.getElementById("std-loading"),
+                fm = document.getElementById("std-form");
+            if (ld) ld.style.display = "none";
+            if (fm) fm.style.display = "";
+        }
+
+        function populateBlendForm() {
+            const blends = getBlends(),
+                keys = Object.keys(blends),
+                blendEl = document.getElementById("blend-select");
+            if (!blendEl) return;
+            blendEl.innerHTML = `<option value="">— Select a blend —</option>` + keys.map(k =>
+                `<option value="${k}">${k}</option>`).join("");
+            const bStyleEl = document.getElementById("blend-style");
+            if (bStyleEl) {
+                const styles = getStyles();
+                bStyleEl.innerHTML = Object.entries(styles).map(([k, v]) =>
+                    `<option value="${k}">${v.label || k}</option>`).join("");
+            }
+        }
+
+        function populatePodcastForm() {
+            const allVoices = getAllVoiceNames();
+            const aEl = document.getElementById("pod-voice-a"),
+                bEl = document.getElementById("pod-voice-b"),
+                noVoiceEl = document.getElementById("podcast-no-voices");
+            if (!allVoices.length) { if (noVoiceEl) noVoiceEl.style.display = ""; return; }
+            if (noVoiceEl) noVoiceEl.style.display = "none";
+            const opts = allVoices.map(n => `<option value="${n}">${n}</option>`).join("");
+            if (aEl) { aEl.innerHTML = opts;
+                podVoiceA = aEl.value || allVoices[0] || ""; }
+            if (bEl) { bEl.innerHTML = opts; const second = allVoices.length > 1 ? allVoices[1] : allVoices[0];
+                podVoiceB = bEl.value || second || "";
+                if (allVoices.length === 1) { bEl.value = allVoices[0];
+                    podVoiceB = allVoices[0]; } }
+            updatePodMeta();
+            updatePodPreview();
+        }
+
+        function renderBlendCard() {
+            const blends = getBlends(),
+                cfg = blends[selectedBlend],
+                card = document.getElementById("blend-card"),
+                pctLbl = document.getElementById("blend-pct-label");
+            if (!card) return;
+            if (!cfg) { card.innerHTML = ""; return; }
+            const p1 = blendPct1(),
+                p2 = blendPct2();
+            if (pctLbl) pctLbl.textContent = `${p1}% / ${p2}%`;
+            card.innerHTML =
+                `<span class="blend-v-a">${cfg.voice_a || "Voice A"}</span><span class="blend-vs">×</span><span class="blend-v-b">${cfg.voice_b || "Voice B"}</span><span class="blend-pct">${p1}% · ${p2}%</span>`;
+        }
+
+        function updatePodMeta() {
+            const vs = getVoices(),
+                cfgA = vs[podVoiceA],
+                cfgB = vs[podVoiceB],
+                metaRow = document.getElementById("pod-meta-row"),
+                metaA = document.getElementById("pod-meta-a"),
+                metaB = document.getElementById("pod-meta-b");
+            if (!metaRow) return;
+            if (podVoiceA || podVoiceB) { metaRow.style.display = "";
+                if (metaA) metaA.textContent = podVoiceA ? `${podVoiceA}${cfgA ? ` · ${cfgA.gender || ""}` : ""}` : "—";
+                if (metaB) metaB.textContent = podVoiceB ? `${podVoiceB}${cfgB ? ` · ${cfgB.gender || ""}` : ""}` : "—"; }
+        }
+
+        function updatePodPreview() {
+            const text = (document.getElementById("pod-script")?.value || "").trim(),
+                sents = podSentences(text),
+                wrap = document.getElementById("pod-preview-wrap"),
+                info = document.getElementById("pod-preview-info"),
+                list = document.getElementById("pod-preview-list"),
+                charInfo = document.getElementById("pod-char-info");
+            if (charInfo) { const spans = charInfo.querySelectorAll("span"); if (spans[1]) spans[1].textContent =
+                    `${text.length.toLocaleString()} characters · Output: merged WAV`; }
+            if (!sents.length) { if (wrap) wrap.style.display = "none"; return; }
+            if (wrap) wrap.style.display = "";
+            const cntA = sents.filter((_, i) => i % 2 === 0).length,
+                cntB = sents.filter((_, i) => i % 2 !== 0).length;
+            if (info) info.innerHTML =
+                `📊 Detected <strong style="color:var(--tx)">${sents.length}</strong> sentences → <strong style="color:var(--plum-bright)">${cntA} Voice A</strong> + <strong style="color:#60a5fa">${cntB} Voice B</strong>`;
+            if (list) {
+                const slice = sents.slice(0, 10);
+                list.innerHTML = slice.map((s, i) =>
+                    `<div class="pod-row" role="listitem"><div class="pod-badge ${i % 2 === 0 ? 'a' : 'b'}">${i % 2 === 0 ? 'A' : 'B'}</div><div><div class="pod-voice-name">${i % 2 === 0 ? podVoiceA : podVoiceB}</div><div class="pod-text">${s.slice(0, 130)}${s.length > 130 ? '…' : ''}</div></div></div>`
+                    ).join("") + (sents.length > 10 ?
+                    `<div class="char-caption" style="padding:8px 0 0;">+ ${sents.length - 10} more sentences</div>` :
+                    "");
+            }
+        }
+
+        /* ─── TAB SWITCH ─── */
+        function switchTab(id) {
+            activeTab = id;
+            document.querySelectorAll(".tab-btn").forEach(b => { const a = b.dataset.tab === id;
+                b.classList.toggle("active", a);
+                b.setAttribute("aria-selected", a); });
+            document.querySelectorAll(".tab-panel").forEach(p => { p.classList.toggle("active", p.id === `panel-${id}`); });
+            clearAudio();
+            clearBlendAudio();
+            if (id === "podcast") { clearPodcastAudio();
+                populatePodcastForm(); }
+            if (id === "blend") populateBlendForm();
+        }
+
+        /* ─── GENERATE (stubs, safe if no buttons) ─── */
+        async function handleGenerate() {
+            const isBlend = activeTab === "blend";
+            const scriptId = isBlend ? "blend-script" : "script-input";
+            const text = document.getElementById(scriptId)?.value.trim() || "";
+            if (!text || generating) return;
+            generating = true;
+            if (isBlend) clearBlendAudio();
+            else clearAudio();
+            const btnGen = document.getElementById("btn-generate"),
+                btnBlnd = document.getElementById("btn-generate-blend");
+            if (btnGen) { btnGen.disabled = true;
+                btnGen.innerHTML = '<span class="spinner"></span> Generating…'; }
+            if (btnBlnd) { btnBlnd.disabled = true;
+                btnBlnd.innerHTML = '<span class="spinner"></span> Generating…'; }
+            const prefix = isBlend ? "blend" : "gen";
+            startProgressSim(["Initialising engine…", "Generating audio…", "Processing waveform…", "Applying style…",
+                "Finalising output…"
+            ], prefix);
+            try {
+                let body;
+                if (isBlend) {
+                    body = { text, voice_name: "", style_name: blendStyle, custom_rate: blendRate,
+                        custom_pitch: blendPitch, use_blend: true, blend_name: selectedBlend,
+                        blend_ratio: blendRatio, use_multicore: document.getElementById("blend-multicore")
+                            ?.checked ?? true, model: document.getElementById("voice-model")?.value || "" };
+                } else {
+                    body = { text, voice_name: selectedVoice, style_name: selectedStyle, custom_rate: customRate,
+                        custom_pitch: customPitch, use_multicore: useMulticore, model: document.getElementById(
+                            "voice-model")?.value || "" };
+                }
+                const res = await apiFetch("/api/tts/generate", { method: "POST", binary: true, body: JSON.stringify(
+                        body) });
+                const fmt = res.headers.get("X-Audio-Format") || "wav";
+                const blob = await res.blob();
+                stopProgressSim(prefix);
+                if (isBlend) {
+                    blendAudioBlob = blob;
+                    blendAudioFormat = fmt;
+                    blendAudioURL = URL.createObjectURL(blob);
+                    const e = document.getElementById("blend-audio-eyebrow"),
+                        t = document.getElementById("blend-audio-title"),
+                        m = document.getElementById("blend-audio-meta"),
+                        p = document.getElementById("blend-audio-player"),
+                        c = document.getElementById("blend-audio-output-card"),
+                        d = document.getElementById("blend-btn-download");
+                    if (e) e.textContent = `✦ Blend Ready · ${fmt.toUpperCase()}`;
+                    if (t) t.textContent = `${selectedBlend} (${blendPct1()}% blend)`;
+                    if (m) m.textContent = `${blendStyle} · ${fmt.toUpperCase()} · Human-enhanced`;
+                    if (p) p.src = blendAudioURL;
+                    if (c) c.style.display = "";
+                    if (d) d.textContent = `⬇️ Download ${fmt.toUpperCase()}`;
+                    if (isLoggedIn()) { const s = getSession();
+                        saveHistory(s.email, `${selectedBlend} blend`, blendStyle, text.length); }
+                } else {
+                    audioBlob = blob;
+                    audioFormat = fmt;
+                    audioURL = URL.createObjectURL(blob);
+                    const e = document.getElementById("audio-output-eyebrow"),
+                        t = document.getElementById("audio-output-title"),
+                        m = document.getElementById("audio-output-meta"),
+                        p = document.getElementById("audio-player"),
+                        c = document.getElementById("audio-output-card"),
+                        d = document.getElementById("btn-download");
+                    if (e) e.textContent = `✦ Audio Ready · ${fmt.toUpperCase()}`;
+                    if (t) t.textContent = selectedVoice;
+                    if (m) m.textContent = `${selectedStyle} · ${fmt.toUpperCase()} · Human-enhanced`;
+                    if (p) p.src = audioURL;
+                    if (c) c.style.display = "";
+                    if (d) d.textContent = `⬇️ Download ${fmt.toUpperCase()}`;
+                    if (isLoggedIn()) { const s = getSession();
+                        saveHistory(s.email, selectedVoice, selectedStyle, text.length); }
+                }
+            } catch (e) { stopProgressSim(prefix);
+                alert("Generation failed: " + e.message); } finally {
+                generating = false;
+                if (btnGen) { btnGen.disabled = false;
+                    btnGen.innerHTML = "🎙️ Generate Voice"; }
+                if (btnBlnd) { btnBlnd.disabled = false;
+                    btnBlnd.innerHTML = "🎭 Generate Blend"; }
+            }
+        }
+
+        async function handleGeneratePodcast() {
+            const text = document.getElementById("pod-script")?.value.trim() || "";
+            if (!text || genPodcast) return;
+            if (podVoiceA === podVoiceB) { alert("Please select two DIFFERENT voices"); return; }
+            const vs = getVoices(),
+                cfgA = vs[podVoiceA],
+                cfgB = vs[podVoiceB];
+            if (!cfgA?.id || !cfgB?.id) { alert("Voice config not found"); return; }
+            genPodcast = true;
+            clearPodcastAudio();
+            const btn = document.getElementById("btn-generate-podcast");
+            if (btn) { btn.disabled = true;
+                btn.innerHTML = '<span class="spinner"></span> Generating podcast…'; }
+            startProgressSim(["Parsing sentences…", "Generating Voice A…", "Generating Voice B…", "Merging & mastering…",
+                "Finalising…"
+            ], "pod");
+            try {
+                const res = await apiFetch("/api/tts/podcast", { method: "POST", binary: true, body: JSON.stringify({
+                        script: text, voice_a_id: cfgA.id, voice_b_id: cfgB.id, use_multicore: true }) });
+                const blob = await res.blob();
+                const segCount = parseInt(res.headers.get("X-Segment-Count") || "0", 10);
+                if (!blob || blob.size === 0) throw new Error("Empty audio response");
+                stopProgressSim("pod");
+                podAudioBlob = blob;
+                podSegCount = segCount;
+                podAudioURL = URL.createObjectURL(blob);
+                const m = document.getElementById("pod-output-meta"),
+                    p = document.getElementById("pod-audio-player"),
+                    c = document.getElementById("pod-output-card");
+                if (m) m.textContent = `${segCount} segments · ${Math.round(blob.size / 1024)} KB`;
+                if (p) p.src = podAudioURL;
+                if (c) c.style.display = "";
+            } catch (e) { stopProgressSim("pod");
+                alert("Podcast generation failed: " + e.message); } finally { genPodcast = false; if (btn) { btn.disabled =
+                        false;
+                    btn.innerHTML = "📻 Generate Podcast"; } }
+        }
+
+        async function handleGenerateClone() {
+            const text = document.getElementById("clone-text")?.value.trim() || "";
+            if (!text || !cloneFile || generating) return;
+            generating = true;
+            clearAudio();
+            const btn = document.getElementById("btn-generate-clone");
+            if (btn) { btn.disabled = true;
+                btn.innerHTML = '<span class="spinner"></span> Cloning voice…'; }
+            startProgressSim(["Loading model…", "Processing sample…", "Cloning voice…", "Rendering audio…",
+                "Finalising…"
+            ], "clone");
+            try {
+                const fd = new FormData();
+                fd.append("text", text);
+                fd.append("language", document.getElementById("clone-lang")?.value || "en");
+                fd.append("sample", cloneFile);
+                const s = getSession();
+                const res = await fetch(`${BASE_URL}/api/tts/clone`, { method: "POST", headers: s?.token ?
+                        { Authorization: `Bearer ${s.token}` } : {}, body: fd });
+                if (!res.ok) { const e = await res.json().catch(() => ({ detail: "Clone failed" }));
+                    throw new Error(e.detail || "Clone failed"); }
+                const blob = await res.blob();
+                stopProgressSim("clone");
+                audioBlob = blob;
+                audioFormat = "wav";
+                audioURL = URL.createObjectURL(blob);
+                const e = document.getElementById("audio-output-eyebrow"),
+                    t = document.getElementById("audio-output-title"),
+                    m = document.getElementById("audio-output-meta"),
+                    p = document.getElementById("audio-player"),
+                    c = document.getElementById("audio-output-card"),
+                    d = document.getElementById("btn-download");
+                if (e) e.textContent = "✦ Clone Ready · WAV";
+                if (t) t.textContent = cloneFileName;
+                if (m) m.textContent = "Voice Clone · WAV · Human-enhanced";
+                if (p) p.src = audioURL;
+                if (c) c.style.display = "";
+                if (d) d.textContent = "⬇️ Download WAV";
+            } catch (e) { stopProgressSim("clone");
+                alert("Clone failed: " + e.message); } finally { generating = false; if (btn) { btn.disabled = false;
+                    btn.innerHTML = "🔬 Generate Cloned Voice"; } }
+        }
+
+        /* ─── DOWNLOADS ─── */
+        function handleDownload() { if (!audioBlob) return; const url = URL.createObjectURL(audioBlob); const a = document
+                .createElement("a");
+            a.href = url;
+            a.download = `freevoicelabs-${(selectedVoice || "clone").replace(/\s/g, "-")}.${audioFormat}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 5000); }
+
+        function handleDownloadBlend() { if (!blendAudioBlob) return; const url = URL.createObjectURL(blendAudioBlob); const
+                a = document.createElement("a");
+            a.href = url;
+            a.download = `freevoicelabs-blend-${(selectedBlend || "mix").replace(/\s/g, "-")}.${blendAudioFormat}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 5000); }
+
+        function handleDownloadPodcast() { if (!podAudioBlob) return; const url = URL.createObjectURL(podAudioBlob); const
+                a = document.createElement("a");
+            a.href = url;
+            a.download = "freevoicelabs-podcast.wav";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 5000); }
+
+        /* ─── FEEDBACK ─── */
+        async function handleFeedback() {
+            const comment = document.getElementById("fb-comment")?.value.trim() || "";
+            const email = document.getElementById("fb-email")?.value.trim() || "";
+            if (!comment) return;
+            const msgEl = document.getElementById("fb-msg");
+            try {
+                await apiFetch("/api/feedback", { method: "POST", body: JSON.stringify({ comment, email }) });
+                if (msgEl) { msgEl.className = "msg-ok";
+                    msgEl.textContent = "✅ Feedback submitted! Thank you.";
+                    msgEl.style.display = ""; }
+                if (document.getElementById("fb-comment")) document.getElementById("fb-comment").value = "";
+                if (document.getElementById("fb-email")) document.getElementById("fb-email").value = "";
+            } catch (e) { if (msgEl) { msgEl.className = "msg-err";
+                    msgEl.textContent = "❌ " + e.message;
+                    msgEl.style.display = ""; } }
+        }
+
+        /* ─── HISTORY ─── */
+        async function saveHistory(email, voiceName, styleName, charCount) {
+            try {
+                const fd = new FormData();
+                fd.append("email", email);
+                fd.append("voice_name", voiceName);
+                fd.append("style_name", styleName);
+                fd.append("char_count", String(charCount));
+                const s = getSession();
+                await fetch(`${BASE_URL}/api/history`, { method: "POST", headers: s?.token ?
+                        { Authorization: `Bearer ${s.token}` } : {}, body: fd });
+            } catch {}
+        }
+
+        /* ─── NAV AUTH ─── */
+        function renderNavAuth() {
+            const container = document.getElementById("island-right");
+            if (!container) return;
+            const s = getSession();
+            if (s?.email) {
+                const initials = s.email.substring(0, 2).toUpperCase();
+                container.innerHTML =
+                    `<div class="island-profile" onclick="openSignInModal()"><div class="island-avatar">${initials}</div><span class="island-profile-email">${s.email}</span><span class="chevron">▾</span></div><button class="island-btn island-btn-ghost island-btn-sm" onclick="handleLogout()">Sign Out</button>`;
+                checkAndShowAdminLink();
+            } else {
+                container.innerHTML =
+                    `<button class="island-btn island-btn-secondary island-btn-sm" onclick="openSignInModal()">Sign In</button><button class="island-btn island-btn-primary island-btn-sm" onclick="openCheckout('pro')">Get Started</button>`;
+                const adminLink = document.getElementById("nav-admin-link");
+                if (adminLink) adminLink.style.display = "none";
+            }
+        }
+
+        function checkAndShowAdminLink() {
+            const adminLink = document.getElementById("nav-admin-link");
+            const s = getSession();
+            if (adminLink && s && s.email === "talha@vfl.ai") { adminLink.style.display = "flex";
+                adminLink.onclick = (e) => { e.preventDefault();
+                    window.location.href = "/admin.html"; }; } else if (adminLink) { adminLink.style.display = "none"; }
+        }
+
+        function handleLogout() { clearSession();
+            renderNavAuth();
+            renderMobileNav();
+            const adminLink = document.getElementById("nav-admin-link"); if (adminLink) adminLink.style.display = "none";
+            closeCheckout(); }
+
+        /* ─── SIGN IN MODAL ─── */
+        function openSignInModal() {
+            isSignInMode = true;
+            checkoutPlan = null;
+            const overlay = document.getElementById("modal-overlay");
+            if (overlay) { overlay.classList.remove("hidden");
+                overlay.onclick = e => { if (e.target === overlay) closeCheckout(); }; }
+            document.addEventListener("keydown", escClose);
+            renderSignInModal();
+        }
+
+        function renderSignInModal() {
+            const body = document.getElementById("modal-body");
+            if (!body) return;
+            body.innerHTML =
+                `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">🔐 Welcome Back</div><div class="modal-title">Sign in to your account</div><div class="modal-body-text">Access your saved voices, history, and premium features.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
+            renderModalAuthForm();
+        }
+
+        /* ─── MOBILE NAV ─── */
+        function renderMobileNav() {
+            const overlay = document.getElementById("island-mobile-overlay");
+            if (!overlay) return;
+            const s = getSession();
+            const isAdmin = s && s.email === "talha@vfl.ai";
+            overlay.innerHTML =
+                `<div class="mob-section">Products</div><a href="index.html#studio" class="mob-link" onclick="switchTab('standard');closeMobileNav();"><span class="mob-icon">🧠</span> Neural TTS</a><a href="index.html#studio" class="mob-link" onclick="switchTab('blend');closeMobileNav();"><span class="mob-icon">🎭</span> Blends</a><a href="index.html#studio" class="mob-link" onclick="switchTab('podcast');closeMobileNav();"><span class="mob-icon">📻</span> Podcast Mode</a><a href="index.html#studio" class="mob-link" onclick="switchTab('clone');closeMobileNav();"><span class="mob-icon">🔬</span> Voice Cloning<span class="mob-badge">Beta</span></a><div class="mob-divider"></div><a href="index.html#pricing" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">💎</span> Pricing</a><a href="index.html#platform" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⚙️</span> Platform</a><a href="index.html#testimonials" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⭐</span> Testimonials</a><div class="mob-divider"></div><div class="mob-section">About</div><a href="about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a><a href="contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a><a href="feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a><a href="privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy</a><a href="terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a><a href="disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a><a href="sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>${
+                isAdmin ? `<a href="#" class="mob-link" onclick="event.preventDefault(); window.location.href='/admin.html'; closeMobileNav();"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""
+            }<div class="mob-divider"></div>${
+                s?.email ? `
+                    <div style="padding:8px 16px;font-size:.78rem;color:var(--tx-3);">Signed in as <strong style="color:var(--tx-2);">${s.email}</strong></div>
+                    <button class="mob-link" onclick="handleLogout();closeMobileNav();" style="color:var(--rose);"><span class="mob-icon">🚪</span> Sign Out</button>
+                ` : `
+                    <div class="mob-auth-row">
+                        <button class="mob-link" onclick="openSignInModal();closeMobileNav();" style="color:var(--plum-bright);"><span class="mob-icon">🔑</span> Sign In</button>
+                        <button class="mob-link" onclick="openCheckout('pro');closeMobileNav();" style="color:var(--tx-2);"><span class="mob-icon">🚀</span> Get Started</button>
+                    </div>
+                `
+            }`;
+        }
+
+        function closeMobileNav() { const o = document.getElementById("island-mobile-overlay"),
+                h = document.getElementById("island-hamburger"),
+                c = document.getElementById("island-overlay-close"); if (o) o.classList.remove("open"); if (h) { h.classList
+                    .remove("open");
+                h.setAttribute("aria-expanded", "false"); } if (c) c.classList.remove("visible");
+            document.body.style.overflow = ""; }
+
+        function toggleMobileNav() { const o = document.getElementById("island-mobile-overlay"),
+                h = document.getElementById("island-hamburger"),
+                c = document.getElementById("island-overlay-close"); if (!o || !h) return; const open = o.classList
+                .toggle("open");
+            h.classList.toggle("open", open);
+            h.setAttribute("aria-expanded", open); if (c) c.classList.toggle("visible", open);
+            document.body.style.overflow = open ? "hidden" : ""; }
+
+        /* ─── CHECKOUT ─── */
+        function openCheckout(plan) {
+            isSignInMode = false;
+            checkoutPlan = plan;
+            const overlay = document.getElementById("modal-overlay");
+            if (overlay) { overlay.classList.remove("hidden");
+                overlay.onclick = e => { if (e.target === overlay) closeCheckout(); }; }
+            document.addEventListener("keydown", escClose);
+            renderCheckoutModal();
+        }
+
+        function closeCheckout() { const overlay = document.getElementById("modal-overlay"); if (overlay) overlay.classList
+                .add("hidden");
+            document.removeEventListener("keydown", escClose);
+            checkoutPlan = null;
+            isSignInMode = false; }
+
+        function escClose(e) { if (e.key === "Escape") closeCheckout(); }
+
+        function renderCheckoutModal() {
+            const body = document.getElementById("modal-body");
+            if (!body) return;
+            if (isSignInMode) { renderSignInModal(); return; }
+            const s = getSession();
+            if (checkoutPlan === "free") {
+                body.innerHTML =
+                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Plan Info</div><div class="modal-title">You're on Free ✓</div><div class="modal-body-text">You're already on the Free plan — no action needed. Enjoy unlimited generations!</div><button class="btn btn-primary btn-full" onclick="closeCheckout()">Got it ✓</button>`;
+            } else if (!s?.email) {
+                body.innerHTML =
+                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div><div class="modal-title">Sign in to Continue</div><div class="modal-body-text">Create an account or sign in to complete your purchase.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
+                renderModalAuthForm();
+            } else {
+                body.innerHTML =
+                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div><div class="modal-title">Unlock ${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)}</div><div class="modal-body-text">Complete your payment to activate your plan instantly.</div><div class="field"><label for="ck-name">Name on Card</label><input id="ck-name" type="text" placeholder="John Smith"></div><div class="field"><label for="ck-email">Billing Email</label><input id="ck-email" type="email" placeholder="you@example.com" value="${s.email}"></div><div class="field"><label for="ck-card">Card Number</label><input id="ck-card" type="text" placeholder="4242 4242 4242 4242" maxlength="19"></div><div class="checkout-row"><div class="field"><label for="ck-expiry">Expiry</label><input id="ck-expiry" type="text" placeholder="MM/YY" maxlength="5"></div><div class="field"><label for="ck-cvv">CVV</label><input id="ck-cvv" type="text" placeholder="123" maxlength="4"></div></div><div id="ck-err" class="err" style="display:none; margin-bottom:8px;"></div><button class="btn btn-primary btn-full" onclick="handleCheckout()">Pay &amp; Activate →</button>`;
+            }
+        }
+
+        function setModalAuthTab(tab) { authTab = tab; if (isSignInMode) renderSignInModal();
+            else renderCheckoutModal(); }
+
+        function renderModalAuthForm() {
+            const el = document.getElementById("modal-auth-form");
+            if (!el) return;
+            if (authTab === "signin") {
+                el.innerHTML =
+                    `<div class="field"><label for="m-login-email">Email</label><input type="email" id="m-login-email" autocomplete="email"></div><div class="field"><label for="m-login-pw">Password</label><input type="password" id="m-login-pw"></div><div id="m-login-err" class="err" style="display:none; margin-bottom:8px;"></div><button class="btn btn-primary btn-full" onclick="handleModalLogin()">Sign In</button>`;
+            } else {
+                el.innerHTML =
+                    `<div class="field"><label for="m-signup-email">Email</label><input type="email" id="m-signup-email" autocomplete="email"></div><div class="field"><label for="m-signup-pw">Password</label><input type="password" id="m-signup-pw"></div><div class="field"><label for="m-signup-pw2">Confirm</label><input type="password" id="m-signup-pw2"></div><div id="m-signup-err" class="err" style="display:none; margin-bottom:8px;"></div><button class="btn btn-primary btn-full" onclick="handleModalSignup()">Create Account</button>`;
+            }
+        }
+
+        async function handleModalLogin() {
+            const email = document.getElementById("m-login-email")?.value.trim().toLowerCase() || "";
+            const pw = document.getElementById("m-login-pw")?.value || "";
+            const errEl = document.getElementById("m-login-err");
+            if (errEl) errEl.style.display = "none";
+            try {
+                const data = await apiFetch("/api/auth/login", { method: "POST", body: JSON.stringify({ email,
+                        password: pw }) });
+                setSession({ email: data.email, token: data.token, plan: data.plan });
+                renderNavAuth();
+                renderMobileNav();
+                closeCheckout();
+                if (checkoutPlan && checkoutPlan !== "free") renderCheckoutModal();
+            } catch (e) { if (errEl) { errEl.textContent = e.message;
+                    errEl.style.display = ""; } }
+        }
+
+        async function handleModalSignup() {
+            const email = document.getElementById("m-signup-email")?.value.trim().toLowerCase() || "";
+            const pw = document.getElementById("m-signup-pw")?.value || "";
+            const pw2 = document.getElementById("m-signup-pw2")?.value || "";
+            const errEl = document.getElementById("m-signup-err");
+            if (errEl) errEl.style.display = "none";
+            if (pw !== pw2) { if (errEl) { errEl.textContent = "Passwords don't match.";
+                    errEl.style.display = ""; } return; }
+            try {
+                const data = await apiFetch("/api/auth/signup", { method: "POST", body: JSON.stringify({ email,
+                        password: pw }) });
+                setSession({ email: data.email, token: data.token, plan: data.plan });
+                renderNavAuth();
+                renderMobileNav();
+                closeCheckout();
+                if (checkoutPlan && checkoutPlan !== "free") renderCheckoutModal();
+            } catch (e) { if (errEl) { errEl.textContent = e.message;
+                    errEl.style.display = ""; } }
+        }
+
+        async function handleCheckout() {
+            const s = getSession();
+            const name = document.getElementById("ck-name")?.value.trim() || "";
+            const email = document.getElementById("ck-email")?.value.trim() || "";
+            const card = document.getElementById("ck-card")?.value.trim() || "";
+            const errEl = document.getElementById("ck-err");
+            if (errEl) errEl.style.display = "none";
+            if (!name || !email || !card) return;
+            try {
+                const r = await apiFetch("/api/checkout", { method: "POST", body: JSON.stringify({ email: s.email,
+                        plan_name: checkoutPlan, billing_name: name, billing_email: email, card_number: card }) });
+                const body = document.getElementById("modal-body");
+                if (body) {
+                    body.innerHTML =
+                        `<div style="text-align:center;padding:24px 0;"><div style="font-size:3.5rem;margin-bottom:18px;animation:bounceIn .6s ease both;">🎉</div><div class="modal-kicker">Payment Successful</div><div class="modal-title">${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)} Activated!</div><div class="modal-body-text">Your plan has been activated immediately. Start creating!</div>${
+                            r.receipt ? `<div style="background:rgba(155,69,255,.06);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin:16px 0;text-align:left;"><div style="font-size:.75rem;color:var(--tx-3);line-height:1.9;"><div>Reference: <strong style="color:var(--plum-bright);">${r.receipt.reference}</strong></div><div>Amount: <strong style="color:var(--tx);">${r.receipt.amount}</strong></div><div>Card: **** ${r.receipt.card_last4}</div></div></div>` : ""
+                        }<button class="btn btn-primary btn-full" onclick="closeCheckout()">Start Creating 🎙️</button></div>`;
+                }
+                setSession({ ...s, plan: checkoutPlan });
+                renderNavAuth();
+                renderMobileNav();
+            } catch (e) { if (errEl) { errEl.textContent = e.message;
+                    errEl.style.display = ""; } }
+        }
+
+        /* ─── TESTIMONIALS ─── */
+        const PLACEHOLDER_REVIEWS = [
+            { text: "Finally found an AI voice tool that actually sounds human. Used it for my whole YouTube channel intro series.",
+                name: "Sarah K.", role: "YouTube Creator", rating: 5 },
+            { text: "The podcast mode is a game-changer. I can prototype entire podcast episodes before recording — saves me hours.",
+                name: "Marcus T.", role: "Podcast Producer", rating: 5 },
+            { text: "The voice blending feature is incredibly unique. My brand videos have a signature sound now.",
+                name: "Priya R.", role: "Brand Marketer", rating: 5 },
+            { text: "Free forever? That blew my mind. The quality is on par with $50/month tools I was using before.",
+                name: "James L.", role: "Indie Developer", rating: 5 },
+            { text: "The delivery styles actually work — whisper mode is perfect for my meditation content.",
+                name: "Ana M.", role: "Wellness Creator", rating: 5 },
+            { text: "Voice cloning with just a 30-second sample is wild. My clients can't tell it's AI.",
+                name: "Chris P.", role: "Content Agency", rating: 5 },
+        ];
+
+        function renderTestimonials(list) {
+            const grid = document.getElementById("testimonials-grid");
+            if (!grid) return;
+            const data = list.length >= 3 ? list : PLACEHOLDER_REVIEWS;
+            grid.innerHTML = data.slice(0, 6).map((t, i) => {
+                const initials = t.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
+                return `<div class="testimonial-card" style="animation-delay:${i * .09}s;"><div class="t-stars">${"★".repeat(t.rating || 5)}</div><div class="t-text">"${t.text}"</div><div class="t-author"><div class="t-avatar">${initials}</div><div><div class="t-name">${t.name}</div><div class="t-role">${t.role}</div></div></div></div>`;
+            }).join("");
+        }
+
+        /* ─── INTERSECTION OBSERVER ─── */
+        function setupReveal() {
+            const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target
+                        .classList.add("in");
+                        io.unobserve(e.target); } }); }, { threshold: 0.06, rootMargin: "0px 0px -40px 0px" });
+            document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+        }
+
+        /* ─── EVENTS (safe) ─── */
+        function setupEvents() {
+            document.getElementById("island-hamburger")?.addEventListener("click", toggleMobileNav);
+            document.getElementById("island-overlay-close")?.addEventListener("click", closeMobileNav);
+            document.getElementById("island-mobile-overlay")?.addEventListener("click", (e) => { if (e.target === e
+                    .currentTarget) closeMobileNav(); });
+
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                btn.addEventListener("click", () => { switchTab(btn.dataset.tab); if (window.innerWidth < 768)
+                        closeMobileNav(); });
+            });
+
+            document.getElementById("voice-library")?.addEventListener("change", e => { selectedLib = e.target.value;
+                selectedLang = "English (US)";
+                populateStandardForm(); });
+            document.getElementById("voice-language")?.addEventListener("change", e => { selectedLang = e.target.value;
+                populateStandardForm(); });
+            document.getElementById("voice-select")?.addEventListener("change", e => { selectedVoice = e.target.value;
+                renderVoiceCard(); });
+            document.getElementById("style-select")?.addEventListener("change", e => { selectedStyle = e.target
+                .value; });
+            document.getElementById("script-input")?.addEventListener("input", e => { const s = document.getElementById(
+                    "char-count")?.querySelectorAll("span"); if (s?.[1]) s[1].textContent =
+                    `${e.target.value.length.toLocaleString()} / 5,000 characters`; });
+            document.getElementById("custom-rate")?.addEventListener("input", e => { customRate = +e.target.value; const
+                    v = document.getElementById("rate-val"); if (v) v.textContent = (customRate > 0 ? "+" : "") +
+                    customRate + "%"; });
+            document.getElementById("custom-pitch")?.addEventListener("input", e => { customPitch = +e.target.value;
+                const v = document.getElementById("pitch-val"); if (v) v.textContent = (customPitch > 0 ? "+" : "") +
+                    customPitch + "Hz"; });
+            document.getElementById("use-multicore")?.addEventListener("change", e => { useMulticore = e.target
+                .checked; const l = document.getElementById("cpu-label"),
+                    d = document.getElementById("cpu-desc"); if (l) l.textContent = `🖥️ ${useMulticore ? "Multi-Core Mode" : "Single-Core Mode"}`; if (
+                    d) d.textContent = useMulticore ? "Faster generation · uses more CPU" :
+                    "Battery saving · slower generation"; });
+            document.getElementById("btn-generate")?.addEventListener("click", handleGenerate);
+            document.getElementById("btn-download")?.addEventListener("click", handleDownload);
+            document.getElementById("btn-clear-audio")?.addEventListener("click", clearAudio);
+
+            document.getElementById("blend-select")?.addEventListener("change", e => { selectedBlend = e.target.value;
+                const w = document.getElementById("blend-slider-wrap"); if (w) w.style.display = selectedBlend ?
+                    "" : "none";
+                renderBlendCard(); });
+            document.getElementById("blend-ratio")?.addEventListener("input", e => { blendRatio = +e.target.value;
+                renderBlendCard(); });
+            document.getElementById("blend-style")?.addEventListener("change", e => { blendStyle = e.target.value; });
+            document.getElementById("blend-script")?.addEventListener("input", e => { const s = document.getElementById(
+                    "blend-char-count")?.querySelectorAll("span"); if (s?.[1]) s[1].textContent =
+                    `${e.target.value.length.toLocaleString()} / 5,000 characters`; });
+            document.getElementById("blend-rate")?.addEventListener("input", e => { blendRate = +e.target.value; const
+                    v = document.getElementById("blend-rate-val"); if (v) v.textContent = (blendRate > 0 ? "+" : "") +
+                    blendRate + "%"; });
+            document.getElementById("blend-pitch")?.addEventListener("input", e => { blendPitch = +e.target.value; const
+                    v = document.getElementById("blend-pitch-val"); if (v) v.textContent = (blendPitch > 0 ? "+" : "") +
+                    blendPitch + "Hz"; });
+            document.getElementById("blend-multicore")?.addEventListener("change", e => { const l = document
+                    .getElementById("blend-cpu-label"); if (l) l.textContent =
+                    `🖥️ ${e.target.checked ? "Multi-Core Mode" : "Single-Core Mode"}`; });
+            document.getElementById("btn-generate-blend")?.addEventListener("click", handleGenerate);
+            document.getElementById("blend-btn-download")?.addEventListener("click", handleDownloadBlend);
+            document.getElementById("blend-btn-clear")?.addEventListener("click", clearBlendAudio);
+
+            document.getElementById("pod-voice-a")?.addEventListener("change", e => { podVoiceA = e.target.value;
+                updatePodMeta();
+                updatePodPreview(); });
+            document.getElementById("pod-voice-b")?.addEventListener("change", e => { podVoiceB = e.target.value;
+                updatePodMeta();
+                updatePodPreview(); });
+            document.getElementById("pod-script")?.addEventListener("input", updatePodPreview);
+            document.getElementById("btn-generate-podcast")?.addEventListener("click", handleGeneratePodcast);
+            document.getElementById("btn-dl-podcast")?.addEventListener("click", handleDownloadPodcast);
+            document.getElementById("btn-clear-podcast")?.addEventListener("click", clearPodcastAudio);
+
+            document.getElementById("clone-file-input")?.addEventListener("change", e => { const f = e.target.files?.[
+                0
+            ]; if (!f) return;
+                cloneFile = f;
+                cloneFileName = f.name; const dz = document.getElementById("clone-dropzone"),
+                    txt = document.getElementById("clone-dropzone-text"); if (dz) dz.classList.add("has-file"); if (
+                    txt) txt.innerHTML =
+                    `<div style="color:#4ade80;font-weight:700;font-size:.9rem;">✅ ${f.name}</div><div class="dropzone-sub">${(f.size / 1024).toFixed(1)} KB · ${f.type || 'audio'}</div>`; });
+            const dz = document.getElementById("clone-dropzone");
+            dz?.addEventListener("dragover", e => { e.preventDefault();
+                dz.classList.add("drag-over"); });
+            dz?.addEventListener("dragleave", () => dz.classList.remove("drag-over"));
+            dz?.addEventListener("drop", e => { e.preventDefault();
+                dz.classList.remove("drag-over"); const f = e.dataTransfer?.files?.[0]; if (!f) return;
+                cloneFile = f;
+                cloneFileName = f.name;
+                dz.classList.add("has-file"); const txt = document.getElementById("clone-dropzone-text"); if (txt)
+                    txt.innerHTML =
+                    `<div style="color:#4ade80;font-weight:700;font-size:.9rem;">✅ ${f.name}</div><div class="dropzone-sub">${(f.size / 1024).toFixed(1)} KB</div>`; });
+            dz?.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault();
+                    document.getElementById("clone-file-input")?.click(); } });
+            document.getElementById("btn-generate-clone")?.addEventListener("click", handleGenerateClone);
+            document.getElementById("btn-feedback")?.addEventListener("click", handleFeedback);
+
+            document.addEventListener("input", e => {
+                if (e.target.id === "ck-card") { let v = e.target.value.replace(/\D/g, "").slice(0, 16);
+                    e.target.value = v.replace(/(.{4})/g, "$1 ").trim(); }
+                if (e.target.id === "ck-expiry") { let v = e.target.value.replace(/\D/g, "").slice(0, 4); if (v
+                        .length >= 3) v = v.slice(0, 2) + "/" + v.slice(2);
+                    e.target.value = v; }
+            });
+
+            window.addEventListener("resize", () => { if (window.innerWidth > 820) closeMobileNav(); });
+        }
+
+        /* ─── BOOT ─── */
+        async function boot() {
+            const yr = new Date().getFullYear();
+            const f = document.getElementById("footer-year"); if (f) f.textContent = `© ${yr} Free Voice Labs. All rights reserved.`;
+
+            renderNavAuth();
+            renderMobileNav();
+            setupReveal();
+            setupEvents();
+
+            // Only load voice data if the studio elements exist on this page
+            const hasStudio = document.getElementById("voice-library");
+            if (hasStudio) {
+                try {
+                    cmsData = await apiFetch("/api/cms");
+                    if (cmsData.announcement) { const a = document.getElementById("announcement"),
+                            t = document.getElementById("announcement-text"); if (t) t.textContent = cmsData
+                            .announcement; if (a) a.style.display = "flex"; }
+                    if (cmsData.pricing_pro_price) { const e = document.getElementById("pro-price"); if (e) e
+                            .textContent = "$" + cmsData.pricing_pro_price; }
+                    if (cmsData.pricing_unlimited_price) { const e = document.getElementById("unlimited-price");
+                        if (e) e.textContent = "$" + cmsData.pricing_unlimited_price; }
+                } catch {}
+
+                try {
+                    const data = await apiFetch("/api/voices");
+                    voicesData = data;
+                    const counts = data.counts || {};
+                    const sn = document.getElementById("stat-neural-hero"),
+                        ss = document.getElementById("stat-studio-hero"),
+                        sb = document.getElementById("stat-blends-hero");
+                    if (counts.live && sn) sn.textContent = counts.live + "+";
+                    if (counts.studio && ss) ss.textContent = counts.studio + "+";
+                    if (sb) { const bc = Object.keys(data.blends || {}).length;
+                        sb.textContent = bc; }
+                    populateStandardForm();
+                    populateBlendForm();
+                    populatePodcastForm();
+                } catch (e) { const l = document.getElementById("std-loading"); if (l) l.innerHTML =
+                        `<span style="color:var(--rose);">⚠️ Failed to load voices: ${e.message}</span>`; }
+
+                try { const r = await apiFetch("/api/feedback/approved"); const list = (r.feedback || []).map(f => ({
+                            text: f.comment, name: f.email, role: "Verified User", rating: 5 }));
+                    renderTestimonials(list); } catch { renderTestimonials([]); }
+            }
+
+            setTimeout(checkAndShowAdminLink, 500);
+        }
+
+        /* ─── GLOBALS ─── */
+        window.switchTab = switchTab;
+        window.openCheckout = openCheckout;
+        window.openSignInModal = openSignInModal;
+        window.closeCheckout = closeCheckout;
+        window.handleLogout = handleLogout;
+        window.toggleMobileNav = toggleMobileNav;
+        window.closeMobileNav = closeMobileNav;
+        window.handleGenerate = handleGenerate;
+        window.handleGeneratePodcast = handleGeneratePodcast;
+        window.handleGenerateClone = handleGenerateClone;
+        window.handleDownload = handleDownload;
+        window.handleDownloadBlend = handleDownloadBlend;
+        window.handleDownloadPodcast = handleDownloadPodcast;
+        window.handleFeedback = handleFeedback;
+        window.handleModalLogin = handleModalLogin;
+        window.handleModalSignup = handleModalSignup;
+        window.handleCheckout = handleCheckout;
+        window.setModalAuthTab = setModalAuthTab;
+
+        boot();
+    </script>
+
 </body>
 </html>
