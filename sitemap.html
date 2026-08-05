@@ -1,110 +1,1549 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sitemap | Free Voice Labs</title>
-<meta name="description" content="Sitemap — Free Voice Labs neural AI voice generator.">
-<link rel="stylesheet" href="shared.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Sitemap | Free Voice Labs</title>
+    <meta name="description" content="Sitemap — Complete navigation guide for Free Voice Labs." />
+    <link rel="canonical" href="https://freevoicelabs.com/sitemap.html" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://mohammadtalhaa-free-voice-labs-backend.hf.space" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ═══════ TOKENS ═══════ */
+        :root {
+            --ink: #04010f;
+            --ink-mid: #080318;
+            --plum: #9b45ff;
+            --plum-bright: #bf76ff;
+            --rose: #e8399a;
+            --amber: #ff6d2e;
+            --grad: linear-gradient(135deg, #bf76ff 0%, #e8399a 52%, #ff6d2e 100%);
+            --grad-btn: linear-gradient(135deg, #9b45ff 0%, #e8399a 100%);
+            --tx: #f2ebff;
+            --tx-2: #c4aaee;
+            --tx-3: #7a6898;
+            --tx-4: #4a3a62;
+            --border: rgba(155, 69, 255, .16);
+            --glass-bg: rgba(15, 6, 35, .45);
+            --glass-border: rgba(191, 118, 255, .18);
+            --glass-blur: saturate(180%) blur(24px);
+            --r-2xl: 36px;
+            --r-xl: 28px;
+            --r-lg: 20px;
+            --r-md: 14px;
+            --r-sm: 10px;
+            --r-pill: 999px;
+            --ease: all .26s cubic-bezier(.4, 0, .2, 1);
+            --spring: all .42s cubic-bezier(.34, 1.56, .64, 1);
+            --nav-h: 60px;
+        }
+
+        /* ═══════ RESET ═══════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            height: 100%;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--ink);
+            color: var(--tx);
+            min-height: 100vh;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(155, 69, 255, .22);
+            border-radius: 2px;
+        }
+
+        /* ═══════ BACKGROUND ═══════ */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .bg-orb-1 {
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(155, 69, 255, .15) 0%, transparent 70%);
+        }
+        .bg-orb-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            right: -80px;
+            background: radial-gradient(circle, rgba(232, 57, 154, .10) 0%, transparent 70%);
+            animation-delay: -8s;
+        }
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(155, 69, 255, .02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(155, 69, 255, .02) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+        @keyframes orbFloat {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(30px, 30px) scale(1.03);
+            }
+        }
+
+        /* ═══════ SKIP ═══════ */
+        .skip-link {
+            position: absolute;
+            top: -9999px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: var(--plum);
+            color: #fff;
+            border-radius: var(--r-md);
+            font-weight: 700;
+            z-index: 9999;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        /* ═══════ DYNAMIC ISLAND NAV ═══════ */
+        .dynamic-island {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: auto;
+            min-width: 280px;
+            max-width: 92vw;
+            height: 56px;
+            background: rgba(8, 3, 22, .82);
+            backdrop-filter: saturate(180%) blur(24px);
+            -webkit-backdrop-filter: saturate(180%) blur(24px);
+            border-radius: var(--r-pill);
+            border: 1px solid rgba(191, 118, 255, .12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            gap: 2px;
+            user-select: none;
+            transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        .dynamic-island::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--r-pill);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(191, 118, 255, .12), rgba(232, 57, 154, .06));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .island-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            padding: 0 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .island-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            text-decoration: none;
+            padding: 0 6px 0 4px;
+            border-radius: var(--r-sm);
+            transition: var(--ease);
+        }
+        .island-brand:hover {
+            background: rgba(155, 69, 255, .04);
+        }
+        .island-brand-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--r-xs);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .2), rgba(232, 57, 154, .12));
+            border: 1px solid rgba(155, 69, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .island-brand-logo img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+        .island-brand-text {
+            font-family: 'Clash Display', sans-serif;
+            font-size: .92rem;
+            font-weight: 700;
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+            white-space: nowrap;
+        }
+        .island-brand-badge {
+            font-size: .48rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: 1px 6px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .10);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--plum-bright);
+            flex-shrink: 0;
+        }
+
+        .island-links {
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            flex: 1;
+            justify-content: center;
+            padding: 0 4px;
+        }
+        .island-link {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 5px 12px;
+            border-radius: var(--r-sm);
+            color: var(--tx-3);
+            font-size: .75rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--ease);
+            font-family: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+        }
+        .island-link:hover {
+            color: var(--tx-2);
+            background: rgba(155, 69, 255, .06);
+        }
+        .island-link .chevron {
+            font-size: .5rem;
+            opacity: .5;
+            transition: transform .22s ease;
+            margin-left: 1px;
+        }
+        .island-link .link-badge {
+            font-size: .45rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 1px 5px;
+            border-radius: var(--r-pill);
+            background: rgba(232, 57, 154, .12);
+            border: 1px solid rgba(232, 57, 154, .18);
+            color: var(--rose);
+            margin-left: 1px;
+        }
+
+        .island-dropdown-wrap {
+            position: relative;
+        }
+        .island-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            min-width: 200px;
+            background: rgba(8, 3, 22, .96);
+            backdrop-filter: saturate(180%) blur(24px);
+            -webkit-backdrop-filter: saturate(180%) blur(24px);
+            border: 1px solid rgba(155, 69, 255, .12);
+            border-radius: var(--r-lg);
+            padding: 6px 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s ease, transform .2s ease;
+            z-index: 100;
+        }
+        .island-dropdown-wrap:hover .island-dropdown,
+        .island-dropdown-wrap.open .island-dropdown {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(-50%) translateY(0);
+        }
+        .island-dropdown a,
+        .island-dropdown .dd-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: var(--r-sm);
+            color: var(--tx-3);
+            font-size: .73rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--ease);
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+        .island-dropdown a:hover,
+        .island-dropdown .dd-item:hover {
+            background: rgba(155, 69, 255, .06);
+            color: var(--tx-2);
+        }
+        .island-dropdown .dd-icon {
+            font-size: .9rem;
+            flex-shrink: 0;
+        }
+        .island-dropdown .dd-label {
+            flex: 1;
+        }
+        .island-dropdown .dd-badge {
+            font-size: .45rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 1px 6px;
+            border-radius: var(--r-pill);
+            background: rgba(232, 57, 154, .10);
+            border: 1px solid rgba(232, 57, 154, .16);
+            color: var(--rose);
+        }
+        .island-dropdown .dd-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .08), transparent);
+            margin: 4px 8px;
+        }
+        .island-dropdown .dd-admin {
+            display: none;
+        }
+        .island-dropdown .dd-admin.visible {
+            display: flex;
+        }
+
+        .island-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            padding-right: 2px;
+        }
+        .island-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 5px 14px;
+            border-radius: var(--r-pill);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .73rem;
+            font-weight: 700;
+            transition: var(--spring);
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .island-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
+            transition: left .5s ease;
+            pointer-events: none;
+        }
+        .island-btn:hover::before {
+            left: 140%;
+        }
+        .island-btn-primary {
+            background: var(--grad-btn);
+            color: #fff;
+            box-shadow: 0 2px 12px rgba(155, 69, 255, .25);
+        }
+        .island-btn-primary:hover {
+            box-shadow: 0 4px 20px rgba(155, 69, 255, .35);
+            transform: translateY(-1px);
+        }
+        .island-btn-secondary {
+            background: rgba(155, 69, 255, .06);
+            color: var(--plum-bright);
+            border: 1px solid rgba(155, 69, 255, .12);
+        }
+        .island-btn-secondary:hover {
+            background: rgba(155, 69, 255, .12);
+            border-color: rgba(155, 69, 255, .22);
+            transform: translateY(-1px);
+        }
+        .island-btn-ghost {
+            background: transparent;
+            color: var(--tx-3);
+            border: 1px solid rgba(255, 255, 255, .04);
+        }
+        .island-btn-ghost:hover {
+            background: rgba(255, 255, 255, .04);
+            color: var(--tx-2);
+        }
+        .island-btn-sm {
+            padding: 4px 10px;
+            font-size: .68rem;
+        }
+
+        .island-profile {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 10px 2px 4px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .04);
+            border: 1px solid rgba(155, 69, 255, .08);
+            cursor: pointer;
+            transition: var(--ease);
+        }
+        .island-profile:hover {
+            background: rgba(155, 69, 255, .08);
+        }
+        .island-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--grad-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px rgba(155, 69, 255, .15);
+        }
+        .island-profile-email {
+            font-size: .68rem;
+            font-weight: 600;
+            color: var(--tx-2);
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .island-profile .chevron {
+            font-size: .45rem;
+            color: var(--tx-4);
+        }
+
+        .island-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            padding: 6px 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--tx);
+            border-radius: var(--r-sm);
+            transition: var(--ease);
+            flex-shrink: 0;
+        }
+        .island-hamburger:hover {
+            background: rgba(155, 69, 255, .04);
+        }
+        .island-hamburger span {
+            display: block;
+            width: 18px;
+            height: 1.5px;
+            background: currentColor;
+            border-radius: 1px;
+            transition: transform .28s cubic-bezier(.4, 0, .2, 1), opacity .2s ease;
+        }
+        .island-hamburger.open span:nth-child(1) {
+            transform: translateY(4.5px) rotate(45deg);
+        }
+        .island-hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .island-hamburger.open span:nth-child(3) {
+            transform: translateY(-4.5px) rotate(-45deg);
+        }
+
+        .island-mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(4, 1, 15, .92);
+            backdrop-filter: blur(32px) saturate(160%);
+            -webkit-backdrop-filter: blur(32px) saturate(160%);
+            padding: 80px 20px 32px;
+            overflow-y: auto;
+            flex-direction: column;
+            gap: 2px;
+            animation: overlayFade .3s ease both;
+        }
+        @keyframes overlayFade {
+            from {
+                opacity: 0;
+                transform: scale(.97);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .island-mobile-overlay.open {
+            display: flex;
+        }
+        .island-mobile-overlay .mob-section {
+            padding: 8px 0 2px 12px;
+            font-size: .55rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--tx-4);
+            font-weight: 800;
+            margin-top: 4px;
+        }
+        .island-mobile-overlay .mob-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            color: var(--tx-3);
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--ease);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .island-mobile-overlay .mob-link:hover {
+            background: rgba(155, 69, 255, .05);
+            color: var(--tx-2);
+        }
+        .island-mobile-overlay .mob-link .mob-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .island-mobile-overlay .mob-link .mob-badge {
+            font-size: .45rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 1px 6px;
+            border-radius: var(--r-pill);
+            background: rgba(232, 57, 154, .10);
+            border: 1px solid rgba(232, 57, 154, .16);
+            color: var(--rose);
+            margin-left: auto;
+        }
+        .island-mobile-overlay .mob-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .08), transparent);
+            margin: 4px 12px;
+        }
+        .island-mobile-overlay .mob-auth-row {
+            padding: 12px 14px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .island-mobile-overlay .mob-auth-row .mob-email {
+            font-size: .78rem;
+            color: var(--tx-2);
+            font-weight: 600;
+            padding: 0 4px 4px;
+        }
+
+        .island-overlay-close {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(155, 69, 255, .06);
+            border: 1px solid rgba(155, 69, 255, .12);
+            color: var(--tx-3);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: var(--ease);
+        }
+        .island-overlay-close:hover {
+            background: rgba(155, 69, 255, .12);
+            color: var(--tx);
+        }
+        .island-overlay-close.visible {
+            display: flex;
+        }
+
+        @keyframes gradShift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* ═══════ RESPONSIVE NAV ═══════ */
+        @media (max-width:1024px) {
+            .dynamic-island {
+                min-width: 200px;
+                height: 50px;
+                top: 10px;
+            }
+            .island-brand-text {
+                font-size: .8rem;
+            }
+            .island-brand-badge {
+                display: none;
+            }
+            .island-link {
+                font-size: .7rem;
+                padding: 4px 8px;
+            }
+            .island-btn {
+                font-size: .68rem;
+                padding: 4px 10px;
+            }
+            .island-profile-email {
+                max-width: 60px;
+                font-size: .62rem;
+            }
+        }
+        @media (max-width:820px) {
+            .island-links {
+                display: none;
+            }
+            .island-hamburger {
+                display: flex;
+            }
+            .dynamic-island {
+                min-width: 140px;
+                height: 44px;
+                top: 8px;
+                padding: 0 4px;
+            }
+            .island-brand-text {
+                font-size: .72rem;
+            }
+            .island-brand-logo {
+                width: 26px;
+                height: 26px;
+            }
+            .island-brand-logo img {
+                width: 15px;
+                height: 15px;
+            }
+            .island-right .island-btn-secondary {
+                display: none;
+            }
+            .island-right .island-btn-primary {
+                padding: 3px 10px;
+                font-size: .62rem;
+            }
+            .island-profile-email {
+                max-width: 50px;
+                font-size: .58rem;
+            }
+            .island-avatar {
+                width: 22px;
+                height: 22px;
+                font-size: .55rem;
+            }
+            .island-profile {
+                padding: 1px 6px 1px 2px;
+            }
+            .island-overlay-close.visible {
+                display: flex;
+            }
+            body {
+                padding-top: 64px;
+            }
+        }
+        @media (max-width:480px) {
+            .dynamic-island {
+                min-width: 100px;
+                height: 40px;
+                top: 6px;
+                padding: 0 2px;
+            }
+            .island-brand-text {
+                font-size: .65rem;
+            }
+            .island-brand-logo {
+                width: 22px;
+                height: 22px;
+            }
+            .island-brand-logo img {
+                width: 13px;
+                height: 13px;
+            }
+            .island-brand {
+                gap: 4px;
+                padding: 0 2px;
+            }
+            .island-right .island-btn-primary {
+                padding: 2px 8px;
+                font-size: .55rem;
+            }
+            .island-right .island-btn-ghost {
+                display: none;
+            }
+            .island-hamburger span {
+                width: 15px;
+                height: 1.5px;
+            }
+            .island-hamburger {
+                padding: 4px 6px;
+                gap: 2.5px;
+            }
+            .island-profile-email {
+                max-width: 36px;
+                font-size: .52rem;
+            }
+            .island-avatar {
+                width: 20px;
+                height: 20px;
+                font-size: .5rem;
+            }
+            body {
+                padding-top: 56px;
+            }
+        }
+
+        /* ═══════ MAIN WRAP & CONTENT ═══════ */
+        .main-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+        .page-hero {
+            text-align: center;
+            padding: 24px 0 12px;
+        }
+        .page-hero h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.03em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--tx-3);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 10px 0 24px;
+            color: var(--plum-bright);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: .9rem;
+            transition: var(--ease);
+        }
+        .back-link:hover {
+            color: var(--tx-2);
+            transform: translateX(-4px);
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+            font-weight: 700;
+            letter-spacing: -.02em;
+            color: var(--tx);
+            margin-bottom: 12px;
+        }
+        .section p {
+            font-size: .95rem;
+            color: var(--tx-3);
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+        .section ul {
+            padding-left: 24px;
+            margin: 8px 0 12px;
+        }
+        .section ul li {
+            font-size: .92rem;
+            color: var(--tx-3);
+            line-height: 1.7;
+            margin-bottom: 4px;
+        }
+        .section ul li strong {
+            color: var(--tx-2);
+        }
+        .section a {
+            color: var(--plum-bright);
+            text-decoration: none;
+            transition: var(--ease);
+            font-weight: 600;
+        }
+        .section a:hover {
+            color: var(--tx-2);
+            text-decoration: underline;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .grid-2 > div {
+            padding: 14px 16px;
+            border-radius: var(--r-md);
+            background: var(--glass-bg);
+            backdrop-filter: saturate(140%) blur(12px);
+            -webkit-backdrop-filter: saturate(140%) blur(12px);
+            border: 1px solid var(--glass-border);
+            transition: var(--ease);
+            font-size: .88rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .grid-2 > div:hover {
+            border-color: rgba(155, 69, 255, .25);
+            transform: translateY(-2px);
+        }
+        .grid-2 > div strong {
+            color: var(--tx);
+            font-weight: 700;
+        }
+        .grid-2 > div strong a {
+            color: var(--tx);
+            text-decoration: none;
+        }
+        .grid-2 > div strong a:hover {
+            color: var(--plum-bright);
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0 16px;
+        }
+        .badge {
+            padding: 6px 14px;
+            border-radius: var(--r-pill);
+            background: rgba(155, 69, 255, .06);
+            border: 1px solid rgba(155, 69, 255, .12);
+            color: var(--tx-2);
+            font-weight: 600;
+            font-size: .82rem;
+            transition: var(--ease);
+        }
+        .badge:hover {
+            background: rgba(155, 69, 255, .12);
+            border-color: rgba(155, 69, 255, .25);
+            transform: translateY(-1px);
+        }
+
+        .email-pill {
+            background: rgba(155, 69, 255, .08);
+            padding: 2px 14px;
+            border-radius: var(--r-pill);
+            border: 1px solid rgba(155, 69, 255, .2);
+            color: var(--plum-bright);
+            font-weight: 600;
+            font-size: .9rem;
+            display: inline-block;
+        }
+
+        .file-tree {
+            background: rgba(7, 2, 20, .5);
+            border: 1px solid rgba(155, 69, 255, .10);
+            border-radius: var(--r-md);
+            padding: 16px 20px;
+            font-size: .82rem;
+            color: var(--tx-3);
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+        }
+        .file-tree pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .1), transparent);
+            margin: 24px 0;
+        }
+
+        @media (max-width:768px) {
+            .main-wrap {
+                padding: 12px 14px 40px;
+            }
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            .page-hero p {
+                font-size: 1rem;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width:480px) {
+            .page-hero h1 {
+                font-size: 1.5rem;
+            }
+            .badge-grid {
+                gap: 6px;
+            }
+            .badge {
+                font-size: .72rem;
+                padding: 4px 10px;
+            }
+        }
+
+        /* ═══════ FOOTER (centered inside .main-wrap) ═══════ */
+        .footer {
+            padding: 40px 0 24px;
+            position: relative;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .12), rgba(232, 57, 154, .06), transparent);
+        }
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 28px;
+        }
+        .footer-brand-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .footer-logo-wrap {
+            width: 34px;
+            height: 34px;
+            border-radius: var(--r-sm);
+            background: linear-gradient(135deg, rgba(155, 69, 255, .18), rgba(232, 57, 154, .12));
+            border: 1px solid rgba(155, 69, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-logo-wrap img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        .footer-brand-name {
+            font-family: 'Clash Display', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            background: var(--grad);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
+        }
+        .footer-copy {
+            font-size: .7rem;
+            color: var(--tx-4);
+            margin-bottom: 3px;
+        }
+        .footer-badges {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .footer-badge {
+            padding: 3px 8px;
+            border-radius: var(--r-pill);
+            font-size: .6rem;
+            font-weight: 700;
+        }
+        .badge-purple {
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--plum-bright);
+        }
+        .badge-amber {
+            background: rgba(255, 109, 46, .08);
+            border: 1px solid rgba(255, 109, 46, .14);
+            color: var(--amber);
+        }
+        .badge-green {
+            background: rgba(74, 222, 128, .06);
+            border: 1px solid rgba(74, 222, 128, .12);
+            color: #4ade80;
+        }
+        .footer-col-label {
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--tx-4);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .footer-link {
+            font-size: .76rem;
+            color: var(--tx-3);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: var(--r-sm);
+            transition: var(--ease);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-link:hover {
+            color: var(--tx-2);
+            background: rgba(155, 69, 255, .05);
+        }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, .03);
+            font-size: .7rem;
+            color: var(--tx-4);
+        }
+        .back-top-btn {
+            background: rgba(155, 69, 255, .08);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--plum-bright);
+            cursor: pointer;
+            padding: 5px 14px;
+            border-radius: var(--r-pill);
+            font-size: .7rem;
+            font-weight: 700;
+            transition: var(--ease);
+            font-family: inherit;
+        }
+        .back-top-btn:hover {
+            background: rgba(155, 69, 255, .16);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width:1024px) {
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width:768px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        /* ═══════ MODAL ═══════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(4, 1, 15, .82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn .25s ease both;
+        }
+        .modal-overlay.hidden {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .modal-box {
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--r-2xl);
+            background: rgba(8, 3, 22, .96);
+            backdrop-filter: saturate(200%) blur(32px);
+            -webkit-backdrop-filter: saturate(200%) blur(32px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 48px 120px rgba(0, 0, 0, .6);
+            padding: 28px 26px;
+            position: relative;
+            animation: bounceIn .4s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: scale(.95) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 30px;
+            height: 30px;
+            border-radius: var(--r-sm);
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .06);
+            color: var(--tx-3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            transition: var(--ease);
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, .08);
+            color: var(--tx);
+        }
+        .modal-kicker {
+            font-size: .6rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--plum-bright);
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .modal-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--tx);
+            letter-spacing: -.02em;
+            margin-bottom: 8px;
+        }
+        .modal-body-text {
+            font-size: .82rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .auth-seg {
+            display: flex;
+            gap: 3px;
+            background: rgba(0, 0, 0, .25);
+            border: 1px solid rgba(155, 69, 255, .08);
+            border-radius: var(--r-sm);
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+        .auth-seg-btn {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: calc(var(--r-sm) - 2px);
+            border: none;
+            cursor: pointer;
+            font-size: .74rem;
+            font-weight: 700;
+            background: transparent;
+            color: var(--tx-3);
+            transition: var(--ease);
+            font-family: inherit;
+        }
+        .auth-seg-btn.active {
+            background: linear-gradient(135deg, rgba(155, 69, 255, .3), rgba(232, 57, 154, .2));
+            color: var(--tx);
+            box-shadow: 0 0 12px rgba(155, 69, 255, .15);
+            border: 1px solid rgba(155, 69, 255, .2);
+        }
+        .checkout-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .err {
+            color: var(--rose);
+            font-size: .76rem;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: var(--r-md);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            transition: var(--spring);
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .1), transparent);
+            transition: left .5s ease;
+            pointer-events: none;
+        }
+        .btn:hover::before {
+            left: 140%;
+        }
+        .btn-primary {
+            background: var(--grad-btn);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(155, 69, 255, .35);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 8px 32px rgba(155, 69, 255, .5);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: rgba(155, 69, 255, .08);
+            color: var(--plum-bright);
+            border: 1px solid rgba(155, 69, 255, .18);
+        }
+        .btn-secondary:hover {
+            background: rgba(155, 69, 255, .16);
+            border-color: rgba(155, 69, 255, .35);
+            transform: translateY(-1px);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--tx-3);
+            border: 1px solid rgba(255, 255, 255, .06);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, .04);
+            color: var(--tx-2);
+            border-color: rgba(255, 255, 255, .12);
+        }
+        .btn-full {
+            width: 100%;
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: .74rem;
+        }
+        .field {
+            margin-bottom: 14px;
+        }
+        .field label {
+            display: block;
+            font-size: .7rem;
+            font-weight: 700;
+            color: var(--tx-3);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 5px;
+        }
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: var(--r-md);
+            background: rgba(7, 2, 20, .6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(155, 69, 255, .14);
+            color: var(--tx);
+            font-family: inherit;
+            font-size: .84rem;
+            font-weight: 500;
+            outline: none;
+            transition: var(--ease);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        input:focus {
+            border-color: rgba(155, 69, 255, .35);
+            box-shadow: 0 0 0 3px rgba(155, 69, 255, .08);
+            background: rgba(10, 4, 28, .7);
+        }
+        input:hover {
+            border-color: rgba(155, 69, 255, .22);
+        }
+        .hidden {
+            display: none !important;
+        }
+        @media (max-width:768px) {
+            .checkout-row {
+                grid-template-columns: 1fr;
+            }
+            .modal-box {
+                padding: 20px 18px;
+            }
+        }
+        @media print {
+            .dynamic-island,
+            .bg-canvas,
+            .island-mobile-overlay,
+            .modal-overlay {
+                display: none !important;
+            }
+            body {
+                padding-top: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="bg-canvas">
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-  <div class="bg-grid"></div>
-</div>
-<nav class="top-nav">
-  <a href="index.html" class="nav-brand">🎙️ Free Voice Labs</a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link">🏠 Home</a>
-    <a href="premium-voices.html" class="nav-link" id="nav-premium">⭐ Premium</a>
-    <a href="realistic-voices.html" class="nav-link" id="nav-realistic">🎯 Realistic</a>
-    <a href="ai-voices.html" class="nav-link" id="nav-ai">🤖 AI Voices</a>
-    <a href="about.html" class="nav-link" id="nav-about">📖 About</a>
-    <a href="faqs.html" class="nav-link" id="nav-faqs">❓ FAQs</a>
-    <a href="contact.html" class="nav-link" id="nav-contact">📧 Contact</a>
-  </div>
-</nav>
-<div class="page-wrap">
-<div class="page-hero">
-  <h1>🗺️ Sitemap</h1>
-  <p>Complete navigation guide for Free Voice Labs</p>
-</div>
-<a href="index.html" class="back-link">← Back to Home</a>
 
-<div class="section">
-  <h2>🏠 Main Pages</h2>
-  <div class="grid-2">
-    <div><strong>Home (index.html)</strong>Text-to-speech converter, voice studio, pricing, dashboard</div>
-    <div><strong>Voice Studio</strong>Standard TTS, voice blends, podcast mode, voice cloning</div>
-  </div>
-</div>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-<div class="section">
-  <h2>📚 Legal &amp; Compliance</h2>
-  <div class="grid-2">
-    <div><strong><a href="privacy.html">Privacy Policy</a></strong>Data collection, user rights, GDPR/CCPA compliance</div>
-    <div><strong><a href="terms.html">Terms &amp; Conditions</a></strong>Use license, restrictions, user conduct</div>
-    <div><strong><a href="disclaimers.html">Disclaimers</a></strong>Service disclaimers, liability limitations, AI-generated content</div>
-    <div><strong><a href="faqs.html">FAQs</a></strong>Getting started, features, plans, troubleshooting</div>
-  </div>
-</div>
+    <div class="bg-canvas" aria-hidden="true">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-grid"></div>
+    </div>
 
-<div class="section">
-  <h2>🏢 Company Information</h2>
-  <div class="grid-2">
-    <div><strong><a href="about.html">About Us</a></strong>Mission, vision, team, core values, roadmap</div>
-    <div><strong><a href="feature-requests.html">Feature Requests</a></strong>Suggest and vote on new features, development roadmap</div>
-    <div><strong><a href="contact.html">Contact Us</a></strong>Contact form, department info, office hours</div>
-    <div><strong><a href="sitemap.html">Sitemap (this page)</a></strong>Navigation guide and site structure</div>
-  </div>
-</div>
+    <!-- ═══ NAV ═══ -->
+    <header class="dynamic-island" role="navigation" aria-label="Main navigation">
+        <div class="island-inner">
+            <a href="/" class="island-brand" aria-label="Free Voice Labs Home">
+                <div class="island-brand-logo">
+                    <img src="logo.png" alt="Free Voice Labs logo" loading="lazy" width="18" height="18" />
+                </div>
+                <span class="island-brand-text">Free Voice Labs</span>
+                <span class="island-brand-badge">v6</span>
+            </a>
 
-<div class="section">
-  <h2>🎨 Voice Categories</h2>
-  <div class="grid-2">
-    <div><strong><a href="premium-voices.html">Premium Voices</a></strong>Studio-grade voices for professional narration</div>
-    <div><strong><a href="realistic-voices.html">Realistic Voices</a></strong>Natural, conversational voices for everyday use</div>
-    <div><strong><a href="ai-voices.html">AI Voices</a></strong>Advanced neural synthesis, multiple languages, accents</div>
-  </div>
-</div>
+            <div class="island-links" role="menubar">
+                <div class="island-dropdown-wrap" role="none">
+                    <button class="island-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Products <span class="chevron">▾</span>
+                    </button>
+                    <div class="island-dropdown" role="menu">
+                        <a href="/#studio" role="menuitem"><span class="dd-icon">🧠</span><span class="dd-label">Neural TTS</span></a>
+                        <a href="/#studio" role="menuitem"><span class="dd-icon">🎭</span><span class="dd-label">Blends</span></a>
+                        <a href="/#studio" role="menuitem"><span class="dd-icon">📻</span><span class="dd-label">Podcast Mode</span></a>
+                        <a href="/#studio" role="menuitem"><span class="dd-icon">🔬</span><span class="dd-label">Voice Cloning</span><span class="dd-badge">Beta</span></a>
+                    </div>
+                </div>
+                <a href="/#pricing" class="island-link" role="menuitem">Pricing</a>
+                <a href="/#platform" class="island-link" role="menuitem">Platform</a>
+                <a href="/#testimonials" class="island-link" role="menuitem">Testimonials</a>
+                <div class="island-dropdown-wrap" role="none">
+                    <button class="island-link" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        About <span class="chevron">▾</span>
+                    </button>
+                    <div class="island-dropdown" role="menu">
+                        <a href="/about.html" role="menuitem"><span class="dd-icon">📖</span><span class="dd-label">About Us</span></a>
+                        <a href="/contact.html" role="menuitem"><span class="dd-icon">📧</span><span class="dd-label">Contact</span></a>
+                        <a href="/feature-requests.html" role="menuitem"><span class="dd-icon">💡</span><span class="dd-label">Feature Requests</span></a>
+                        <div class="dd-divider"></div>
+                        <a href="/privacy.html" role="menuitem"><span class="dd-icon">🔒</span><span class="dd-label">Privacy</span></a>
+                        <a href="/terms.html" role="menuitem"><span class="dd-icon">📜</span><span class="dd-label">Terms</span></a>
+                        <a href="/disclaimers.html" role="menuitem"><span class="dd-icon">⚠️</span><span class="dd-label">Disclaimers</span></a>
+                        <a href="/sitemap.html" role="menuitem"><span class="dd-icon">🗺️</span><span class="dd-label">Sitemap</span></a>
+                        <div class="dd-divider"></div>
+                        <a href="javascript:void(0)" id="nav-admin-link" class="dd-admin" role="menuitem"><span class="dd-icon">👑</span><span class="dd-label">Admin Dashboard</span></a>
+                    </div>
+                </div>
+            </div>
 
-<div class="section">
-  <h2>🎯 Feature Areas</h2>
-  <div class="grid-2">
-    <div><strong>Voice Generation</strong>Script to speech, voice selection, style customisation, speed/pitch</div>
-    <div><strong>Audio Quality</strong>MP3/WAV export, professional output, royalty-free</div>
-    <div><strong>Account Management</strong>User profiles, plan upgrades, generation history, settings</div>
-    <div><strong>Feedback System</strong>Submit feedback, community reviews, moderation</div>
-  </div>
-</div>
+            <div class="island-right" id="island-right"></div>
 
-<div class="section">
-  <h2>📞 Customer Support</h2>
-  <p>📧 <strong>All inquiries</strong>: <span class="email-pill">freevoicelabs@gmail.com</span></p>
-  <p style="margin-top:10px;color:var(--tx-3);font-size:.88rem">We respond to all messages within 24 hours.</p>
-</div>
+            <button class="island-hamburger" id="island-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
 
-<div class="section">
-  <h2>🌍 Supported Languages</h2>
-  <div class="badge-grid">
-    <div class="badge">English (US)</div>
-    <div class="badge">English (UK)</div>
-    <div class="badge">Japanese</div>
-    <div class="badge">Mandarin Chinese</div>
-    <div class="badge">Spanish</div>
-    <div class="badge">French</div>
-    <div class="badge">Hindi</div>
-    <div class="badge">Italian</div>
-    <div class="badge">Brazilian Portuguese</div>
-  </div>
-  <p style="margin-top:12px"><em>More languages coming soon!</em></p>
-</div>
+    <button class="island-overlay-close" id="island-overlay-close" aria-label="Close menu">✕</button>
 
-<div class="section">
-  <h2>📁 File Structure</h2>
-  <div class="file-tree"><pre>FreeVoiceLabs/
+    <div class="island-mobile-overlay" id="island-mobile-overlay"></div>
+
+    <!-- ═══ MAIN WRAP ═══ -->
+    <main class="main-wrap" id="main" role="main">
+
+        <div class="page-hero">
+            <h1>🗺️ Sitemap</h1>
+            <p>Complete navigation guide for Free Voice Labs</p>
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="section">
+            <h2>🏠 Main Pages</h2>
+            <div class="grid-2">
+                <div><strong>Home (index.html)</strong>Text-to-speech converter, voice studio, pricing, dashboard</div>
+                <div><strong>Voice Studio</strong>Standard TTS, voice blends, podcast mode, voice cloning</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Legal &amp; Compliance</h2>
+            <div class="grid-2">
+                <div><strong><a href="privacy.html">Privacy Policy</a></strong>Data collection, user rights, GDPR/CCPA compliance</div>
+                <div><strong><a href="terms.html">Terms &amp; Conditions</a></strong>Use license, restrictions, user conduct</div>
+                <div><strong><a href="disclaimers.html">Disclaimers</a></strong>Service disclaimers, liability limitations, AI-generated content</div>
+                <div><strong><a href="faqs.html">FAQs</a></strong>Getting started, features, plans, troubleshooting</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏢 Company Information</h2>
+            <div class="grid-2">
+                <div><strong><a href="about.html">About Us</a></strong>Mission, vision, team, core values, roadmap</div>
+                <div><strong><a href="feature-requests.html">Feature Requests</a></strong>Suggest and vote on new features, development roadmap</div>
+                <div><strong><a href="contact.html">Contact Us</a></strong>Contact form, department info, office hours</div>
+                <div><strong><a href="sitemap.html">Sitemap (this page)</a></strong>Navigation guide and site structure</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎨 Voice Categories</h2>
+            <div class="grid-2">
+                <div><strong><a href="premium-voices.html">Premium Voices</a></strong>Studio-grade voices for professional narration</div>
+                <div><strong><a href="realistic-voices.html">Realistic Voices</a></strong>Natural, conversational voices for everyday use</div>
+                <div><strong><a href="ai-voices.html">AI Voices</a></strong>Advanced neural synthesis, multiple languages, accents</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Feature Areas</h2>
+            <div class="grid-2">
+                <div><strong>Voice Generation</strong>Script to speech, voice selection, style customisation, speed/pitch</div>
+                <div><strong>Audio Quality</strong>MP3/WAV export, professional output, royalty-free</div>
+                <div><strong>Account Management</strong>User profiles, plan upgrades, generation history, settings</div>
+                <div><strong>Feedback System</strong>Submit feedback, community reviews, moderation</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📞 Customer Support</h2>
+            <p>📧 <strong>All inquiries</strong>: <span class="email-pill">freevoicelabs@gmail.com</span></p>
+            <p style="margin-top:10px;color:var(--tx-3);font-size:.88rem">We respond to all messages within 24 hours.</p>
+        </div>
+
+        <div class="section">
+            <h2>🌍 Supported Languages</h2>
+            <div class="badge-grid">
+                <div class="badge">English (US)</div>
+                <div class="badge">English (UK)</div>
+                <div class="badge">Japanese</div>
+                <div class="badge">Mandarin Chinese</div>
+                <div class="badge">Spanish</div>
+                <div class="badge">French</div>
+                <div class="badge">Hindi</div>
+                <div class="badge">Italian</div>
+                <div class="badge">Brazilian Portuguese</div>
+            </div>
+            <p style="margin-top:12px"><em>More languages coming soon!</em></p>
+        </div>
+
+        <div class="section">
+            <h2>📁 File Structure</h2>
+            <div class="file-tree"><pre>FreeVoiceLabs/
 ├── index.html           (Main application)
 ├── shared.css           (Shared styles)
 ├── privacy.html
@@ -118,47 +1557,371 @@
 ├── premium-voices.html
 ├── realistic-voices.html
 └── ai-voices.html</pre></div>
-</div>
+        </div>
 
-<div class="section">
-  <h2>📊 Site Statistics</h2>
-  <ul>
-    <li><strong>Total pages:</strong> 12 (including main app)</li>
-    <li><strong>Legal pages:</strong> 4</li>
-    <li><strong>Company pages:</strong> 4</li>
-    <li><strong>Voice category pages:</strong> 3</li>
-    <li><strong>Last updated:</strong> April 16, 2026</li>
-  </ul>
-</div>
+        <div class="section">
+            <h2>📊 Site Statistics</h2>
+            <ul>
+                <li><strong>Total pages:</strong> 12 (including main app)</li>
+                <li><strong>Legal pages:</strong> 4</li>
+                <li><strong>Company pages:</strong> 4</li>
+                <li><strong>Voice category pages:</strong> 3</li>
+                <li><strong>Last updated:</strong> April 16, 2026</li>
+            </ul>
+        </div>
 
-<div class="section">
-  <h2>🔗 Quick Navigation</h2>
-  <div class="grid-2">
-    <div>
-      <strong>Top Destinations</strong>
-      <ul style="margin-top:10px;list-style:none;margin-left:0">
-        <li style="margin:6px 0"><a href="index.html">🏠 Home</a></li>
-        <li style="margin:6px 0"><a href="privacy.html">🔒 Privacy Policy</a></li>
-        <li style="margin:6px 0"><a href="terms.html">📋 Terms &amp; Conditions</a></li>
-        <li style="margin:6px 0"><a href="about.html">📖 About Us</a></li>
-        <li style="margin:6px 0"><a href="contact.html">📧 Contact Us</a></li>
-      </ul>
+        <div class="section">
+            <h2>🔗 Quick Navigation</h2>
+            <div class="grid-2">
+                <div>
+                    <strong>Top Destinations</strong>
+                    <ul style="margin-top:10px;list-style:none;margin-left:0">
+                        <li style="margin:6px 0"><a href="index.html">🏠 Home</a></li>
+                        <li style="margin:6px 0"><a href="privacy.html">🔒 Privacy Policy</a></li>
+                        <li style="margin:6px 0"><a href="terms.html">📋 Terms &amp; Conditions</a></li>
+                        <li style="margin:6px 0"><a href="about.html">📖 About Us</a></li>
+                        <li style="margin:6px 0"><a href="contact.html">📧 Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Support</strong>
+                    <ul style="margin-top:10px;list-style:none;margin-left:0">
+                        <li style="margin:6px 0"><a href="faqs.html">❓ FAQs</a></li>
+                        <li style="margin:6px 0"><a href="feature-requests.html">💡 Feature Requests</a></li>
+                        <li style="margin:6px 0"><a href="contact.html">📧 Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ FOOTER (inside .main-wrap, centered) ═══ -->
+        <footer class="footer" aria-label="Site footer">
+            <div class="footer-inner">
+                <div>
+                    <div class="footer-brand-row">
+                        <div class="footer-logo-wrap"><img src="logo.png" alt="Free Voice Labs logo" loading="lazy" width="20" height="20" /></div>
+                        <span class="footer-brand-name">Free Voice Labs</span>
+                    </div>
+                    <div class="footer-copy" id="footer-year">© 2025 Free Voice Labs. All rights reserved.</div>
+                    <div class="footer-copy">Created by MT</div>
+                    <div class="footer-badges">
+                        <span class="footer-badge badge-purple">🧠 Neural TTS</span>
+                        <span class="footer-badge badge-amber">🔬 Voice Cloning</span>
+                        <span class="footer-badge badge-green">∞ 100% Free</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-label">Navigation</div>
+                    <nav class="footer-links" aria-label="Footer navigation">
+                        <a href="/" class="footer-link">🏠 Home</a>
+                        <a href="/about.html" class="footer-link">📖 About Us</a>
+                        <a href="/premium-voices.html" class="footer-link">⭐ Premium Voices</a>
+                        <a href="/realistic-voices.html" class="footer-link">🎯 Realistic Voices</a>
+                        <a href="/ai-voices.html" class="footer-link">🤖 AI Voices</a>
+                        <a href="/faqs.html" class="footer-link">❓ FAQs</a>
+                    </nav>
+                </div>
+                <div>
+                    <div class="footer-col-label">Legal &amp; Support</div>
+                    <nav class="footer-links" aria-label="Legal navigation">
+                        <a href="/privacy.html" class="footer-link">🔒 Privacy Policy</a>
+                        <a href="/terms.html" class="footer-link">📜 Terms</a>
+                        <a href="/disclaimers.html" class="footer-link">⚠️ Disclaimers</a>
+                        <a href="/contact.html" class="footer-link">📧 Contact</a>
+                        <a href="/feature-requests.html" class="footer-link">💡 Feature Requests</a>
+                        <a href="/sitemap.html" class="footer-link">🗺️ Sitemap</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>🚀 Professional AI Voice · 🌍 90+ Languages · 🎭 8 Blends · Zero cost · No signup</span>
+                <button class="back-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑ Top</button>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ═══ MODAL ═══ -->
+    <div class="modal-overlay hidden" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Checkout">
+        <div class="modal-box" id="modal-body">
+            <button class="modal-close" onclick="closeCheckout()" aria-label="Close checkout">✕</button>
+        </div>
     </div>
-    <div>
-      <strong>Support</strong>
-      <ul style="margin-top:10px;list-style:none;margin-left:0">
-        <li style="margin:6px 0"><a href="faqs.html">❓ FAQs</a></li>
-        <li style="margin:6px 0"><a href="feature-requests.html">💡 Feature Requests</a></li>
-        <li style="margin:6px 0"><a href="contact.html">📧 Contact Support</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="page-footer">© <span id="yr"></span> Free Voice Labs. All rights reserved.</div>
-</div>
-<script>
-document.getElementById('yr').textContent = new Date().getFullYear();
 
-</script>
+    <!-- ═══ JAVASCRIPT (shared nav & auth) ═══ -->
+    <script>
+        'use strict';
+
+        const BASE_URL = "https://mohammadtalhaa-free-voice-labs-backend.hf.space";
+        const SESSION_KEY = "fvl_session";
+
+        const getSession = () => { try { const r = sessionStorage.getItem(SESSION_KEY); return r ? JSON.parse(r) : null; } catch {
+                return null; } };
+        const setSession = d => { try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(d)); } catch {} };
+        const clearSession = () => { try { sessionStorage.removeItem(SESSION_KEY); } catch {} };
+        const isLoggedIn = () => { const s = getSession(); return !!(s?.email && s?.token); };
+
+        async function apiFetch(path, opts = {}) {
+            const s = getSession();
+            const headers = { "Content-Type": "application/json", ...(s?.token ? { Authorization: `Bearer ${s.token}` } : {}),
+                ...(opts.headers || {}) };
+            const res = await fetch(`${BASE_URL}${path}`, { ...opts, headers: opts.formData ? (opts.headers || {}) :
+                    headers });
+            if (!res.ok) { let m = `HTTP ${res.status}`; try { const e = await res.json();
+                    m = e.detail || e.message || m; } catch {} throw new Error(m); }
+            if (opts.binary) return res;
+            return res.json();
+        }
+
+        function renderNavAuth() {
+            const container = document.getElementById("island-right");
+            if (!container) return;
+            const s = getSession();
+            if (s?.email) {
+                const initials = s.email.substring(0, 2).toUpperCase();
+                container.innerHTML =
+                    `<div class="island-profile" onclick="openSignInModal()"><div class="island-avatar">${initials}</div><span class="island-profile-email">${s.email}</span><span class="chevron">▾</span></div><button class="island-btn island-btn-ghost island-btn-sm" onclick="handleLogout()">Sign Out</button>`;
+                checkAndShowAdminLink();
+            } else {
+                container.innerHTML =
+                    `<button class="island-btn island-btn-secondary island-btn-sm" onclick="openSignInModal()">Sign In</button><button class="island-btn island-btn-primary island-btn-sm" onclick="openCheckout('pro')">Get Started</button>`;
+                const adminLink = document.getElementById("nav-admin-link");
+                if (adminLink) adminLink.style.display = "none";
+            }
+        }
+
+        function checkAndShowAdminLink() {
+            const adminLink = document.getElementById("nav-admin-link");
+            const s = getSession();
+            if (adminLink && s && s.email === "talha@vfl.ai") { adminLink.style.display = "flex";
+                adminLink.onclick = (e) => { e.preventDefault();
+                    window.location.href = "/admin.html"; }; } else if (adminLink) { adminLink.style.display = "none"; }
+        }
+
+        function handleLogout() { clearSession();
+            renderNavAuth();
+            renderMobileNav();
+            const adminLink = document.getElementById("nav-admin-link"); if (adminLink) adminLink.style.display = "none";
+            closeCheckout(); }
+
+        function renderMobileNav() {
+            const overlay = document.getElementById("island-mobile-overlay");
+            if (!overlay) return;
+            const s = getSession();
+            const isAdmin = s && s.email === "talha@vfl.ai";
+            overlay.innerHTML =
+                `<div class="mob-section">Products</div><a href="/#studio" class="mob-link"><span class="mob-icon">🧠</span> Neural TTS</a><a href="/#studio" class="mob-link"><span class="mob-icon">🎭</span> Blends</a><a href="/#studio" class="mob-link"><span class="mob-icon">📻</span> Podcast Mode</a><a href="/#studio" class="mob-link"><span class="mob-icon">🔬</span> Voice Cloning<span class="mob-badge">Beta</span></a><div class="mob-divider"></div><a href="/#pricing" class="mob-link"><span class="mob-icon">💎</span> Pricing</a><a href="/#platform" class="mob-link"><span class="mob-icon">⚙️</span> Platform</a><a href="/#testimonials" class="mob-link"><span class="mob-icon">⭐</span> Testimonials</a><div class="mob-divider"></div><div class="mob-section">About</div><a href="/about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a><a href="/contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a><a href="/feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a><a href="/privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy</a><a href="/terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a><a href="/disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a><a href="/sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>${
+                isAdmin ? `<a href="#" class="mob-link" onclick="event.preventDefault(); window.location.href='/admin.html'; closeMobileNav();"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""
+            }<div class="mob-divider"></div>${
+                s?.email ? `
+                    <div style="padding:8px 16px;font-size:.78rem;color:var(--tx-3);">Signed in as <strong style="color:var(--tx-2);">${s.email}</strong></div>
+                    <button class="mob-link" onclick="handleLogout();closeMobileNav();" style="color:var(--rose);"><span class="mob-icon">🚪</span> Sign Out</button>
+                ` : `
+                    <div class="mob-auth-row">
+                        <button class="mob-link" onclick="openSignInModal();closeMobileNav();" style="color:var(--plum-bright);"><span class="mob-icon">🔑</span> Sign In</button>
+                        <button class="mob-link" onclick="openCheckout('pro');closeMobileNav();" style="color:var(--tx-2);"><span class="mob-icon">🚀</span> Get Started</button>
+                    </div>
+                `
+            }`;
+        }
+
+        function closeMobileNav() { const o = document.getElementById("island-mobile-overlay"),
+                h = document.getElementById("island-hamburger"),
+                c = document.getElementById("island-overlay-close"); if (o) o.classList.remove("open"); if (h) { h.classList
+                    .remove("open");
+                h.setAttribute("aria-expanded", "false"); } if (c) c.classList.remove("visible");
+            document.body.style.overflow = ""; }
+
+        function toggleMobileNav() { const o = document.getElementById("island-mobile-overlay"),
+                h = document.getElementById("island-hamburger"),
+                c = document.getElementById("island-overlay-close"); if (!o || !h) return; const open = o.classList
+                .toggle("open");
+            h.classList.toggle("open", open);
+            h.setAttribute("aria-expanded", open); if (c) c.classList.toggle("visible", open);
+            document.body.style.overflow = open ? "hidden" : ""; }
+
+        function openSignInModal() {
+            const overlay = document.getElementById("modal-overlay");
+            if (overlay) { overlay.classList.remove("hidden");
+                overlay.onclick = e => { if (e.target === overlay) closeCheckout(); }; }
+            document.addEventListener("keydown", escClose);
+            renderSignInModal();
+        }
+
+        function renderSignInModal() {
+            const body = document.getElementById("modal-body");
+            if (!body) return;
+            body.innerHTML =
+                `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">🔐 Welcome Back</div><div class="modal-title">Sign in to your account</div><div class="modal-body-text">Access your saved voices, history, and premium features.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
+            renderModalAuthForm();
+        }
+
+        function openCheckout(plan) {
+            checkoutPlan = plan;
+            const overlay = document.getElementById("modal-overlay");
+            if (overlay) { overlay.classList.remove("hidden");
+                overlay.onclick = e => { if (e.target === overlay) closeCheckout(); }; }
+            document.addEventListener("keydown", escClose);
+            renderCheckoutModal();
+        }
+
+        function closeCheckout() { const overlay = document.getElementById("modal-overlay"); if (overlay) overlay.classList
+                .add("hidden");
+            document.removeEventListener("keydown", escClose);
+            checkoutPlan = null; }
+
+        function escClose(e) { if (e.key === "Escape") closeCheckout(); }
+
+        let checkoutPlan = null,
+            authTab = "signin";
+
+        function renderCheckoutModal() {
+            const body = document.getElementById("modal-body");
+            if (!body) return;
+            const s = getSession();
+            if (checkoutPlan === "free") {
+                body.innerHTML =
+                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Plan Info</div><div class="modal-title">You're on Free ✓</div><div class="modal-body-text">You're already on the Free plan — no action needed. Enjoy unlimited generations!</div><button class="btn btn-primary btn-full" onclick="closeCheckout()">Got it ✓</button>`;
+            } else if (!s?.email) {
+                body.innerHTML =
+                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div><div class="modal-title">Sign in to Continue</div><div class="modal-body-text">Create an account or sign in to complete your purchase.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
+                renderModalAuthForm();
+            } else {
+                body.innerHTML =
+                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div><div class="modal-title">Unlock ${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)}</div><div class="modal-body-text">Complete your payment to activate your plan instantly.</div><div class="field"><label for="ck-name">Name on Card</label><input id="ck-name" type="text" placeholder="John Smith"></div><div class="field"><label for="ck-email">Billing Email</label><input id="ck-email" type="email" placeholder="you@example.com" value="${s.email}"></div><div class="field"><label for="ck-card">Card Number</label><input id="ck-card" type="text" placeholder="4242 4242 4242 4242" maxlength="19"></div><div class="checkout-row"><div class="field"><label for="ck-expiry">Expiry</label><input id="ck-expiry" type="text" placeholder="MM/YY" maxlength="5"></div><div class="field"><label for="ck-cvv">CVV</label><input id="ck-cvv" type="text" placeholder="123" maxlength="4"></div></div><div id="ck-err" class="err" style="display:none; margin-bottom:8px;"></div><button class="btn btn-primary btn-full" onclick="handleCheckout()">Pay &amp; Activate →</button>`;
+            }
+        }
+
+        function setModalAuthTab(tab) { authTab = tab;
+            renderCheckoutModal(); }
+
+        function renderModalAuthForm() {
+            const el = document.getElementById("modal-auth-form");
+            if (!el) return;
+            if (authTab === "signin") {
+                el.innerHTML =
+                    `<div class="field"><label for="m-login-email">Email</label><input type="email" id="m-login-email" autocomplete="email"></div><div class="field"><label for="m-login-pw">Password</label><input type="password" id="m-login-pw"></div><div id="m-login-err" class="err" style="display:none; margin-bottom:8px;"></div><button class="btn btn-primary btn-full" onclick="handleModalLogin()">Sign In</button>`;
+            } else {
+                el.innerHTML =
+                    `<div class="field"><label for="m-signup-email">Email</label><input type="email" id="m-signup-email" autocomplete="email"></div><div class="field"><label for="m-signup-pw">Password</label><input type="password" id="m-signup-pw"></div><div class="field"><label for="m-signup-pw2">Confirm</label><input type="password" id="m-signup-pw2"></div><div id="m-signup-err" class="err" style="display:none; margin-bottom:8px;"></div><button class="btn btn-primary btn-full" onclick="handleModalSignup()">Create Account</button>`;
+            }
+        }
+
+        async function handleModalLogin() {
+            const email = document.getElementById("m-login-email")?.value.trim().toLowerCase() || "";
+            const pw = document.getElementById("m-login-pw")?.value || "";
+            const errEl = document.getElementById("m-login-err");
+            if (errEl) errEl.style.display = "none";
+            try {
+                const data = await apiFetch("/api/auth/login", { method: "POST", body: JSON.stringify({ email,
+                        password: pw }) });
+                setSession({ email: data.email, token: data.token, plan: data.plan });
+                renderNavAuth();
+                renderMobileNav();
+                closeCheckout();
+                if (checkoutPlan && checkoutPlan !== "free") renderCheckoutModal();
+            } catch (e) { if (errEl) { errEl.textContent = e.message;
+                    errEl.style.display = ""; } }
+        }
+
+        async function handleModalSignup() {
+            const email = document.getElementById("m-signup-email")?.value.trim().toLowerCase() || "";
+            const pw = document.getElementById("m-signup-pw")?.value || "";
+            const pw2 = document.getElementById("m-signup-pw2")?.value || "";
+            const errEl = document.getElementById("m-signup-err");
+            if (errEl) errEl.style.display = "none";
+            if (pw !== pw2) { if (errEl) { errEl.textContent = "Passwords don't match.";
+                    errEl.style.display = ""; } return; }
+            try {
+                const data = await apiFetch("/api/auth/signup", { method: "POST", body: JSON.stringify({ email,
+                        password: pw }) });
+                setSession({ email: data.email, token: data.token, plan: data.plan });
+                renderNavAuth();
+                renderMobileNav();
+                closeCheckout();
+                if (checkoutPlan && checkoutPlan !== "free") renderCheckoutModal();
+            } catch (e) { if (errEl) { errEl.textContent = e.message;
+                    errEl.style.display = ""; } }
+        }
+
+        async function handleCheckout() {
+            const s = getSession();
+            const name = document.getElementById("ck-name")?.value.trim() || "";
+            const email = document.getElementById("ck-email")?.value.trim() || "";
+            const card = document.getElementById("ck-card")?.value.trim() || "";
+            const errEl = document.getElementById("ck-err");
+            if (errEl) errEl.style.display = "none";
+            if (!name || !email || !card) return;
+            try {
+                const r = await apiFetch("/api/checkout", { method: "POST", body: JSON.stringify({ email: s.email,
+                        plan_name: checkoutPlan, billing_name: name, billing_email: email, card_number: card }) });
+                const body = document.getElementById("modal-body");
+                if (body) {
+                    body.innerHTML =
+                        `<div style="text-align:center;padding:24px 0;"><div style="font-size:3.5rem;margin-bottom:18px;animation:bounceIn .6s ease both;">🎉</div><div class="modal-kicker">Payment Successful</div><div class="modal-title">${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)} Activated!</div><div class="modal-body-text">Your plan has been activated immediately. Start creating!</div>${
+                            r.receipt ? `<div style="background:rgba(155,69,255,.06);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin:16px 0;text-align:left;"><div style="font-size:.75rem;color:var(--tx-3);line-height:1.9;"><div>Reference: <strong style="color:var(--plum-bright);">${r.receipt.reference}</strong></div><div>Amount: <strong style="color:var(--tx);">${r.receipt.amount}</strong></div><div>Card: **** ${r.receipt.card_last4}</div></div></div>` : ""
+                        }<button class="btn btn-primary btn-full" onclick="closeCheckout()">Start Creating 🎙️</button></div>`;
+                }
+                setSession({ ...s, plan: checkoutPlan });
+                renderNavAuth();
+                renderMobileNav();
+            } catch (e) { if (errEl) { errEl.textContent = e.message;
+                    errEl.style.display = ""; } }
+        }
+
+        function setupEvents() {
+            document.getElementById("island-hamburger")?.addEventListener("click", toggleMobileNav);
+            document.getElementById("island-overlay-close")?.addEventListener("click", closeMobileNav);
+            document.getElementById("island-mobile-overlay")?.addEventListener("click", (e) => { if (e.target === e
+                    .currentTarget) closeMobileNav(); });
+            document.addEventListener("input", e => {
+                if (e.target.id === "ck-card") { let v = e.target.value.replace(/\D/g, "").slice(0, 16);
+                    e.target.value = v.replace(/(.{4})/g, "$1 ").trim(); }
+                if (e.target.id === "ck-expiry") { let v = e.target.value.replace(/\D/g, "").slice(0, 4); if (v
+                        .length >= 3) v = v.slice(0, 2) + "/" + v.slice(2);
+                    e.target.value = v; }
+            });
+        }
+
+        function boot() {
+            const yrEl = document.getElementById("footer-year");
+            if (yrEl) yrEl.textContent = `© ${new Date().getFullYear()} Free Voice Labs. All rights reserved.`;
+            renderNavAuth();
+            renderMobileNav();
+            setupEvents();
+
+            apiFetch("/api/cms").then(data => {
+                if (data.announcement) {
+                    const banner = document.getElementById("announcement");
+                    const text = document.getElementById("announcement-text");
+                    if (banner && text) { text.textContent = data.announcement;
+                        banner.style.display = "flex"; }
+                }
+                if (data.pricing_pro_price) {
+                    const el = document.getElementById("pro-price");
+                    if (el) el.textContent = "$" + data.pricing_pro_price;
+                }
+                if (data.pricing_unlimited_price) {
+                    const el = document.getElementById("unlimited-price");
+                    if (el) el.textContent = "$" + data.pricing_unlimited_price;
+                }
+            }).catch(() => {});
+            checkAndShowAdminLink();
+        }
+
+        window.openCheckout = openCheckout;
+        window.openSignInModal = openSignInModal;
+        window.closeCheckout = closeCheckout;
+        window.handleLogout = handleLogout;
+        window.toggleMobileNav = toggleMobileNav;
+        window.closeMobileNav = closeMobileNav;
+        window.handleModalLogin = handleModalLogin;
+        window.handleModalSignup = handleModalSignup;
+        window.handleCheckout = handleCheckout;
+        window.setModalAuthTab = setModalAuthTab;
+
+        boot();
+    </script>
+
 </body>
 </html>
