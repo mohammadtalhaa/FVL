@@ -4024,7 +4024,7 @@
         function checkAndShowAdminLink() {
             const adminLink = document.getElementById("nav-admin-link");
             const s = getSession();
-            if (adminLink && s && s.email === "talhahsohail@gmail.com") { adminLink.style.display = "flex";
+            if (adminLink && s && s.email === "talha@vfl.ai") { adminLink.style.display = "flex";
                 adminLink.onclick = (e) => { e.preventDefault();
                     window.location.href = "/admin.html"; }; } else if (adminLink) { adminLink.style.display = "none"; }
         }
@@ -4059,7 +4059,7 @@
             const overlay = document.getElementById("island-mobile-overlay");
             if (!overlay) return;
             const s = getSession();
-            const isAdmin = s && s.email === "talhahsohail@gmail.com";
+            const isAdmin = s && s.email === "talha@vfl.ai";
             overlay.innerHTML =
                 `<div class="mob-section">Products</div><a href="#studio" class="mob-link" onclick="switchTab('standard');closeMobileNav();"><span class="mob-icon">🧠</span> Neural TTS</a><a href="#studio" class="mob-link" onclick="switchTab('blend');closeMobileNav();"><span class="mob-icon">🎭</span> Blends</a><a href="#studio" class="mob-link" onclick="switchTab('podcast');closeMobileNav();"><span class="mob-icon">📻</span> Podcast Mode</a><a href="#studio" class="mob-link" onclick="switchTab('clone');closeMobileNav();"><span class="mob-icon">🔬</span> Voice Cloning<span class="mob-badge">Beta</span></a><div class="mob-divider"></div><a href="#pricing" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">💎</span> Pricing</a><a href="#platform" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⚙️</span> Platform</a><a href="#testimonials" class="mob-link" onclick="closeMobileNav();"><span class="mob-icon">⭐</span> Testimonials</a><div class="mob-divider"></div><div class="mob-section">About</div><a href="/about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a><a href="/contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a><a href="/feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a><a href="/privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy</a><a href="/terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a><a href="/disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a><a href="/sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>${
                 isAdmin ? `<a href="#" class="mob-link" onclick="event.preventDefault(); window.location.href='/admin.html'; closeMobileNav();"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""
