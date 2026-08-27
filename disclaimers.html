@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2940015635760134"
-     crossorigin="anonymous"></script>
-    
-    <title>Disclaimers | Free Voice Labs</title>
-    <meta name="description" content="Disclaimers — Free Voice Labs neural AI voice generator. Read our legal disclaimers and usage policies." />
+    crossorigin="anonymous"></script>
+
+    <title>Disclaimers — Legal &amp; Usage Policies | Free Voice Labs</title>
+    <meta name="description" content="Read the legal disclaimers, usage policies, and liability limitations for Free Voice Labs AI voice generation service." />
     <link rel="canonical" href="https://freevoicelabs.com/disclaimers.html" />
     <link rel="icon" href="favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -17,39 +17,81 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://mohammadtalhaa-free-voice-labs-backend.hf.space" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <style>
-        /* ═══════ TOKENS ═══════ */
+        /* ═══════════════════════════ TOKENS ═══════════════════════════ */
         :root {
+            --bg: #08090b;
+            --bg-1: #0b0c10;
+            --bg-2: #0d0f13;
+            --bg-3: #111319;
+            --border: rgba(255, 255, 255, .08);
+            --border-2: rgba(255, 255, 255, .13);
+            --border-violet: rgba(155, 125, 255, .28);
+
+            --violet: #7c5cff;
+            --violet-bright: #9b7dff;
+            --violet-dim: #5b3fd1;
+            --pink: #ff5da2;
+            --amber: #ffb454;
+
+            --grad: linear-gradient(120deg, #9b7dff 0%, #c084fc 45%, #ff5da2 100%);
+            --grad-soft: linear-gradient(120deg, rgba(155, 125, 255, .16) 0%, rgba(255, 93, 162, .10) 100%);
+            --grad-btn: linear-gradient(135deg, #8a63ff 0%, #b45cff 60%, #ff5da2 100%);
+
+            --tx: #f5f5f7;
+            --tx-2: #b7b7c2;
+            --tx-3: #82828e;
+            --tx-4: #4c4c56;
+
+            --success: #4ade80;
+            --danger: #f87171;
+            --warning: #fb923c;
+
+            --r-2xl: 28px;
+            --r-xl: 22px;
+            --r-lg: 16px;
+            --r-md: 12px;
+            --r-sm: 8px;
+            --r-pill: 999px;
+
+            --ease: all .22s cubic-bezier(.4, 0, .2, 1);
+            --ease-spring: all .5s cubic-bezier(.16, 1, .3, 1);
+
+            --nav-h: 72px;
+            --font-display: 'Clash Display', 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+            --shadow-card: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 10px 30px -12px rgba(0, 0, 0, .6);
+            --shadow-glow: 0 0 0 1px rgba(124, 92, 255, .22), 0 12px 40px -8px rgba(124, 92, 255, .28);
+
             --ink: #04010f;
-            --ink-mid: #080318;
             --plum: #9b45ff;
             --plum-bright: #bf76ff;
             --rose: #e8399a;
-            --amber: #ff6d2e;
-            --grad: linear-gradient(135deg, #bf76ff 0%, #e8399a 52%, #ff6d2e 100%);
-            --grad-btn: linear-gradient(135deg, #9b45ff 0%, #e8399a 100%);
-            --tx: #f2ebff;
-            --tx-2: #c4aaee;
-            --tx-3: #7a6898;
-            --tx-4: #4a3a62;
-            --border: rgba(155, 69, 255, .16);
+            --amber-orange: #ff6d2e;
+            --grad-nav: linear-gradient(135deg, #bf76ff 0%, #e8399a 52%, #ff6d2e 100%);
+            --grad-btn-nav: linear-gradient(135deg, #9b45ff 0%, #e8399a 100%);
+            --nav-border: rgba(155, 69, 255, .16);
             --glass-bg: rgba(15, 6, 35, .45);
             --glass-border: rgba(191, 118, 255, .18);
             --glass-blur: saturate(180%) blur(24px);
-            --r-2xl: 36px;
-            --r-xl: 28px;
-            --r-lg: 20px;
-            --r-md: 14px;
-            --r-sm: 10px;
-            --r-pill: 999px;
-            --ease: all .26s cubic-bezier(.4, 0, .2, 1);
-            --spring: all .42s cubic-bezier(.34, 1.56, .64, 1);
-            --nav-h: 60px;
         }
 
-        /* ═══════ RESET ═══════ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ═══════════════════════════ RESET ═══════════════════════════ */
         *,
         *::before,
         *::after {
@@ -63,23 +105,53 @@
             height: 100%;
         }
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--ink);
+            font-family: var(--font-body);
+            background: var(--bg);
             color: var(--tx);
             min-height: 100vh;
-            padding-top: 80px;
+            padding-top: calc(var(--nav-h) + 20px);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            color: inherit;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        ::selection {
+            background: rgba(155, 125, 255, .35);
+            color: #fff;
         }
         ::-webkit-scrollbar {
-            width: 3px;
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(155, 69, 255, .22);
-            border-radius: 2px;
+            background: rgba(255, 255, 255, .12);
+            border-radius: 4px;
+        }
+        :focus-visible {
+            outline: 2px solid var(--violet-bright);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
-        /* ═══════ BACKGROUND ═══════ */
+        /* ═══════════════════════════ BACKGROUND ═══════════════════════════ */
         .bg-canvas {
             position: fixed;
             inset: 0;
@@ -90,30 +162,32 @@
         .bg-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            animation: orbFloat 20s ease-in-out infinite;
+            filter: blur(100px);
+            opacity: .55;
+            animation: orbFloat 26s ease-in-out infinite;
         }
         .bg-orb-1 {
-            width: 500px;
-            height: 500px;
-            top: -150px;
-            left: -100px;
-            background: radial-gradient(circle, rgba(155, 69, 255, .15) 0%, transparent 70%);
+            width: 620px;
+            height: 620px;
+            top: -220px;
+            left: -160px;
+            background: radial-gradient(circle, rgba(124, 92, 255, .16) 0%, transparent 70%);
         }
         .bg-orb-2 {
-            width: 400px;
-            height: 400px;
-            bottom: -100px;
-            right: -80px;
-            background: radial-gradient(circle, rgba(232, 57, 154, .10) 0%, transparent 70%);
-            animation-delay: -8s;
+            width: 520px;
+            height: 520px;
+            top: 30%;
+            right: -200px;
+            background: radial-gradient(circle, rgba(255, 93, 162, .10) 0%, transparent 70%);
+            animation-delay: -10s;
         }
         .bg-grid {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(rgba(155, 69, 255, .02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(155, 69, 255, .02) 1px, transparent 1px);
-            background-size: 80px 80px;
+            background-image: linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 40%, transparent 100%);
         }
         @keyframes orbFloat {
             0%,
@@ -121,29 +195,28 @@
                 transform: translate(0, 0) scale(1);
             }
             50% {
-                transform: translate(30px, 30px) scale(1.03);
+                transform: translate(24px, 30px) scale(1.05);
             }
         }
 
-        /* ═══════ SKIP ═══════ */
+        /* ═══════════════════════════ SKIP LINK ═══════════════════════════ */
         .skip-link {
             position: absolute;
             top: -9999px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 12px 24px;
-            background: var(--plum);
+            padding: 12px 22px;
+            background: var(--violet);
             color: #fff;
             border-radius: var(--r-md);
             font-weight: 700;
             z-index: 9999;
-            text-decoration: none;
         }
         .skip-link:focus {
             top: 12px;
         }
 
-        /* ═══════ DYNAMIC ISLAND NAV ═══════ */
+        /* ═══════════════════════════ DYNAMIC ISLAND NAV ═══════════════════════════ */
         .dynamic-island {
             position: fixed;
             top: 12px;
@@ -225,7 +298,7 @@
             font-family: 'Clash Display', sans-serif;
             font-size: .92rem;
             font-weight: 700;
-            background: var(--grad);
+            background: var(--grad-nav);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -393,7 +466,7 @@
             font-family: inherit;
             font-size: .73rem;
             font-weight: 700;
-            transition: var(--spring);
+            transition: var(--ease-spring);
             text-decoration: none;
             white-space: nowrap;
             position: relative;
@@ -414,7 +487,7 @@
             left: 140%;
         }
         .island-btn-primary {
-            background: var(--grad-btn);
+            background: var(--grad-btn-nav);
             color: #fff;
             box-shadow: 0 2px 12px rgba(155, 69, 255, .25);
         }
@@ -464,7 +537,7 @@
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: var(--grad-btn);
+            background: var(--grad-btn-nav);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -777,404 +850,7 @@
             }
         }
 
-        /* ═══════ MAIN WRAP & CONTENT ═══════ */
-        .main-wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 24px 60px;
-            position: relative;
-            z-index: 1;
-        }
-        .page-hero {
-            text-align: center;
-            padding: 24px 0 12px;
-        }
-        .page-hero h1 {
-            font-family: 'Clash Display', sans-serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            color: var(--tx);
-            letter-spacing: -.03em;
-            line-height: 1.1;
-            margin-bottom: 8px;
-        }
-        .page-hero p {
-            font-size: 1.1rem;
-            color: var(--tx-3);
-            max-width: 640px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        .page-hero .meta {
-            font-size: .8rem;
-            color: var(--tx-4);
-            margin-top: 6px;
-        }
-        .back-link {
-            display: inline-block;
-            margin: 10px 0 24px;
-            color: var(--plum-bright);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: .9rem;
-            transition: var(--ease);
-        }
-        .back-link:hover {
-            color: var(--tx-2);
-            transform: translateX(-4px);
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section h2 {
-            font-family: 'Clash Display', sans-serif;
-            font-size: clamp(1.3rem, 2.4vw, 1.8rem);
-            font-weight: 700;
-            letter-spacing: -.02em;
-            color: var(--tx);
-            margin-bottom: 12px;
-        }
-        .section p {
-            font-size: .95rem;
-            color: var(--tx-3);
-            line-height: 1.7;
-            margin-bottom: 8px;
-        }
-        .section ul {
-            padding-left: 24px;
-            margin: 8px 0 12px;
-        }
-        .section ul li {
-            font-size: .92rem;
-            color: var(--tx-3);
-            line-height: 1.7;
-            margin-bottom: 4px;
-        }
-        .section ul li strong {
-            color: var(--tx-2);
-        }
-        .email-pill {
-            background: rgba(155, 69, 255, .08);
-            padding: 2px 14px;
-            border-radius: var(--r-pill);
-            border: 1px solid rgba(155, 69, 255, .2);
-            color: var(--plum-bright);
-            font-weight: 600;
-            font-size: .9rem;
-            display: inline-block;
-        }
-        hr {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .1), transparent);
-            margin: 24px 0;
-        }
-
-        @media (max-width:768px) {
-            .main-wrap {
-                padding: 12px 14px 40px;
-            }
-            .page-hero h1 {
-                font-size: 1.8rem;
-            }
-            .page-hero p {
-                font-size: 1rem;
-            }
-        }
-        @media (max-width:480px) {
-            .page-hero h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* ═══════ FOOTER (centered inside .main-wrap) ═══════ */
-        .footer {
-            padding: 40px 0 24px;
-            position: relative;
-            margin-top: 20px;
-            width: 100%;
-        }
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(155, 69, 255, .12), rgba(232, 57, 154, .06), transparent);
-        }
-        .footer-inner {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 28px;
-        }
-        .footer-brand-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .footer-logo-wrap {
-            width: 34px;
-            height: 34px;
-            border-radius: var(--r-sm);
-            background: linear-gradient(135deg, rgba(155, 69, 255, .18), rgba(232, 57, 154, .12));
-            border: 1px solid rgba(155, 69, 255, .2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .footer-logo-wrap img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-        }
-        .footer-brand-name {
-            font-family: 'Clash Display', sans-serif;
-            font-size: .95rem;
-            font-weight: 700;
-            background: var(--grad);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradShift 6s ease infinite;
-        }
-        .footer-copy {
-            font-size: .7rem;
-            color: var(--tx-4);
-            margin-bottom: 3px;
-        }
-        .footer-badges {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .footer-badge {
-            padding: 3px 8px;
-            border-radius: var(--r-pill);
-            font-size: .6rem;
-            font-weight: 700;
-        }
-        .badge-purple {
-            background: rgba(155, 69, 255, .08);
-            border: 1px solid rgba(155, 69, 255, .14);
-            color: var(--plum-bright);
-        }
-        .badge-amber {
-            background: rgba(255, 109, 46, .08);
-            border: 1px solid rgba(255, 109, 46, .14);
-            color: var(--amber);
-        }
-        .badge-green {
-            background: rgba(74, 222, 128, .06);
-            border: 1px solid rgba(74, 222, 128, .12);
-            color: #4ade80;
-        }
-        .footer-col-label {
-            font-size: .6rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--tx-4);
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        .footer-link {
-            font-size: .76rem;
-            color: var(--tx-3);
-            text-decoration: none;
-            padding: 4px 8px;
-            border-radius: var(--r-sm);
-            transition: var(--ease);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .footer-link:hover {
-            color: var(--tx-2);
-            background: rgba(155, 69, 255, .05);
-        }
-        .footer-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, .03);
-            font-size: .7rem;
-            color: var(--tx-4);
-        }
-        .back-top-btn {
-            background: rgba(155, 69, 255, .08);
-            border: 1px solid rgba(155, 69, 255, .14);
-            color: var(--plum-bright);
-            cursor: pointer;
-            padding: 5px 14px;
-            border-radius: var(--r-pill);
-            font-size: .7rem;
-            font-weight: 700;
-            transition: var(--ease);
-            font-family: inherit;
-        }
-        .back-top-btn:hover {
-            background: rgba(155, 69, 255, .16);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width:1024px) {
-            .footer-inner {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        @media (max-width:768px) {
-            .footer-inner {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-        }
-
-        /* ═══════ MODAL ═══════ */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 2000;
-            background: rgba(4, 1, 15, .82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            animation: fadeIn .25s ease both;
-        }
-        .modal-overlay.hidden {
-            display: none;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .modal-box {
-            width: 100%;
-            max-width: 420px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: var(--r-2xl);
-            background: rgba(8, 3, 22, .96);
-            backdrop-filter: saturate(200%) blur(32px);
-            -webkit-backdrop-filter: saturate(200%) blur(32px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 48px 120px rgba(0, 0, 0, .6);
-            padding: 28px 26px;
-            position: relative;
-            animation: bounceIn .4s cubic-bezier(.34, 1.56, .64, 1) both;
-        }
-        @keyframes bounceIn {
-            from {
-                opacity: 0;
-                transform: scale(.95) translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 30px;
-            height: 30px;
-            border-radius: var(--r-sm);
-            background: rgba(255, 255, 255, .04);
-            border: 1px solid rgba(255, 255, 255, .06);
-            color: var(--tx-3);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .9rem;
-            transition: var(--ease);
-        }
-        .modal-close:hover {
-            background: rgba(255, 255, 255, .08);
-            color: var(--tx);
-        }
-        .modal-kicker {
-            font-size: .6rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--plum-bright);
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-        .modal-title {
-            font-family: 'Clash Display', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--tx);
-            letter-spacing: -.02em;
-            margin-bottom: 8px;
-        }
-        .modal-body-text {
-            font-size: .82rem;
-            color: var(--tx-3);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .auth-seg {
-            display: flex;
-            gap: 3px;
-            background: rgba(0, 0, 0, .25);
-            border: 1px solid rgba(155, 69, 255, .08);
-            border-radius: var(--r-sm);
-            padding: 3px;
-            margin-bottom: 10px;
-        }
-        .auth-seg-btn {
-            flex: 1;
-            padding: 6px 10px;
-            border-radius: calc(var(--r-sm) - 2px);
-            border: none;
-            cursor: pointer;
-            font-size: .74rem;
-            font-weight: 700;
-            background: transparent;
-            color: var(--tx-3);
-            transition: var(--ease);
-            font-family: inherit;
-        }
-        .auth-seg-btn.active {
-            background: linear-gradient(135deg, rgba(155, 69, 255, .3), rgba(232, 57, 154, .2));
-            color: var(--tx);
-            box-shadow: 0 0 12px rgba(155, 69, 255, .15);
-            border: 1px solid rgba(155, 69, 255, .2);
-        }
-        .checkout-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .err {
-            color: var(--rose);
-            font-size: .76rem;
-            font-weight: 600;
-        }
+        /* ═══════════════════════════ UTILITY ═══════════════════════════ */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -1187,7 +863,7 @@
             font-family: inherit;
             font-size: .8rem;
             font-weight: 700;
-            transition: var(--spring);
+            transition: var(--ease-spring);
             text-decoration: none;
             white-space: nowrap;
             position: relative;
@@ -1218,7 +894,7 @@
         }
         .btn-secondary {
             background: rgba(155, 69, 255, .08);
-            color: var(--plum-bright);
+            color: var(--violet-bright);
             border: 1px solid rgba(155, 69, 255, .18);
         }
         .btn-secondary:hover {
@@ -1236,72 +912,495 @@
             color: var(--tx-2);
             border-color: rgba(255, 255, 255, .12);
         }
-        .btn-full {
-            width: 100%;
-        }
         .btn-sm {
             padding: 6px 14px;
             font-size: .74rem;
         }
-        .field {
+        .btn-full {
+            width: 100%;
+        }
+
+        .main-wrap {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 28px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 64px 0;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+            margin: 0;
+        }
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .09em;
+            color: var(--violet-bright);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+            font-weight: 600;
+            letter-spacing: -.02em;
+            line-height: 1.14;
+            color: var(--tx);
             margin-bottom: 14px;
+        }
+        .section-sub {
+            font-size: 1.02rem;
+            color: var(--tx-3);
+            max-width: 560px;
+            line-height: 1.65;
+        }
+        .grad {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger-1.in {
+            transition-delay: .05s;
+        }
+        .stagger-2.in {
+            transition-delay: .13s;
+        }
+        .stagger-3.in {
+            transition-delay: .21s;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--tx-3);
+            font-weight: 600;
+            font-size: .85rem;
+            transition: var(--ease);
+            margin-bottom: 8px;
+        }
+        .back-link:hover {
+            color: var(--violet-bright);
+            transform: translateX(-4px);
+        }
+
+        /* ═══════════════════════════ DISCLAIMER CONTENT ═══════════════════════════ */
+        .disclaimer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .disclaimer-card {
+            background: var(--bg-1);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 24px 26px;
+            transition: var(--ease);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .disclaimer-card:hover {
+            border-color: var(--border-violet);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+        .disclaimer-card .dc-icon {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        .disclaimer-card .dc-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--tx);
+            letter-spacing: -.01em;
+            margin-bottom: 2px;
+        }
+        .disclaimer-card .dc-body {
+            font-size: .85rem;
+            color: var(--tx-3);
+            line-height: 1.65;
+        }
+        .disclaimer-card .dc-body ul {
+            padding-left: 18px;
+            margin: 4px 0 0;
+        }
+        .disclaimer-card .dc-body ul li {
+            font-size: .82rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+            margin-bottom: 2px;
+        }
+        .disclaimer-card .dc-body ul li strong {
+            color: var(--tx-2);
+        }
+
+        .email-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(155, 69, 255, .08);
+            padding: 6px 18px 6px 14px;
+            border-radius: var(--r-pill);
+            border: 1px solid rgba(155, 69, 255, .2);
+            color: var(--violet-bright);
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+        .footer-meta-note {
+            margin-top: 16px;
+            padding: 16px 20px;
+            border-radius: var(--r-lg);
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .footer-meta-note p {
+            font-size: .85rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+        }
+        .footer-meta-note p em {
+            color: var(--tx-2);
+            font-style: italic;
+        }
+
+        /* ═══════════════════════════ FOOTER ═══════════════════════════ */
+        .footer {
+            padding: 56px 0 28px;
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr;
+            gap: 36px;
+            padding-bottom: 40px;
+        }
+        .footer-brand-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .footer-logo-wrap {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-logo-wrap img {
+            width: 15px;
+            height: 15px;
+            filter: brightness(0) invert(1);
+        }
+        .footer-brand-name {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: .95rem;
+            color: var(--tx);
+        }
+        .footer-tagline {
+            font-size: .83rem;
+            color: var(--tx-3);
+            max-width: 280px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .footer-copy {
+            font-size: .76rem;
+            color: var(--tx-4);
+            margin-bottom: 3px;
+        }
+        .footer-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+        .footer-badge {
+            font-size: .68rem;
+            padding: 4px 10px;
+            border-radius: var(--r-pill);
+            border: 1px solid var(--border-2);
+            color: var(--tx-3);
+        }
+        .badge-purple {
+            border-color: rgba(124, 92, 255, .3);
+            color: var(--violet-bright);
+        }
+        .badge-amber {
+            border-color: rgba(255, 180, 84, .3);
+            color: var(--amber);
+        }
+        .badge-green {
+            border-color: rgba(74, 222, 128, .3);
+            color: var(--success);
+        }
+        .footer-col-label {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--tx-4);
+            margin-bottom: 14px;
+        }
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-link {
+            font-size: .83rem;
+            color: var(--tx-3);
+            transition: var(--ease);
+        }
+        .footer-link:hover {
+            color: var(--tx);
+        }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+            font-size: .76rem;
+            color: var(--tx-4);
+            flex-wrap: wrap;
+        }
+        .back-top-btn {
+            background: none;
+            border: 1px solid var(--border-2);
+            border-radius: var(--r-md);
+            padding: 6px 14px;
+            font-size: .76rem;
+            color: var(--tx-3);
+            cursor: pointer;
+            transition: var(--ease);
+        }
+        .back-top-btn:hover {
+            color: var(--tx);
+            border-color: var(--border-violet);
+        }
+
+        /* ═══════════════════════════ MODAL ═══════════════════════════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(4, 4, 6, .7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity .25s ease;
+        }
+        .modal-overlay.hidden {
+            display: none;
+        }
+        .modal-box {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-2);
+            border: 1px solid var(--border-2);
+            border-radius: var(--r-xl);
+            padding: 30px;
+            box-shadow: var(--shadow-card);
+            animation: modalIn .3s cubic-bezier(.16, 1, .3, 1);
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(.96) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border-2);
+            color: var(--tx-3);
+            cursor: pointer;
+        }
+        .modal-close:hover {
+            color: var(--tx);
+        }
+        .modal-kicker {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--violet-bright);
+            margin-bottom: 8px;
+        }
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--tx);
+            margin-bottom: 8px;
+            letter-spacing: -.01em;
+        }
+        .modal-body-text {
+            font-size: .85rem;
+            color: var(--tx-3);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .auth-seg {
+            display: flex;
+            background: var(--bg);
+            border: 1px solid var(--border-2);
+            border-radius: var(--r-md);
+            padding: 3px;
+        }
+        .auth-seg-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: var(--r-sm);
+            background: none;
+            border: none;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--tx-3);
+            cursor: pointer;
+            transition: var(--ease);
+        }
+        .auth-seg-btn.active {
+            background: var(--bg-2);
+            color: var(--tx);
+            box-shadow: var(--shadow-card);
+        }
+        .checkout-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .field {
+            margin-bottom: 16px;
         }
         .field label {
             display: block;
-            font-size: .7rem;
-            font-weight: 700;
-            color: var(--tx-3);
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            margin-bottom: 5px;
+            font-size: .76rem;
+            font-weight: 600;
+            color: var(--tx-2);
+            margin-bottom: 6px;
         }
         input[type="email"],
         input[type="password"],
         input[type="text"] {
             width: 100%;
-            padding: 10px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border-2);
             border-radius: var(--r-md);
-            background: rgba(7, 2, 20, .6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(155, 69, 255, .14);
+            padding: 11px 14px;
+            font-size: .87rem;
             color: var(--tx);
-            font-family: inherit;
-            font-size: .84rem;
-            font-weight: 500;
-            outline: none;
             transition: var(--ease);
-            appearance: none;
-            -webkit-appearance: none;
         }
         input:focus {
-            border-color: rgba(155, 69, 255, .35);
-            box-shadow: 0 0 0 3px rgba(155, 69, 255, .08);
-            background: rgba(10, 4, 28, .7);
+            border-color: var(--violet-bright);
+            box-shadow: 0 0 0 3px rgba(124, 92, 255, .15);
         }
-        input:hover {
-            border-color: rgba(155, 69, 255, .22);
+        .err {
+            font-size: .78rem;
+            color: var(--danger);
         }
         .hidden {
             display: none !important;
         }
-        @media (max-width:768px) {
-            .checkout-row {
+
+        /* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+        @media (max-width:1024px) {
+            .section {
+                padding: 48px 0;
+            }
+            .disclaimer-grid {
                 grid-template-columns: 1fr;
             }
-            .modal-box {
-                padding: 20px 18px;
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+            .footer-inner>div:first-child {
+                grid-column: 1 / -1;
             }
         }
-        @media print {
-            .dynamic-island,
-            .bg-canvas,
-            .island-mobile-overlay,
-            .modal-overlay {
-                display: none !important;
-            }
+        @media (max-width:820px) {
             body {
-                padding-top: 0;
+                padding-top: calc(var(--nav-h) + 14px);
+            }
+            .main-wrap {
+                padding: 0 18px 40px;
+            }
+            .section {
+                padding: 36px 0;
+            }
+            .disclaimer-card {
+                padding: 18px 20px;
+            }
+        }
+        @media (max-width:480px) {
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .section-sub {
+                font-size: .85rem;
+            }
+            .disclaimer-card .dc-title {
+                font-size: .95rem;
+            }
+            .disclaimer-card .dc-body {
+                font-size: .8rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .modal-box {
+                padding: 20px 16px;
+            }
+            .checkout-row {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1316,7 +1415,7 @@
         <div class="bg-grid"></div>
     </div>
 
-    <!-- ═══ NAV ═══ -->
+    <!-- ═══ DYNAMIC ISLAND NAV ═══ -->
     <header class="dynamic-island" role="navigation" aria-label="Main navigation">
         <div class="island-inner">
             <a href="/" class="island-brand" aria-label="Free Voice Labs Home">
@@ -1373,124 +1472,178 @@
 
     <div class="island-mobile-overlay" id="island-mobile-overlay"></div>
 
-    <!-- ═══ MAIN WRAP ═══ -->
+    <!-- ═══ MAIN ═══ -->
     <main class="main-wrap" id="main" role="main">
 
-        <div class="page-hero">
-            <h1>⚠️ Disclaimers</h1>
-            <p>Please read these disclaimers carefully before using our service.</p>
-            <div class="meta">Last Updated: April 16, 2026</div>
-        </div>
+        <!-- ═══ HERO ═══ -->
+        <section class="section reveal" style="padding-bottom:20px;">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <div class="section-eyebrow">Legal</div>
+            <h1 class="section-title">⚠️ <span class="grad">Disclaimers</span></h1>
+            <p class="section-sub" style="max-width:680px;">
+                Please read these disclaimers carefully before using Free Voice Labs. By using our service,
+                you accept all terms outlined below.
+            </p>
+            <div style="margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span style="font-size:.78rem;color:var(--tx-4);font-weight:600;">Last Updated:</span>
+                <span style="font-size:.78rem;color:var(--tx-3);background:var(--bg-2);padding:4px 14px;border-radius:var(--r-pill);border:1px solid var(--border);">April 16, 2026</span>
+            </div>
+        </section>
 
-        <a href="index.html" class="back-link">← Back to Home</a>
+        <!-- ═══ DISCLAIMER GRID ═══ -->
+        <section class="section reveal" style="padding-top:12px;">
+            <div class="disclaimer-grid">
 
-        <div class="section">
-            <h2>Service Provided "As-Is"</h2>
-            <p><strong>Free Voice Labs</strong> is provided on an "as-is" and "as-available" basis. We make no warranties of any kind, whether express or implied, regarding the service, including warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-1">
+                    <div class="dc-icon">📋</div>
+                    <div class="dc-title">Service Provided "As-Is"</div>
+                    <div class="dc-body">
+                        Free Voice Labs is provided on an "as-is" and "as-available" basis. We make no warranties of any kind, whether express or implied, regarding the service, including warranties of merchantability, fitness for a particular purpose, or non-infringement.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>No Guarantee of Accuracy</h2>
-            <p>While we strive to provide accurate voice generation, we do not guarantee:</p>
-            <ul>
-                <li>Perfect pronunciation in all cases</li>
-                <li>Flawless audio quality for all input texts</li>
-                <li>Compatibility with all languages and accents</li>
-                <li>Absence of errors or interruptions</li>
-            </ul>
-        </div>
+                <div class="disclaimer-card reveal stagger-2">
+                    <div class="dc-icon">🎯</div>
+                    <div class="dc-title">No Guarantee of Accuracy</div>
+                    <div class="dc-body">
+                        While we strive to provide accurate voice generation, we do not guarantee:
+                        <ul>
+                            <li>Perfect pronunciation in all cases</li>
+                            <li>Flawless audio quality for all input texts</li>
+                            <li>Compatibility with all languages and accents</li>
+                            <li>Absence of errors or interruptions</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>AI-Generated Content Disclaimer</h2>
-            <p>The audio generated by our service uses artificial intelligence technology. Users should be aware that:</p>
-            <ul>
-                <li>Generated voices are synthetic and may not sound perfectly natural in all scenarios</li>
-                <li>The service may occasionally produce unexpected results</li>
-                <li>AI models are subject to limitations and may have biases</li>
-            </ul>
-        </div>
+                <div class="disclaimer-card reveal stagger-1">
+                    <div class="dc-icon">🤖</div>
+                    <div class="dc-title">AI-Generated Content Disclaimer</div>
+                    <div class="dc-body">
+                        The audio generated by our service uses artificial intelligence technology. Users should be aware that:
+                        <ul>
+                            <li>Generated voices are synthetic and may not sound perfectly natural in all scenarios</li>
+                            <li>The service may occasionally produce unexpected results</li>
+                            <li>AI models are subject to limitations and may have biases</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Intellectual Property</h2>
-            <p>Users must ensure they:</p>
-            <ul>
-                <li>Have the right to use any text input into the service</li>
-                <li>Do not violate copyright or intellectual property rights</li>
-                <li>Understand that we do not provide legal advice regarding content ownership</li>
-            </ul>
-        </div>
+                <div class="disclaimer-card reveal stagger-2">
+                    <div class="dc-icon">©</div>
+                    <div class="dc-title">Intellectual Property</div>
+                    <div class="dc-body">
+                        Users must ensure they:
+                        <ul>
+                            <li>Have the right to use any text input into the service</li>
+                            <li>Do not violate copyright or intellectual property rights</li>
+                            <li>Understand that we do not provide legal advice regarding content ownership</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Liability Limitations</h2>
-            <p>Free Voice Labs shall not be liable for:</p>
-            <ul>
-                <li>Direct or indirect damages arising from service use</li>
-                <li>Loss of data, revenue, or business opportunities</li>
-                <li>Service interruptions or unavailability</li>
-                <li>Third-party claims related to generated content</li>
-            </ul>
-        </div>
+                <div class="disclaimer-card reveal stagger-1">
+                    <div class="dc-icon">⚖️</div>
+                    <div class="dc-title">Liability Limitations</div>
+                    <div class="dc-body">
+                        Free Voice Labs shall not be liable for:
+                        <ul>
+                            <li>Direct or indirect damages arising from service use</li>
+                            <li>Loss of data, revenue, or business opportunities</li>
+                            <li>Service interruptions or unavailability</li>
+                            <li>Third-party claims related to generated content</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Third-Party Services</h2>
-            <p>Free Voice Labs utilizes Microsoft Edge TTS for voice synthesis. We are not responsible for Microsoft's service availability, data handling practices, or the voice quality of the underlying AI model.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-2">
+                    <div class="dc-icon">🔗</div>
+                    <div class="dc-title">Third-Party Services</div>
+                    <div class="dc-body">
+                        Free Voice Labs utilizes Microsoft Edge TTS for voice synthesis. We are not responsible for Microsoft's service availability, data handling practices, or the voice quality of the underlying AI model.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Usage Restrictions</h2>
-            <p>Generated audio should not be used for:</p>
-            <ul>
-                <li>Impersonation or fraud</li>
-                <li>Creating misleading or false content</li>
-                <li>Defamation or harassment</li>
-                <li>Violating others' rights or local laws</li>
-            </ul>
-        </div>
+                <div class="disclaimer-card reveal stagger-1">
+                    <div class="dc-icon">🚫</div>
+                    <div class="dc-title">Usage Restrictions</div>
+                    <div class="dc-body">
+                        Generated audio should not be used for:
+                        <ul>
+                            <li>Impersonation or fraud</li>
+                            <li>Creating misleading or false content</li>
+                            <li>Defamation or harassment</li>
+                            <li>Violating others' rights or local laws</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Medical &amp; Professional Disclaimer</h2>
-            <p>The service is not suitable for critical applications including:</p>
-            <ul>
-                <li>Medical diagnosis or treatment guidance</li>
-                <li>Emergency communications</li>
-                <li>Legal proceedings where accuracy is legally required</li>
-                <li>Safety-critical systems</li>
-            </ul>
-        </div>
+                <div class="disclaimer-card reveal stagger-2">
+                    <div class="dc-icon">🏥</div>
+                    <div class="dc-title">Medical &amp; Professional Disclaimer</div>
+                    <div class="dc-body">
+                        The service is not suitable for critical applications including:
+                        <ul>
+                            <li>Medical diagnosis or treatment guidance</li>
+                            <li>Emergency communications</li>
+                            <li>Legal proceedings where accuracy is legally required</li>
+                            <li>Safety-critical systems</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Content Moderation</h2>
-            <p>While we monitor for prohibited content, we cannot guarantee all inappropriate content will be prevented. Users are responsible for their generated content.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-1">
+                    <div class="dc-icon">🛡️</div>
+                    <div class="dc-title">Content Moderation</div>
+                    <div class="dc-body">
+                        While we monitor for prohibited content, we cannot guarantee all inappropriate content will be prevented. Users are responsible for their generated content.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Service Modifications</h2>
-            <p>We reserve the right to modify or discontinue features without notice, change pricing and plans, update terms and policies, and limit user access due to violations.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-2">
+                    <div class="dc-icon">🔄</div>
+                    <div class="dc-title">Service Modifications</div>
+                    <div class="dc-body">
+                        We reserve the right to modify or discontinue features without notice, change pricing and plans, update terms and policies, and limit user access due to violations.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Indemnification</h2>
-            <p>Users agree to indemnify and hold harmless Free Voice Labs from any claims, damages, or expenses arising from user's violation of these disclaimers, misuse of generated content, or violation of any laws or rights.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-1">
+                    <div class="dc-icon">🛡️</div>
+                    <div class="dc-title">Indemnification</div>
+                    <div class="dc-body">
+                        Users agree to indemnify and hold harmless Free Voice Labs from any claims, damages, or expenses arising from user's violation of these disclaimers, misuse of generated content, or violation of any laws or rights.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Geographic Limitations</h2>
-            <p>The service may not be available in all jurisdictions. Users are responsible for ensuring compliance with local laws in their region.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-2">
+                    <div class="dc-icon">🌍</div>
+                    <div class="dc-title">Geographic Limitations</div>
+                    <div class="dc-body">
+                        The service may not be available in all jurisdictions. Users are responsible for ensuring compliance with local laws in their region.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>No Professional Advice</h2>
-            <p>Free Voice Labs does not provide legal, medical, financial, or professional consultation of any kind.</p>
-        </div>
+                <div class="disclaimer-card reveal stagger-1" style="grid-column:1/-1;">
+                    <div class="dc-icon">📌</div>
+                    <div class="dc-title">No Professional Advice</div>
+                    <div class="dc-body">
+                        Free Voice Labs does not provide legal, medical, financial, or professional consultation of any kind.
+                    </div>
+                </div>
 
-        <div class="section">
-            <h2>Contact for Clarification</h2>
-            <p><span class="email-pill">📧 freevoicelabs@gmail.com</span></p>
-            <hr>
-            <p><em>By using Free Voice Labs, you accept all disclaimers outlined above.</em></p>
-        </div>
+            </div>
 
-        <!-- ═══ FOOTER (inside .main-wrap, centered) ═══ -->
+            <!-- ═══ CONTACT & ACCEPTANCE ═══ -->
+            <div class="footer-meta-note reveal" style="margin-top:24px;">
+                <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+                    <span class="email-pill">📧 freevoicelabs@gmail.com</span>
+                </div>
+                <p><em>By using Free Voice Labs, you accept all disclaimers outlined above.</em></p>
+            </div>
+        </section>
+
+        <!-- ═══ FOOTER ═══ -->
         <footer class="footer" aria-label="Site footer">
             <div class="footer-inner">
                 <div>
@@ -1498,39 +1651,39 @@
                         <div class="footer-logo-wrap"><img src="logo.png" alt="Free Voice Labs logo" loading="lazy" width="20" height="20" /></div>
                         <span class="footer-brand-name">Free Voice Labs</span>
                     </div>
-                    <div class="footer-copy" id="footer-year">© 2025 Free Voice Labs. All rights reserved.</div>
+                    <p class="footer-tagline">AI voice creation for the next generation of content.</p>
+                    <div class="footer-copy" id="footer-year">© 2026 Free Voice Labs. All rights reserved.</div>
                     <div class="footer-copy">Created by MT</div>
                     <div class="footer-badges">
-                        <span class="footer-badge badge-purple">🧠 Neural TTS</span>
-                        <span class="footer-badge badge-amber">🔬 Voice Cloning</span>
-                        <span class="footer-badge badge-green">∞ 100% Free</span>
+                        <span class="footer-badge badge-purple">Neural TTS</span>
+                        <span class="footer-badge badge-amber">Voice Cloning</span>
+                        <span class="footer-badge badge-green">Secure Checkout</span>
                     </div>
                 </div>
                 <div>
-                    <div class="footer-col-label">Navigation</div>
+                    <div class="footer-col-label">Product</div>
                     <nav class="footer-links" aria-label="Footer navigation">
-                        <a href="/" class="footer-link">🏠 Home</a>
-                        <a href="/about.html" class="footer-link">📖 About Us</a>
-                        <a href="/premium-voices.html" class="footer-link">⭐ Premium Voices</a>
-                        <a href="/realistic-voices.html" class="footer-link">🎯 Realistic Voices</a>
-                        <a href="/ai-voices.html" class="footer-link">🤖 AI Voices</a>
-                        <a href="/faqs.html" class="footer-link">❓ FAQs</a>
+                        <a href="/#studio" class="footer-link">Studio</a>
+                        <a href="/#studio" class="footer-link">AI Voices</a>
+                        <a href="/#studio" class="footer-link">Voice Cloning</a>
+                        <a href="/#studio" class="footer-link">Podcast</a>
+                        <a href="/#pricing" class="footer-link">Pricing</a>
                     </nav>
                 </div>
                 <div>
-                    <div class="footer-col-label">Legal &amp; Support</div>
+                    <div class="footer-col-label">Company &amp; Legal</div>
                     <nav class="footer-links" aria-label="Legal navigation">
-                        <a href="/privacy.html" class="footer-link">🔒 Privacy Policy</a>
-                        <a href="/terms.html" class="footer-link">📜 Terms</a>
-                        <a href="/disclaimers.html" class="footer-link">⚠️ Disclaimers</a>
-                        <a href="/contact.html" class="footer-link">📧 Contact</a>
-                        <a href="/feature-requests.html" class="footer-link">💡 Feature Requests</a>
-                        <a href="/sitemap.html" class="footer-link">🗺️ Sitemap</a>
+                        <a href="/about.html" class="footer-link">About</a>
+                        <a href="/contact.html" class="footer-link">Contact</a>
+                        <a href="/feature-requests.html" class="footer-link">Feature Requests</a>
+                        <a href="/privacy.html" class="footer-link">Privacy</a>
+                        <a href="/terms.html" class="footer-link">Terms</a>
+                        <a href="/disclaimers.html" class="footer-link">Disclaimers</a>
                     </nav>
                 </div>
             </div>
             <div class="footer-bottom">
-                <span>🚀 Professional AI Voice · 🌍 90+ Languages · 🎭 8 Blends · Zero cost · No signup</span>
+                <span>Professional AI Voice · 90+ Languages · 8 Delivery Styles</span>
                 <button class="back-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑ Top</button>
             </div>
         </footer>
@@ -1544,7 +1697,7 @@
         </div>
     </div>
 
-    <!-- ═══ JAVASCRIPT (shared nav & auth) ═══ -->
+    <!-- ═══ JAVASCRIPT ═══ -->
     <script>
         'use strict';
 
@@ -1580,7 +1733,7 @@
                 checkAndShowAdminLink();
             } else {
                 container.innerHTML =
-                    `<button class="island-btn island-btn-secondary island-btn-sm" onclick="openSignInModal()">Sign In</button><button class="island-btn island-btn-primary island-btn-sm" onclick="openCheckout('pro')">Get Started</button>`;
+                    `<button class="island-btn island-btn-secondary island-btn-sm" onclick="openSignInModal()">Sign In</button><button class="island-btn island-btn-primary island-btn-sm" onclick="openCheckout('monthly')">Get Started</button>`;
                 const adminLink = document.getElementById("nav-admin-link");
                 if (adminLink) adminLink.style.display = "none";
             }
@@ -1606,19 +1759,16 @@
             const s = getSession();
             const isAdmin = s && s.email === "talha@vfl.ai";
             overlay.innerHTML =
-                `<div class="mob-section">Products</div><a href="/#studio" class="mob-link"><span class="mob-icon">🧠</span> Neural TTS</a><a href="/#studio" class="mob-link"><span class="mob-icon">🎭</span> Blends</a><a href="/#studio" class="mob-link"><span class="mob-icon">📻</span> Podcast Mode</a><a href="/#studio" class="mob-link"><span class="mob-icon">🔬</span> Voice Cloning<span class="mob-badge">Beta</span></a><div class="mob-divider"></div><a href="/#pricing" class="mob-link"><span class="mob-icon">💎</span> Pricing</a><a href="/#platform" class="mob-link"><span class="mob-icon">⚙️</span> Platform</a><a href="/#testimonials" class="mob-link"><span class="mob-icon">⭐</span> Testimonials</a><div class="mob-divider"></div><div class="mob-section">About</div><a href="/about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a><a href="/contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a><a href="/feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a><a href="/privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy</a><a href="/terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a><a href="/disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a><a href="/sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>${
-                isAdmin ? `<a href="#" class="mob-link" onclick="event.preventDefault(); window.location.href='/admin.html'; closeMobileNav();"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""
-            }<div class="mob-divider"></div>${
-                s?.email ? `
-                    <div style="padding:8px 16px;font-size:.78rem;color:var(--tx-3);">Signed in as <strong style="color:var(--tx-2);">${s.email}</strong></div>
-                    <button class="mob-link" onclick="handleLogout();closeMobileNav();" style="color:var(--rose);"><span class="mob-icon">🚪</span> Sign Out</button>
-                ` : `
-                    <div class="mob-auth-row">
-                        <button class="mob-link" onclick="openSignInModal();closeMobileNav();" style="color:var(--plum-bright);"><span class="mob-icon">🔑</span> Sign In</button>
-                        <button class="mob-link" onclick="openCheckout('pro');closeMobileNav();" style="color:var(--tx-2);"><span class="mob-icon">🚀</span> Get Started</button>
-                    </div>
-                `
-            }`;
+                `<div class="mob-section">Products</div><a href="/#studio" class="mob-link"><span class="mob-icon">🧠</span> Neural TTS</a><a href="/#studio" class="mob-link"><span class="mob-icon">🎭</span> Blends</a><a href="/#studio" class="mob-link"><span class="mob-icon">📻</span> Podcast Mode</a><a href="/#studio" class="mob-link"><span class="mob-icon">🔬</span> Voice Cloning<span class="mob-badge">Beta</span></a><div class="mob-divider"></div><a href="/#pricing" class="mob-link"><span class="mob-icon">💎</span> Pricing</a><a href="/#platform" class="mob-link"><span class="mob-icon">⚙️</span> Platform</a><a href="/#testimonials" class="mob-link"><span class="mob-icon">⭐</span> Testimonials</a><div class="mob-divider"></div><div class="mob-section">About</div><a href="/about.html" class="mob-link"><span class="mob-icon">📖</span> About Us</a><a href="/contact.html" class="mob-link"><span class="mob-icon">📧</span> Contact</a><a href="/feature-requests.html" class="mob-link"><span class="mob-icon">💡</span> Feature Requests</a><a href="/privacy.html" class="mob-link"><span class="mob-icon">🔒</span> Privacy</a><a href="/terms.html" class="mob-link"><span class="mob-icon">📜</span> Terms</a><a href="/disclaimers.html" class="mob-link"><span class="mob-icon">⚠️</span> Disclaimers</a><a href="/sitemap.html" class="mob-link"><span class="mob-icon">🗺️</span> Sitemap</a>${isAdmin ? `<a href="#" class="mob-link" onclick="event.preventDefault(); window.location.href='/admin.html'; closeMobileNav();"><span class="mob-icon">👑</span> Admin Dashboard</a>` : ""
+            }<div class="mob-divider"></div>${s?.email ? `
+                        <div style="padding:8px 16px;font-size:.78rem;color:var(--tx-3);">Signed in as <strong style="color:var(--tx-2);">${s.email}</strong></div>
+                        <button class="mob-link" onclick="handleLogout();closeMobileNav();" style="color:var(--danger);"><span class="mob-icon">🚪</span> Sign Out</button>
+                    ` : `
+                        <div class="mob-auth-row">
+                            <button class="mob-link" onclick="openSignInModal();closeMobileNav();" style="color:var(--violet-bright);"><span class="mob-icon">🔑</span> Sign In</button>
+                            <button class="mob-link" onclick="openCheckout('monthly');closeMobileNav();" style="color:var(--tx-2);"><span class="mob-icon">🚀</span> Get Started</button>
+                        </div>
+                    `}`;
         }
 
         function closeMobileNav() { const o = document.getElementById("island-mobile-overlay"),
@@ -1648,7 +1798,7 @@
             const body = document.getElementById("modal-body");
             if (!body) return;
             body.innerHTML =
-                `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">🔐 Welcome Back</div><div class="modal-title">Sign in to your account</div><div class="modal-body-text">Access your saved voices, history, and premium features.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
+                `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Welcome Back</div><div class="modal-title">Sign in to your account</div><div class="modal-body-text">Access your saved voices, history, and premium features.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
             renderModalAuthForm();
         }
 
@@ -1675,10 +1825,7 @@
             const body = document.getElementById("modal-body");
             if (!body) return;
             const s = getSession();
-            if (checkoutPlan === "free") {
-                body.innerHTML =
-                    `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Plan Info</div><div class="modal-title">You're on Free ✓</div><div class="modal-body-text">You're already on the Free plan — no action needed. Enjoy unlimited generations!</div><button class="btn btn-primary btn-full" onclick="closeCheckout()">Got it ✓</button>`;
-            } else if (!s?.email) {
+            if (!s?.email) {
                 body.innerHTML =
                     `<button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button><div class="modal-kicker">Secure Checkout · ${checkoutPlan} Plan</div><div class="modal-title">Sign in to Continue</div><div class="modal-body-text">Create an account or sign in to complete your purchase.</div><div class="auth-seg" style="margin-bottom:14px;"><button class="auth-seg-btn ${authTab === 'signin' ? 'active' : ''}" onclick="setModalAuthTab('signin')">Sign In</button><button class="auth-seg-btn ${authTab === 'signup' ? 'active' : ''}" onclick="setModalAuthTab('signup')">Sign Up</button></div><div id="modal-auth-form"></div><button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;" onclick="closeCheckout()">Cancel</button>`;
                 renderModalAuthForm();
@@ -1715,7 +1862,7 @@
                 renderNavAuth();
                 renderMobileNav();
                 closeCheckout();
-                if (checkoutPlan && checkoutPlan !== "free") renderCheckoutModal();
+                if (checkoutPlan) renderCheckoutModal();
             } catch (e) { if (errEl) { errEl.textContent = e.message;
                     errEl.style.display = ""; } }
         }
@@ -1735,7 +1882,7 @@
                 renderNavAuth();
                 renderMobileNav();
                 closeCheckout();
-                if (checkoutPlan && checkoutPlan !== "free") renderCheckoutModal();
+                if (checkoutPlan) renderCheckoutModal();
             } catch (e) { if (errEl) { errEl.textContent = e.message;
                     errEl.style.display = ""; } }
         }
@@ -1754,15 +1901,21 @@
                 const body = document.getElementById("modal-body");
                 if (body) {
                     body.innerHTML =
-                        `<div style="text-align:center;padding:24px 0;"><div style="font-size:3.5rem;margin-bottom:18px;animation:bounceIn .6s ease both;">🎉</div><div class="modal-kicker">Payment Successful</div><div class="modal-title">${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)} Activated!</div><div class="modal-body-text">Your plan has been activated immediately. Start creating!</div>${
-                            r.receipt ? `<div style="background:rgba(155,69,255,.06);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin:16px 0;text-align:left;"><div style="font-size:.75rem;color:var(--tx-3);line-height:1.9;"><div>Reference: <strong style="color:var(--plum-bright);">${r.receipt.reference}</strong></div><div>Amount: <strong style="color:var(--tx);">${r.receipt.amount}</strong></div><div>Card: **** ${r.receipt.card_last4}</div></div></div>` : ""
-                        }<button class="btn btn-primary btn-full" onclick="closeCheckout()">Start Creating 🎙️</button></div>`;
+                        `<div style="text-align:center;padding:24px 0;"><div style="font-size:3rem;margin-bottom:18px;animation:bounceIn .6s ease both;">✓</div><div class="modal-kicker">Payment Successful</div><div class="modal-title">${checkoutPlan.charAt(0).toUpperCase() + checkoutPlan.slice(1)} Activated!</div><div class="modal-body-text">Your plan has been activated immediately. Get started!</div>${r.receipt ? `<div style="background:rgba(124,92,255,.06);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin:16px 0;text-align:left;"><div style="font-size:.75rem;color:var(--tx-3);line-height:1.9;"><div>Reference: <strong style="color:var(--violet-bright);">${r.receipt.reference}</strong></div><div>Amount: <strong style="color:var(--tx);">${r.receipt.amount}</strong></div><div>Card: **** ${r.receipt.card_last4}</div></div></div>` : ""
+                        }<button class="btn btn-primary btn-full" onclick="closeCheckout()">Get Started</button></div>`;
                 }
                 setSession({ ...s, plan: checkoutPlan });
                 renderNavAuth();
                 renderMobileNav();
             } catch (e) { if (errEl) { errEl.textContent = e.message;
                     errEl.style.display = ""; } }
+        }
+
+        function setupReveal() {
+            const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target
+                        .classList.add("in");
+                        io.unobserve(e.target); } }); }, { threshold: 0.06, rootMargin: "0px 0px -40px 0px" });
+            document.querySelectorAll(".reveal").forEach(el => io.observe(el));
         }
 
         function setupEvents() {
@@ -1780,28 +1933,12 @@
         }
 
         function boot() {
-            const yrEl = document.getElementById("footer-year");
-            if (yrEl) yrEl.textContent = `© ${new Date().getFullYear()} Free Voice Labs. All rights reserved.`;
+            const yr = document.getElementById("footer-year");
+            if (yr) yr.textContent = `© ${new Date().getFullYear()} Free Voice Labs. All rights reserved.`;
             renderNavAuth();
             renderMobileNav();
+            setupReveal();
             setupEvents();
-
-            apiFetch("/api/cms").then(data => {
-                if (data.announcement) {
-                    const banner = document.getElementById("announcement");
-                    const text = document.getElementById("announcement-text");
-                    if (banner && text) { text.textContent = data.announcement;
-                        banner.style.display = "flex"; }
-                }
-                if (data.pricing_pro_price) {
-                    const el = document.getElementById("pro-price");
-                    if (el) el.textContent = "$" + data.pricing_pro_price;
-                }
-                if (data.pricing_unlimited_price) {
-                    const el = document.getElementById("unlimited-price");
-                    if (el) el.textContent = "$" + data.pricing_unlimited_price;
-                }
-            }).catch(() => {});
             checkAndShowAdminLink();
         }
 
